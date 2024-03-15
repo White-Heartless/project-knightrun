@@ -27,34 +27,6 @@ public class Player : MonoBehaviour
         Debug.Log("Player Revived");
     }
 
-    public void ChangeRail(string _direction)
-    {
-        switch (_direction)
-        {
-            case "l":
-
-                if(CurrentRail >= 1)
-                {
-                    // [Insert jump to the left animation here]
-                    //transform.position += new Vector3() * Time.deltaTime;
-                    CurrentRail--;
-                    Debug.Log("Moved to a rail on the left");
-                }
-
-                break;
-
-            case "r":
-                if (CurrentRail <= 1)
-                {
-                    // [Insert jump to the right animation here]
-                    //transform.position += new Vector3() * Time.deltaTime;
-                    CurrentRail++;
-                    Debug.Log("Moved to a rail on the right");
-                }
-                break;
-        }
-    }
-
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Trigger"))
