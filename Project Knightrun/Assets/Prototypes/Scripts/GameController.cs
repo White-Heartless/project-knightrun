@@ -5,15 +5,20 @@ using UnityEngine;
 public class GameController : MonoBehaviour
 {
     public List<Room> RoomPool = new List<Room>();
-    public List<Room> ActiveRooms = new List<Room>();
     public Room CurrentRoom;
     public int Score = 0;
     public int Stage = 1;
-    public float GameSpeed = 30;
+    private float GameSpeed = 20;
+    public float CurrentSpeed = 0;
 
     void Update()
     {
         
+    }
+
+    private void Start()
+    {
+        CurrentSpeed = GameSpeed;
     }
 
     public void onGameStart()
@@ -23,10 +28,7 @@ public class GameController : MonoBehaviour
 
     public void onGameOver()
     {
-        for (int i = ActiveRooms.Count - 1; i >= 0; i--)
-        {
-            ActiveRooms[i].Speed = 0;
-        }
+        CurrentSpeed = 0;
         Debug.Log("Game Over");
     }
 
@@ -37,10 +39,7 @@ public class GameController : MonoBehaviour
 
     public void onResume()
     {
-        for (int i = ActiveRooms.Count - 1; i >= 0; i--)
-        {
-            ActiveRooms[i].Speed = GameSpeed;
-        }
+        CurrentSpeed = GameSpeed;
         Debug.Log("Game Resume");
     }
 
@@ -142,18 +141,13 @@ public class GameController : MonoBehaviour
 
     public void SpawnRoom()
     {
-        GameObject newRoom = GameObject.Instantiate(SelectRoom(), new Vector3(), Quaternion.identity);
-        newRoom.GetComponent<Room>().Speed = GameSpeed;
-        ActiveRooms.Add(newRoom.GetComponent<Room>());
+        GameObject newRoom = GameObject.Instantiate(SelectRoom(), new Vector3(0, 0, 0), Quaternion.identity);
+        newRoom.transform.Rotate(0, -90, 0);
         Debug.Log("Room Spawned");
     }
 
     public void DespawnRoom(GameObject _room)
     {
-        for (int i = ActiveRooms.Count - 1; i >= 0; i--)
-        {
-            if (ActiveRooms[i].Equals(_room)) ActiveRooms.RemoveAt(i);
-        }
         Destroy(_room);
         Debug.Log("Room Despawned");
     }

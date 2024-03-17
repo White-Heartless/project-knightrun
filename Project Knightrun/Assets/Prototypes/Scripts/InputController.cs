@@ -12,11 +12,11 @@ public class InputController : MonoBehaviour
     public bool canMove;
     public bool canJump;
     [SerializeField]
-    private Rigidbody rb;
+    public Player player;
 
     public void Start()
     {
-        rb = GetComponent<Rigidbody>();
+        player = FindObjectOfType<Player>();
     }
 
     void Update()
@@ -27,8 +27,8 @@ public class InputController : MonoBehaviour
 
     public void LeftRight()
     {
-        Vector3 currentJump = rb.velocity;
-        rb.velocity = new Vector3(horizVel, currentJump.y, forwardSpeed);
+        Vector3 currentJump = player.GetComponent<Rigidbody>().velocity;
+        player.GetComponent<Rigidbody>().velocity = new Vector3(horizVel, currentJump.y, forwardSpeed);
 
         if (Input.GetKeyDown(KeyCode.A) && (laneNum > 1) && (canMove == false))
         {
@@ -58,18 +58,16 @@ public class InputController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space) && (canJump == false))
         {
-            Vector3 currentVelocity = rb.velocity;
-            rb.velocity = new Vector3(currentVelocity.x, 0, currentVelocity.z);
-            rb.AddForce(Vector3.up * 500);
+            Vector3 currentVelocity = player.GetComponent<Rigidbody>().velocity;
+            player.GetComponent<Rigidbody>().velocity = new Vector3(currentVelocity.x, 0, currentVelocity.z);
+            player.GetComponent<Rigidbody>().AddForce(Vector3.up * 500);
             canJump = true;
         }
     }
 
-    public void OnCollisionEnter(Collision collision)
+    public void ResetJump()
     {
-        if (collision.collider.CompareTag("Ground"))
-        {
-            canJump = false;
-        }
+        canJump = false;
     }
+
 }
