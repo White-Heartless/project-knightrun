@@ -24,8 +24,7 @@ public class Room : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Destroy"))
         {
-            Destroy(gameObject);
-           // GameController.DespawnRoom(gameObject);
+            GameController.DespawnRoom(gameObject);
         }
     }
 }
