@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Room : MonoBehaviour
 {
-    public float Speed = 30;
+    public float Speed = 20;
     public Vector3 CurrentPosition;
     public GameController GameController;
 
@@ -15,7 +15,8 @@ public class Room : MonoBehaviour
 
     void Update()
     {
-        transform.position += new Vector3() * Time.deltaTime;
+        Speed = GameController.CurrentSpeed;
+        transform.position += new Vector3(0, 0, -1) * Speed * Time.deltaTime;
         CurrentPosition = transform.position;
     }
 

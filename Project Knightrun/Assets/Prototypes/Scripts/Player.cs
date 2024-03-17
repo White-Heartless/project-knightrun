@@ -6,11 +6,13 @@ public class Player : MonoBehaviour
 {
     public GameController GameController;
     //private int CurrentRail = 1;
+    public InputController InputController;
     //public List<Equipment> CurrentEquip = new List<Equipment>();
 
     private void Awake()
     {
         GameController = FindObjectOfType<GameController>();
+        InputController = FindObjectOfType<InputController>();
     }
 
     public void OnDeath()
@@ -32,6 +34,14 @@ public class Player : MonoBehaviour
         if (other.gameObject.CompareTag("Trigger"))
         {
             GameController.SpawnRoom();
+        }
+    }
+
+    public void OnCollisionEnter(Collision collision)
+    {
+        if (collision.collider.CompareTag("Ground"))
+        {
+            InputController.ResetJump();
         }
     }
 }
