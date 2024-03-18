@@ -4,7 +4,21 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
-    private void onGameStart()
+	[SerializeField]
+	private float score = 0;
+
+	public void IncreaseScore()
+	{
+		Debug.Log("COIN COLLECTED");
+		score++;
+	}
+
+	public void EquipItem()
+    {
+		Debug.Log("EQUIPPED!");
+    }
+
+	private void onGameStart()
 	{
 		Debug.Log("Game Start");
 	}
