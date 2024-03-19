@@ -399,6 +399,10 @@ PrefabInstance:
       propertyPath: m_IsKinematic
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5432033779930205455, guid: ab64b612c1081104fa2a9d71fd650db1, type: 3}
+      propertyPath: gameController
+      value: 
+      objectReference: {fileID: 217188852}
     - target: {fileID: 5452885829286459528, guid: ab64b612c1081104fa2a9d71fd650db1, type: 3}
       propertyPath: m_Name
       value: RoomPrototype
@@ -408,6 +412,52 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ab64b612c1081104fa2a9d71fd650db1, type: 3}
+--- !u!1 &1391539611
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1391539613}
+  - component: {fileID: 1391539612}
+  m_Layer: 0
+  m_Name: CollectibleController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1391539612
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1391539611}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6a3719f72e1c2749b820cb9698cb153, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameController: {fileID: 217188852}
+  collectibleType: 0
+--- !u!4 &1391539613
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1391539611}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.9558655, y: 1.7638564, z: 3.5848312}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1514502959
 GameObject:
   m_ObjectHideFlags: 0
@@ -684,7 +734,7 @@ MonoBehaviour:
   jumpForce: 200
   canMove: 0
   canJump: 0
-  rb: {fileID: 0}
+  player: {fileID: 0}
 --- !u!4 &1899195981
 Transform:
   m_ObjectHideFlags: 0
@@ -711,3 +761,4 @@ SceneRoots:
   - {fileID: 217188853}
   - {fileID: 1899195981}
   - {fileID: 605702408}
+  - {fileID: 1391539613}
