@@ -144,7 +144,7 @@ public class GameController : MonoBehaviour
                     return RoomPool[Random.Range(y, RoomPool.Count)].gameObject;
                 }
         }*/
-        Debug.Log("Room Selected");
+        //Debug.Log("Room Selected");
         return CurrentRoom.gameObject; //Placehoder
     }
 
@@ -153,12 +153,12 @@ public class GameController : MonoBehaviour
     {
         GameObject newRoom = GameObject.Instantiate(SelectRoom(), new Vector3(0, 0, 0), Quaternion.identity);
         newRoom.transform.Rotate(0, -90, 0);
-        Debug.Log("Room Spawned");
+        //Debug.Log("Room Spawned");
     }
 
     public void DespawnRoom(GameObject _room)
     {
         Destroy(_room);
-        Debug.Log("Room Despawned");
+        //Debug.Log("Room Despawned");
     }
 }
