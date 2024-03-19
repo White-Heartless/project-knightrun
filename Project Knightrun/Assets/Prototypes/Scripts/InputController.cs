@@ -7,7 +7,7 @@ public class InputController : MonoBehaviour
     public int forwardSpeed;
     public int laneNum = 2;
     public float horizVel = 0;
-    public float horizSpeed = 10;
+    public float horizSpeed = 2000f;
     public float jumpForce = 200f;
     public bool canMove;
     public bool canJump;
