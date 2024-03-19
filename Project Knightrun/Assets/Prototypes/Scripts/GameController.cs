@@ -20,6 +20,16 @@ public class GameController : MonoBehaviour
     {
         CurrentSpeed = GameSpeed;
     }
+    public void IncreaseScore()
+    {
+        Debug.Log("COIN COLLECTED");
+        Score++;
+    }
+
+    public void EquipItem()
+    {
+        Debug.Log("EQUIPPED!");
+    }
 
     public void onGameStart()
     {
