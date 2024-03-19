@@ -8,7 +8,7 @@ using com.cyborgAssets.inspectorButtonPro;
 public class UIController : MonoBehaviour
 {
 	[SerializeField]
-	private Canvas cnvMainMenu, cnvSettings, cnvGameplay, cnvPause;
+	private Canvas cnvMainMenu, cnvSettings, cnvGameplay, cnvPause, cnvGameOver, cnvRevive;
 
 	[SerializeField]
 	private Image[] EquipIcons;
@@ -55,10 +55,20 @@ public class UIController : MonoBehaviour
 
 	public void btnQuit()
 	{
+		cnvRevive.gameObject.SetActive(false);
+		cnvGameOver.gameObject.SetActive(false);
 		cnvPause.gameObject.SetActive(false);
 		cnvGameplay.gameObject.SetActive(false);
 		cnvMainMenu.gameObject.SetActive(true);
 		//signal gamecontroller to quit
+	}
+
+	public void btnPlayAgain()
+	{
+		cnvGameOver.gameObject.SetActive(false);
+		cnvPause.gameObject.SetActive(false);
+		cnvGameplay.gameObject.SetActive(true);
+		//signal gamecontroller to restart
 	}
 
 	[ProPlayButton]
