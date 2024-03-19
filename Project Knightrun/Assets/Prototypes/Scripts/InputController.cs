@@ -8,9 +8,10 @@ public class InputController : MonoBehaviour
     public int laneNum = 2;
     public float horizVel = 0;
     public float horizSpeed = 2000f;
-    public float jumpForce = 200f;
+    public int jumpForce = 400;
     public bool canMove;
     public bool canJump;
+	public float slideTime;
     [SerializeField]
     public Player player;
 
@@ -49,7 +50,7 @@ public class InputController : MonoBehaviour
 
     IEnumerator stopSlide()
     {
-        yield return new WaitForSeconds(.5f);
+        yield return new WaitForSeconds(slideTime);
         horizVel = 0;
         canMove = false;
     }
@@ -60,7 +61,7 @@ public class InputController : MonoBehaviour
         {
             Vector3 currentVelocity = player.GetComponent<Rigidbody>().velocity;
             player.GetComponent<Rigidbody>().velocity = new Vector3(currentVelocity.x, 0, currentVelocity.z);
-            player.GetComponent<Rigidbody>().AddForce(Vector3.up * 500);
+            player.GetComponent<Rigidbody>().AddForce(Vector3.up * jumpForce);
             canJump = true;
         }
     }
