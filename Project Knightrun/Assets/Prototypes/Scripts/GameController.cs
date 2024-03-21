@@ -11,15 +11,11 @@ public class GameController : MonoBehaviour
     private float GameSpeed = 20;
     public float CurrentSpeed = 0;
 
-    void Update()
-    {
-        
-    }
-
     private void Start()
     {
         CurrentSpeed = GameSpeed;
     }
+
     public void IncreaseScore()
     {
         Debug.Log("COIN COLLECTED");
@@ -33,6 +29,7 @@ public class GameController : MonoBehaviour
 
     public void onGameStart()
     {
+		CurrentSpeed = GameSpeed;
         Debug.Log("Game Start");
     }
 
@@ -44,6 +41,7 @@ public class GameController : MonoBehaviour
 
     public void onPause()
     {
+		CurrentSpeed = 0;
         Debug.Log("Game Paused");
     }
 
