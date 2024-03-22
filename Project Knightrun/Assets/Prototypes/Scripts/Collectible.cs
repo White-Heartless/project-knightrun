@@ -5,13 +5,30 @@ using UnityEngine;
 public class Collectible : MonoBehaviour
 {
 	private GameController gameController;
-	public enum CollectibleType
+	private enum CollectibleType
     {
         coin,
         equip
     }
 
-	public CollectibleType collectibleType;
+	public enum CoinType
+    {
+		none,
+		softcoin = CollectibleType.coin,
+		premiumcoin = CollectibleType.coin
+    }
+
+	public enum EquipType
+    {
+		none,
+		helmet = CollectibleType.equip,
+		armor = CollectibleType.equip,
+		pauldrons = CollectibleType.equip,
+		sword = CollectibleType.equip
+    }
+
+	public CoinType coinType;
+	public EquipType equipType;
 
 	void Start()
 	{
@@ -22,12 +39,12 @@ public class Collectible : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-			if (collectibleType == CollectibleType.coin)
+			if (coinType != CoinType.none)
 			{
 				Debug.Log("Coin");
 				Destroy(gameObject);
 			}
-			else if (collectibleType == CollectibleType.equip)
+			else if (equipType != EquipType.none)
 			{
 				Debug.Log("Equip");
 				Destroy(gameObject);

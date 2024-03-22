@@ -8,6 +8,7 @@ public class GameController : MonoBehaviour
     public Room CurrentRoom;
     public int Score = 0;
     public int Stage = 1;
+    public int Retries = 0;
     private float GameSpeed = 20;
     public float CurrentSpeed = 0;
 
@@ -22,9 +23,11 @@ public class GameController : MonoBehaviour
         Score++;
     }
 
-    public void EquipItem()
+    public void IncreaseRetries()
     {
-        Debug.Log("EQUIPPED!");
+        Debug.Log("PREMIUM COIN COLLECTED");
+        Score++;
+        Retries++;
     }
 
     public void onGameStart()

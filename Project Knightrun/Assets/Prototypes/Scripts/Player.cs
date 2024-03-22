@@ -5,9 +5,8 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public GameController GameController;
-    //private int CurrentRail = 1;
     public InputController InputController;
-    //public List<Equipment> CurrentEquip = new List<Equipment>();
+    public List<Equipment> CurrentEquip = new List<Equipment>();
 
     private void Awake()
     {
