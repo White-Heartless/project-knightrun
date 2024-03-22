@@ -3,10 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using com.cyborgAssets.inspectorButtonPro;
+using TMPro;
 
 
 public class UIController : MonoBehaviour
 {
+	[SerializeField]
+	private GameController gameController;
+
 	[SerializeField]
 	private Canvas cnvMainMenu, cnvSettings, cnvGameplay, cnvPause, cnvGameOver, cnvRevive;
 
@@ -15,11 +19,48 @@ public class UIController : MonoBehaviour
 
 	private Color[] color = new Color[3];
 
+	[SerializeField]
+	private TextMeshProUGUI txtGameplaySoftCurrency;
+	[SerializeField]
+	private TextMeshProUGUI txtGameplayHardCurrency;
+	[SerializeField]
+	private TextMeshProUGUI txtMainTotalSoftCurrency;
+	[SerializeField]
+	private TextMeshProUGUI txtMainTotalHardCurrency;
+
 	void Start()
 	{
 		color[0] = EquipIcons[0].color;
 		color[1] = EquipIcons[1].color;
 		color[2] = EquipIcons[2].color;
+		txtGameplaySoftCurrency.text = "0";
+		txtGameplayHardCurrency.text = "0";
+	}
+
+	public void updateSoftCurrency(int _newValue)
+	{
+		txtGameplaySoftCurrency.text = _newValue.ToString();
+	}
+
+	public void updateHardCurrency(int _newValue)
+	{
+		txtGameplayHardCurrency.text = _newValue.ToString();
+	}
+
+	public void updateTotalCurrency(int _newSoft, int _newHard)
+	{
+		txtMainTotalSoftCurrency.text = _newSoft.ToString();
+		txtMainTotalHardCurrency.text = _newHard.ToString();
+	}
+
+	public void resetUI()
+	{
+		cnvMainMenu.gameObject.SetActive(true);
+		cnvSettings.gameObject.SetActive(false);
+		cnvGameplay.gameObject.SetActive(false);
+		cnvPause.gameObject.SetActive(false);
+		cnvGameOver.gameObject.SetActive(false);
+		cnvRevive.gameObject.SetActive(false);
 	}
 
 	public void btnSettings()
@@ -38,19 +79,19 @@ public class UIController : MonoBehaviour
 	{
 		cnvGameplay.gameObject.SetActive(true);
 		cnvMainMenu.gameObject.SetActive(false);
-		//signal gamecontroller to play
+		gameController.onGameStart();
 	}
 
 	public void btnPause()
 	{
 		cnvPause.gameObject.SetActive(true);
-		//signal gamecontroller to pause
+		gameController.onPause();
 	}
 
 	public void btnResume()
 	{
 		cnvPause.gameObject.SetActive(false);
-		//signal gamecontroller to resume
+		gameController.onResume();
 	}
 
 	public void btnQuit()
@@ -60,7 +101,7 @@ public class UIController : MonoBehaviour
 		cnvPause.gameObject.SetActive(false);
 		cnvGameplay.gameObject.SetActive(false);
 		cnvMainMenu.gameObject.SetActive(true);
-		//signal gamecontroller to quit
+		gameController.onGameOver();
 	}
 
 	public void promptRevive()

@@ -11,6 +11,7 @@ public class InputController : MonoBehaviour
     public float jumpForce = 200f;
     public bool canMove;
     public bool canJump;
+	public float laneChangeSpeed = .25f;
     [SerializeField]
     public Player player;
 
@@ -49,7 +50,7 @@ public class InputController : MonoBehaviour
 
     IEnumerator stopSlide()
     {
-        yield return new WaitForSeconds(.5f);
+        yield return new WaitForSeconds(laneChangeSpeed);
         horizVel = 0;
         canMove = false;
     }

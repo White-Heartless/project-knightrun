@@ -1,69 +1,110 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using com.cyborgAssets.inspectorButtonPro;
+using System.IO;
+using UnityEngine.UIElements;
 
 public class GameController : MonoBehaviour
 {
+	[SerializeField]
+	private UIController uiController;
+
+	public string stageFolderPath;
+
     public List<Room> RoomPool = new List<Room>();
     public Room CurrentRoom;
-    public int Score = 0;
+	public Room StartingRoom;
+	public Room[] roomArray;
+    public int runSoftCurrency = 0;
+	public int runHardCurrency = 0;
+	public int totalSoftCurrency = 0;
+	public int totalHardCurrency = 0;
     public int Stage = 1;
-    public int Retries = 0;
     private float GameSpeed = 20;
     public float CurrentSpeed = 0;
+	private string[] roomPaths;
 
     private void Start()
     {
         CurrentSpeed = GameSpeed;
+		Time.timeScale = 0;
     }
 
-    public void IncreaseScore()
+    public void IncreaseSoftCurrency()
     {
-        Debug.Log("COIN COLLECTED");
-        Score++;
+        runSoftCurrency++;
+		uiController.updateSoftCurrency(runSoftCurrency);
     }
 
-    public void IncreaseRetries()
+    public void IncreaseHardCurrency()
     {
-        Debug.Log("PREMIUM COIN COLLECTED");
-        Score++;
-        Retries++;
+        //Debug.Log("PREMIUM COIN COLLECTED");
+        runHardCurrency++;
+		uiController.updateHardCurrency(runHardCurrency);
     }
 
+	[ProPlayButton]
     public void onGameStart()
     {
-		CurrentSpeed = GameSpeed;
-        Debug.Log("Game Start");
+		Time.timeScale = 1;
+        //Debug.Log("Game Start");
     }
 
+	[ProPlayButton]
     public void onGameOver()
     {
-        CurrentSpeed = 0;
-        Debug.Log("Game Over");
+        Time.timeScale = 0;
+		totalSoftCurrency += runSoftCurrency;
+		totalHardCurrency += runHardCurrency;
+		uiController.updateTotalCurrency(totalSoftCurrency,totalHardCurrency);
+		runSoftCurrency = 0;
+		runHardCurrency = 0;
+		uiController.updateSoftCurrency(runSoftCurrency);
+		uiController.updateHardCurrency(runHardCurrency);
+		GameObject[] allObjects = GameObject.FindObjectsOfType<GameObject>();
+		foreach (GameObject obj in allObjects)
+		{
+			Room roomComponent = obj.GetComponent<Room>();
+
+			if (roomComponent != null)
+				Destroy(obj);
+		}
+		GameObject startRoom = GameObject.Instantiate(StartingRoom.gameObject, new Vector3(0, 0, 10f), Quaternion.identity);
+        startRoom.transform.Rotate(0, -90, 0);
+        //Debug.Log("Game Over");
     }
 
+	public void onObstacleHit()
+	{
+		Time.timeScale = 0;
+		uiController.promptRevive();
+	}
+
+	[ProPlayButton]
     public void onPause()
     {
-		CurrentSpeed = 0;
-        Debug.Log("Game Paused");
+		Time.timeScale = 0;
+        //Debug.Log("Game Paused");
     }
 
+	[ProPlayButton]
     public void onResume()
     {
-        CurrentSpeed = GameSpeed;
-        Debug.Log("Game Resume");
+        Time.timeScale = 1;
+        //Debug.Log("Game Resume");
     }
 
     public void onStageChanged()
     {
         Stage++;
         UpdateRoomPool();
-        Debug.Log("Stage Changed");
+        //Debug.Log("Stage Changed");
     }
 
     public void UpdateRoomPool()
     {
-        Debug.Log("Room pool updated");
+        //Debug.Log("Room pool updated");
     }
 
     private GameObject SelectRoom()  //Numbers a, b, x, y, etc yet to decide
@@ -146,14 +187,16 @@ public class GameController : MonoBehaviour
                 }
         }*/
         //Debug.Log("Room Selected");
-		
-        return CurrentRoom.gameObject; //Placehoder
+
+
+		return roomArray[Random.Range(0,roomArray.Length)].gameObject;
+        //return CurrentRoom.gameObject; //Placehoder
     }
 
 
     public void SpawnRoom()
     {
-        GameObject newRoom = GameObject.Instantiate(SelectRoom(), new Vector3(0, 0, 0), Quaternion.identity);
+        GameObject newRoom = GameObject.Instantiate(SelectRoom(), new Vector3(0, 0, 31.25f), Quaternion.identity);
         newRoom.transform.Rotate(0, -90, 0);
         //Debug.Log("Room Spawned");
     }

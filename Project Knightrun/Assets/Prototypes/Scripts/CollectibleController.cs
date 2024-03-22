@@ -17,11 +17,11 @@ public class CollectibleController : MonoBehaviour
     {
         if(_coin.coinType == Coin.CoinType.softcoin)
         {
-            gameController.IncreaseScore();
+            gameController.IncreaseSoftCurrency();
         }
         else if (_coin.coinType == Coin.CoinType.premiumcoin)
         {
-            gameController.IncreaseRetries();
+            gameController.IncreaseHardCurrency();
         }
     }
 
