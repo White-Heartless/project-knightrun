@@ -63,6 +63,16 @@ public class UIController : MonoBehaviour
 		//signal gamecontroller to quit
 	}
 
+	public void promptRevive()
+	{
+		cnvRevive.gameObject.SetActive(true);
+	}
+
+	public void acceptRevive()
+	{
+		cnvRevive.gameObject.SetActive(false);
+	}
+
 	public void btnPlayAgain()
 	{
 		cnvGameOver.gameObject.SetActive(false);
