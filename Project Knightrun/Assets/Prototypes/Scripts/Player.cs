@@ -28,6 +28,18 @@ public class Player : MonoBehaviour
         Debug.Log("Player Revived");
     }
 
+    public bool HasEquipment(int _e)
+    {
+        foreach(Equipment e in CurrentEquip)
+        {
+            if ((int)e.equipType == _e)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Trigger"))
