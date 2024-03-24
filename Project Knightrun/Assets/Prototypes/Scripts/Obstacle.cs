@@ -4,11 +4,22 @@ using UnityEngine;
 
 public class Obstacle : MonoBehaviour
 {
-	[SerializeField]
+	public Player player;
 	private GameController gameController;
+
+	public enum EquipmentRequired
+	{
+		helmet,
+		armor,
+		pauldrons,
+		sword
+	}
+
+	public EquipmentRequired equipmentRequired;
 
 	void Start()
 	{
+		player = FindObjectOfType<Player>();
 		gameController = FindObjectOfType<GameController>();
 	}
 
@@ -16,7 +27,17 @@ public class Obstacle : MonoBehaviour
 	{
 		if (other.CompareTag("Player"))
 		{
-			gameController.onObstacleHit();
+			//gameController.onObstacleHit();
+            if (player.HasEquipment((int)equipmentRequired))
+            {
+				Debug.Log("OBSTACLE DESTROYED!");
+				gameObject.SetActive(false);
+            }
+            else
+            {
+				player.OnDeath();
+				player.gameObject.SetActive(false);
+            }
 		}
 	}
 }
