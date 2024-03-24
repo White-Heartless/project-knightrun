@@ -122,17 +122,17 @@ public class UIController : MonoBehaviour
 		//signal gamecontroller to restart
 	}
 
-	[ProPlayButton]
-	public void EquipAlpha(int index)
+	[ProButton]
+	public void EquipAlpha(int index, bool isActive)
 	{
-		if (EquipIcons[index].color.a != 0.2f)
+		if (isActive)
 		{
-			color[index].a = 0.2f;
+			color[index].a = 1f;
 			EquipIcons[index].color = color[index];
 		}
 		else
 		{
-			color[index].a = 1f;
+			color[index].a = 0.2f;
 			EquipIcons[index].color = color[index];
 		}
 	}

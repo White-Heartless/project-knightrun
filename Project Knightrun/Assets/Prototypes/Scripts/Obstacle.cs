@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Obstacle : MonoBehaviour
 {
-	public Player player;
+	private Player player;
 	private GameController gameController;
 
 	public enum EquipmentRequired
@@ -27,17 +27,10 @@ public class Obstacle : MonoBehaviour
 	{
 		if (other.CompareTag("Player"))
 		{
-			//gameController.onObstacleHit();
             if (player.HasEquipment((int)equipmentRequired))
-            {
-				Debug.Log("OBSTACLE DESTROYED!");
 				gameObject.SetActive(false);
-            }
             else
-            {
-				player.OnDeath();
-				player.gameObject.SetActive(false);
-            }
+				gameController.onObstacleHit();
 		}
 	}
 }

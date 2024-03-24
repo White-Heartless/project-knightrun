@@ -81,6 +81,18 @@ public class GameController : MonoBehaviour
 		uiController.promptRevive();
 	}
 
+	public void onEquipConsumed(int _equipType)
+	{
+		switch (_equipType)
+		{
+			case 0: //helmet
+				uiController.EquipAlpha(_equipType, false);
+				break;
+			default:
+				break;
+		}
+	}
+
 	[ProPlayButton]
     public void onPause()
     {

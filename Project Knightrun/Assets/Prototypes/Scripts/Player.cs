@@ -17,7 +17,7 @@ public class Player : MonoBehaviour
     public void OnDeath()
     {
         //  [Play death animation here]
-        GameController.onGameOver();
+        //GameController.onGameOver(); reduntand: this is already called somewhere else
         Debug.Log("Player Dead");
     }
 
@@ -32,8 +32,9 @@ public class Player : MonoBehaviour
     {
         foreach(Equipment e in CurrentEquip)
         {
-            if ((int)e.equipType == _e)
+            if ((int)e.equipType == _e && e.hasUsesLeft())
             {
+				e.useEquip();
                 return true;
             }
         }
