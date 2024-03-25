@@ -16,7 +16,10 @@ public class Room : MonoBehaviour
     void Update()
     {
         Speed = GameController.CurrentSpeed;
-        transform.position += new Vector3(0, 0, -1) * Speed * Time.deltaTime;
+		if (!GameController.is2D)
+        	transform.position += new Vector3(0, 0, -1) * Speed * Time.deltaTime;
+		else
+			transform.position += new Vector3(-1, 0, 0) * Speed * Time.deltaTime;
         CurrentPosition = transform.position;
     }
 

@@ -27,55 +27,11 @@ public class CollectibleController : MonoBehaviour
 
     public void onEquipmentCollected(Equipment _equip)
     {
-        bool repeat = false;
-
         foreach(Equipment e in player.CurrentEquip)
         {
             if(_equip.equipType == e.equipType)
             {
 				e.activateEquip();
-				repeat = true;
-            }
-        }
-
-        if (repeat)
-        {
-            if (_equip.equipType == Equipment.EquipType.helmet)
-            {
-                Debug.Log("HELMET ALREADY COLLECTED!");
-            }
-            else if (_equip.equipType == Equipment.EquipType.armor)
-            {
-                Debug.Log("ARMOR ALREADY COLLECTED!");
-            }
-            else if (_equip.equipType == Equipment.EquipType.pauldrons)
-            {
-                Debug.Log("PAULDRONS ALREADY COLLECTED!");
-            }
-            else if (_equip.equipType == Equipment.EquipType.sword)
-            {
-                Debug.Log("SWORD ALREADY COLLECTED!");
-            }
-        }
-        else
-        {
-            player.CurrentEquip.Add(_equip);
-
-            if (_equip.equipType == Equipment.EquipType.helmet)
-            {
-                Debug.Log("HELMET COLLECTED!");
-            }
-            else if (_equip.equipType == Equipment.EquipType.armor)
-            {
-                Debug.Log("ARMOR COLLECTED!");
-            }
-            else if (_equip.equipType == Equipment.EquipType.pauldrons)
-            {
-                Debug.Log("PAULDRONS COLLECTED!");
-            }
-            else if (_equip.equipType == Equipment.EquipType.sword)
-            {
-                Debug.Log("SWORD COLLECTED!");
             }
         }
     }

@@ -27,6 +27,10 @@ public class UIController : MonoBehaviour
 	private TextMeshProUGUI txtMainTotalSoftCurrency;
 	[SerializeField]
 	private TextMeshProUGUI txtMainTotalHardCurrency;
+	[SerializeField]
+	private TextMeshProUGUI txtGameplayDistance;
+	[SerializeField]
+	private TextMeshProUGUI txtMainHighScore;
 
 	void Start()
 	{
@@ -51,6 +55,16 @@ public class UIController : MonoBehaviour
 	{
 		txtMainTotalSoftCurrency.text = _newSoft.ToString();
 		txtMainTotalHardCurrency.text = _newHard.ToString();
+	}
+
+	public void updateDistance(float _newDistance)
+	{
+		txtGameplayDistance.text = ((int)_newDistance).ToString() + "m";
+	}
+
+	public void updateHighScore(int _newHighScore)
+	{
+		txtMainHighScore.text = _newHighScore.ToString() + "m";
 	}
 
 	public void resetUI()

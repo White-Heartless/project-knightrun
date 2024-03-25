@@ -47,6 +47,10 @@ public class Player : MonoBehaviour
         {
             GameController.SpawnRoom();
         }
+		else if (other.gameObject.CompareTag("3D to 2D"))
+        {
+            GameController.Toggle2D3D();
+        }
     }
 
     public void OnCollisionEnter(Collision collision)
