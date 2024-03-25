@@ -23,7 +23,7 @@ public class Equipment : MonoBehaviour
 	{
 		gameController = FindObjectOfType<GameController>();
 		collectibleController = FindObjectOfType<CollectibleController>();
-		usesLeft = 3;
+		usesLeft = 0;
 	}
 
 	public bool hasUsesLeft()
@@ -41,6 +41,15 @@ public class Equipment : MonoBehaviour
 			gameController.onEquipConsumed((int)equipType);
 			gameObject.SetActive(false);
 		}
+	}
+
+	public void activateEquip()
+	{
+		usesLeft = 3;
+		gameObject.SetActive(true);
+		if (gameController == null)
+			gameController = FindObjectOfType<GameController>();
+		gameController.onEquipActivated((int)equipType);
 	}
 
 	private void OnTriggerEnter(Collider other)

@@ -33,7 +33,8 @@ public class CollectibleController : MonoBehaviour
         {
             if(_equip.equipType == e.equipType)
             {
-                repeat = true;
+				e.activateEquip();
+				repeat = true;
             }
         }
 
