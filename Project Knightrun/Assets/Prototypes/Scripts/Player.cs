@@ -49,7 +49,11 @@ public class Player : MonoBehaviour
         }
 		else if (other.gameObject.CompareTag("3D to 2D"))
         {
-            GameController.Toggle2D3D();
+            GameController.Toggle2D3D(true);
+        }
+		else if (other.gameObject.CompareTag("2D to 3D"))
+        {
+            GameController.Toggle2D3D(false);
         }
     }
 

@@ -123,9 +123,20 @@ public class UIController : MonoBehaviour
 		cnvRevive.gameObject.SetActive(true);
 	}
 
-	public void acceptRevive()
+	public void btnAcceptReviveHardCurrency()
+	{
+		if (gameController.onHardCurrencyReviveAttempt())
+		{
+			cnvRevive.gameObject.SetActive(false);
+			gameController.Revive();
+		}
+			
+	}
+
+	public void btnAcceptReviveAD()
 	{
 		cnvRevive.gameObject.SetActive(false);
+		gameController.Revive();
 	}
 
 	public void btnPlayAgain()

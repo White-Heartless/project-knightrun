@@ -48,11 +48,29 @@ public class InputController : MonoBehaviour
         }
     }
 
-    IEnumerator stopSlide()
+	public void Adjust(bool _LeftOrRight) //false left true right
+	{
+		canMove = true;
+		if (!_LeftOrRight) //left
+		{
+			horizVel = -horizSpeed;
+            StartCoroutine(stopSlide(false));
+            laneNum += 1;
+		}
+		else //right
+		{
+			horizVel = horizSpeed;
+            StartCoroutine(stopSlide(false));
+            laneNum -= 1;
+		}
+	}
+
+    IEnumerator stopSlide(bool allowMove = true)
     {
         yield return new WaitForSeconds(laneChangeSpeed);
         horizVel = 0;
-        canMove = false;
+		if (allowMove)
+        	canMove = false;
     }
 
     public void Jump()
