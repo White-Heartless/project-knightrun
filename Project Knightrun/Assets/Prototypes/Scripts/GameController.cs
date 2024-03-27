@@ -157,7 +157,7 @@ public class GameController : MonoBehaviour
 
 	public bool onHardCurrencyReviveAttempt()
 	{
-		if (totalHardCurrency == 0 || runHardCurrency == 0)
+		if (totalHardCurrency == 0 && runHardCurrency == 0)
 		{
 			return false;
 		}
