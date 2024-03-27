@@ -139,12 +139,11 @@ public class UIController : MonoBehaviour
 		gameController.Revive();
 	}
 
-	public void btnPlayAgain()
+	public void btnPlayAgain() //unused
 	{
 		cnvGameOver.gameObject.SetActive(false);
 		cnvPause.gameObject.SetActive(false);
 		cnvGameplay.gameObject.SetActive(true);
-		//signal gamecontroller to restart
 	}
 
 	[ProButton]

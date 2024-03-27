@@ -24,6 +24,7 @@ public class CameraSwitch : MonoBehaviour
     {
         StartCoroutine(MoveCameraTo2D());
     }
+	
     [ProButton]
     public void CamSwitchTo3D()
     {

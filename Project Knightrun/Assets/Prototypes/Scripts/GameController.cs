@@ -17,7 +17,7 @@ public class GameController : MonoBehaviour
 	[SerializeField]
 	private Player player;
 
-	public Room StartingRoom;
+	public Room startingRoom;
 	public Room[] roomArray3D;
 	public Room[] roomArray2D;
     public int runSoftCurrency = 0;
@@ -26,7 +26,7 @@ public class GameController : MonoBehaviour
 	public int runHardCurrency = 0;
 	public int totalSoftCurrency = 0;
 	public int totalHardCurrency = 0;
-    public float CurrentSpeed = 20;
+    public float runSpeed = 20;
 
 	public Room lastRoom;
 	private Vector3 lastGlobalPos;
@@ -39,21 +39,19 @@ public class GameController : MonoBehaviour
 		if (_3or2) //switching to 2d
 		{
 			is2D = true;
-			inputController.Adjust(false);
+			inputController.Adjust();
 			cameraSwitch.CamSwitchTo2D();
 		}
 		else //switching to 3d
 		{
 			is2D = false;
-			inputController.canMove = false;
-			inputController.laneNum = 2;
 			cameraSwitch.CamSwitchTo3D();
 		}
 	}
 
     private void Start()
     {
-		GameObject startRoom = GameObject.Instantiate(StartingRoom.gameObject, new Vector3(0, 0, 10f), Quaternion.identity);
+		GameObject startRoom = GameObject.Instantiate(startingRoom.gameObject, new Vector3(0, 0, 10f), Quaternion.identity);
 		startRoom.transform.Rotate(0, -90, 0);
 		lastRoom = startRoom.GetComponent<Room>();
 		Time.timeScale = 0;
@@ -109,7 +107,7 @@ public class GameController : MonoBehaviour
 			if (roomComponent != null)
 				Destroy(obj);
 		}
-		GameObject startRoom = GameObject.Instantiate(StartingRoom.gameObject, new Vector3(0, 0, 10f), Quaternion.identity);
+		GameObject startRoom = GameObject.Instantiate(startingRoom.gameObject, new Vector3(0, 0, 10f), Quaternion.identity);
         startRoom.transform.Rotate(0, -90, 0);
 		lastRoom = startRoom.GetComponent<Room>();
 		player.transform.position = new Vector3(0,0,0);
@@ -166,7 +164,10 @@ public class GameController : MonoBehaviour
 		else if (totalHardCurrency > 0)
 			totalHardCurrency--;
 		else
+		{
 			runHardCurrency--;
+			uiController.updateHardCurrency(runHardCurrency);
+		}
 		return true;
 	}
 
@@ -212,7 +213,7 @@ public class GameController : MonoBehaviour
 		else
 		{
 			lastGlobalPos = lastRoom.transform.Find("RoomEnd2D").position;
-			Quaternion rotation = Quaternion.Euler(0, -90, 0);
+			Quaternion rotation = Quaternion.Euler(0, 0, 0);
 			GameObject newRoom = GameObject.Instantiate(SelectRoom(), new Vector3(-999f,-999f,-999f), rotation);
 			newRoom.transform.position = lastGlobalPos;
 			lastGlobalPos = newRoom.transform.Find("RoomEnd2D").position;

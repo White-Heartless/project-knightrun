@@ -14,19 +14,17 @@ public class Player : MonoBehaviour
         InputController = FindObjectOfType<InputController>();
     }
 
+	/*
     public void OnDeath()
     {
         //  [Play death animation here]
-        //GameController.onGameOver(); reduntand: this is already called somewhere else
-        Debug.Log("Player Dead");
     }
 
     public void OnRevive()
     {
         //  [Play revive animation here]
-        GameController.onResume(); // Perhaps another procedure would be more appropriate
-        Debug.Log("Player Revived");
     }
+	*/
 
     public bool HasEquipment(int _e)
     {
@@ -44,24 +42,16 @@ public class Player : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Trigger"))
-        {
             GameController.SpawnRoom();
-        }
 		else if (other.gameObject.CompareTag("3D to 2D"))
-        {
-            GameController.Toggle2D3D(true);
-        }
+            GameController.Toggle2D3D(true); //swap to 2D
 		else if (other.gameObject.CompareTag("2D to 3D"))
-        {
-            GameController.Toggle2D3D(false);
-        }
+            GameController.Toggle2D3D(false); //swap to 3D
     }
 
     public void OnCollisionEnter(Collision collision)
     {
         if (collision.collider.CompareTag("Ground"))
-        {
             InputController.ResetJump();
-        }
     }
 }

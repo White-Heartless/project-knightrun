@@ -1079,7 +1079,7 @@ MonoBehaviour:
   cameraSwitch: {fileID: 1656617821}
   inputController: {fileID: 1899195980}
   player: {fileID: 1514502961}
-  StartingRoom: {fileID: 1924751869780141111, guid: 889e9499756412b48a3adbc38fc4465a, type: 3}
+  startingRoom: {fileID: 1924751869780141111, guid: 889e9499756412b48a3adbc38fc4465a, type: 3}
   roomArray3D:
   - {fileID: 995505746572922682, guid: 7259478845d6c4d42a83d8e977293a4a, type: 3}
   roomArray2D:
@@ -1088,7 +1088,7 @@ MonoBehaviour:
   runHardCurrency: 0
   totalSoftCurrency: 0
   totalHardCurrency: 0
-  CurrentSpeed: 20
+  runSpeed: 20
   lastRoom: {fileID: 0}
   is2D: 0
 --- !u!4 &217188853
@@ -6748,7 +6748,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 120
   m_CollisionDetection: 0
 --- !u!114 &1514502961
 MonoBehaviour:
@@ -8725,15 +8725,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 730a6d10fd63c00448e0cd83fc0cd8ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forwardSpeed: 0
-  laneNum: 2
-  horizVel: 0
-  horizSpeed: 6
-  jumpForce: 200
-  canMove: 0
-  canJump: 0
-  laneChangeSpeed: 0.25
+  laneChangeSpeed: 5
+  jumpForce: 150
   player: {fileID: 0}
+  gameController: {fileID: 217188852}
+  lanePositions:
+  - -1.5
+  - 0
+  - 1.5
 --- !u!4 &1899195981
 Transform:
   m_ObjectHideFlags: 0
