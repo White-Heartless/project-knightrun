@@ -1,160 +1,228 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using com.cyborgAssets.inspectorButtonPro;
+using System.IO;
+using UnityEngine.UIElements;
+using System.Runtime.CompilerServices;
 
 public class GameController : MonoBehaviour
 {
-    public List<Room> RoomPool = new List<Room>();
-    public List<Room> ActiveRooms = new List<Room>();
-    public Room CurrentRoom;
-    public int Score = 0;
-    public int Stage = 1;
-    public float GameSpeed = 30;
+	[SerializeField]
+	private UIController uiController;
+	[SerializeField]
+	private CameraSwitch cameraSwitch;
+	[SerializeField]
+	private InputController inputController;
+	[SerializeField]
+	private Player player;
 
-    void Update()
+	public Room startingRoom;
+	public Room[] roomArray3D;
+	public Room[] roomArray2D;
+    public int runSoftCurrency = 0;
+	private float distance = 0f;
+	private int highScore = 0;
+	public int runHardCurrency = 0;
+	public int totalSoftCurrency = 0;
+	public int totalHardCurrency = 0;
+    public float runSpeed = 20;
+
+	public Room lastRoom;
+	private Vector3 lastGlobalPos;
+
+	[HideInInspector]
+	public bool is2D = false; //false = 3d mode, true = 2d mode
+
+	public void Toggle2D3D(bool _3or2) //false - 3d / true - 2d
+	{
+		if (_3or2) //switching to 2d
+		{
+			is2D = true;
+			inputController.Adjust();
+			cameraSwitch.CamSwitchTo2D();
+		}
+		else //switching to 3d
+		{
+			is2D = false;
+			cameraSwitch.CamSwitchTo3D();
+		}
+	}
+
+    private void Start()
     {
-        
+		GameObject startRoom = GameObject.Instantiate(startingRoom.gameObject, new Vector3(0, 0, 10f), Quaternion.identity);
+		startRoom.transform.Rotate(0, -90, 0);
+		lastRoom = startRoom.GetComponent<Room>();
+		Time.timeScale = 0;
     }
+
+    public void IncreaseSoftCurrency()
+    {
+        runSoftCurrency++;
+		uiController.updateSoftCurrency(runSoftCurrency);
+    }
+
+    public void IncreaseHardCurrency()
+    {
+        runHardCurrency++;
+		uiController.updateHardCurrency(runHardCurrency);
+    }
+
+	void Update()
+	{
+		distance += Time.deltaTime;
+		uiController.updateDistance(distance);
+	}
 
     public void onGameStart()
     {
-        Debug.Log("Game Start");
+		distance = 0f;
+		uiController.updateDistance(distance);
+		Time.timeScale = 1;
     }
 
     public void onGameOver()
     {
-        for (int i = ActiveRooms.Count - 1; i >= 0; i--)
-        {
-            ActiveRooms[i].Speed = 0;
-        }
-        Debug.Log("Game Over");
+        Time.timeScale = 0;
+		if ((int)distance > highScore)
+		{
+			highScore = (int)distance;
+			uiController.updateHighScore(highScore);
+		}
+		distance = 0f;
+		uiController.updateDistance(distance);
+		totalSoftCurrency += runSoftCurrency;
+		totalHardCurrency += runHardCurrency;
+		uiController.updateTotalCurrency(totalSoftCurrency,totalHardCurrency);
+		runSoftCurrency = 0;
+		runHardCurrency = 0;
+		uiController.updateSoftCurrency(runSoftCurrency);
+		uiController.updateHardCurrency(runHardCurrency);
+		GameObject[] allObjects = GameObject.FindObjectsOfType<GameObject>();
+		foreach (GameObject obj in allObjects)
+		{
+			Room roomComponent = obj.GetComponent<Room>();
+
+			if (roomComponent != null)
+				Destroy(obj);
+		}
+		GameObject startRoom = GameObject.Instantiate(startingRoom.gameObject, new Vector3(0, 0, 10f), Quaternion.identity);
+        startRoom.transform.Rotate(0, -90, 0);
+		lastRoom = startRoom.GetComponent<Room>();
+		player.transform.position = new Vector3(0,0,0);
+		if (is2D)
+			Toggle2D3D(false);
     }
+
+	public void onObstacleHit()
+	{
+		Time.timeScale = 0;
+		uiController.promptRevive();
+	}
+
+	public void onEquipConsumed(int _equipType)
+	{
+		switch (_equipType)
+		{
+			case 0: //helmet
+				uiController.EquipAlpha(_equipType, false);
+				break;
+			default:
+				break;
+		}
+	}
+
+	public void onEquipActivated(int _equipType)
+	{
+		switch (_equipType)
+		{
+			case 0: //helmet
+				uiController.EquipAlpha(_equipType, true);
+				break;
+			default:
+				break;
+		}
+	}
 
     public void onPause()
     {
-        Debug.Log("Game Paused");
+		Time.timeScale = 0;
     }
 
     public void onResume()
     {
-        for (int i = ActiveRooms.Count - 1; i >= 0; i--)
-        {
-            ActiveRooms[i].Speed = GameSpeed;
-        }
-        Debug.Log("Game Resume");
+        Time.timeScale = 1;
     }
 
-    public void onStageChanged()
+	public bool onHardCurrencyReviveAttempt()
+	{
+		if (totalHardCurrency == 0 || runHardCurrency == 0)
+		{
+			return false;
+		}
+		else if (totalHardCurrency > 0)
+			totalHardCurrency--;
+		else
+		{
+			runHardCurrency--;
+			uiController.updateHardCurrency(runHardCurrency);
+		}
+		return true;
+	}
+
+	public void Revive()
+	{
+		GameObject[] allObjects = GameObject.FindObjectsOfType<GameObject>();
+		foreach (GameObject obj in allObjects)
+		{
+			Obstacle obstacleComponent = obj.GetComponent<Obstacle>();
+
+			if (obstacleComponent != null)
+				Destroy(obj);
+		}
+		Time.timeScale = 1;
+	}
+
+    private GameObject SelectRoom()
     {
-        Stage++;
-        UpdateRoomPool();
-        Debug.Log("Stage Changed");
+		GameObject roomToSpawn;
+
+		if (!is2D)
+		{
+			roomToSpawn = roomArray3D[Random.Range(0,roomArray3D.Length)].gameObject;
+		}
+		else
+		{
+			roomToSpawn = roomArray2D[Random.Range(0,roomArray2D.Length)].gameObject;
+		}
+		return roomToSpawn;
     }
-
-    public void UpdateRoomPool()
-    {
-        Debug.Log("Room pool updated");
-    }
-
-    private GameObject SelectRoom()  //Numbers a, b, x, y, etc yet to decide
-    {
-      /*  switch (Stage) {
-
-            case 1:
-                if (Score < a)
-                {
-                    Debug.Log("Room Selected");
-                    return RoomPool[Random.Range(0, x)].gameObject;
-                }
-                else if (Score < b)
-                {
-                    return RoomPool[Random.Range(x, y)].gameObject;
-                }
-                else
-                {
-                    return RoomPool[Random.Range(y, RoomPool.Count)].gameObject;
-                }
-
-            case 2:
-                if (Score < c)
-                {
-                    Debug.Log("Room Selected");
-                    return RoomPool[Random.Range(0, x)].gameObject;
-                }
-                else if (Score < d)
-                {
-                    return RoomPool[Random.Range(x, y)].gameObject;
-                }
-                else
-                {
-                    return RoomPool[Random.Range(y, RoomPool.Count)].gameObject;
-                }
-
-            case 3:
-                if (Score < e)
-                {
-                    Debug.Log("Room Selected");
-                    return RoomPool[Random.Range(0, x)].gameObject;
-                }
-                else if (Score < f)
-                {
-                    return RoomPool[Random.Range(x, y)].gameObject;
-                }
-                else
-                {
-                    return RoomPool[Random.Range(y, RoomPool.Count)].gameObject;
-                }
-
-            case 4:
-                if (Score < g)
-                {
-                    Debug.Log("Room Selected");
-                    return RoomPool[Random.Range(0, x)].gameObject;
-                }
-                else if (Score < h)
-                {
-                    return RoomPool[Random.Range(x, y)].gameObject;
-                }
-                else
-                {
-                    return RoomPool[Random.Range(y, RoomPool.Count)].gameObject;
-                }
-
-            case 5:
-                if (Score < i)
-                {
-                    Debug.Log("Room Selected");
-                    return RoomPool[Random.Range(0, x)].gameObject;
-                }
-                else if (Score < j)
-                {
-                    return RoomPool[Random.Range(x, y)].gameObject;
-                }
-                else
-                {
-                    return RoomPool[Random.Range(y, RoomPool.Count)].gameObject;
-                }
-        }*/
-        Debug.Log("Room Selected");
-        return CurrentRoom.gameObject; //Placehoder
-    }
-
 
     public void SpawnRoom()
     {
-        GameObject newRoom = GameObject.Instantiate(SelectRoom(), new Vector3(), Quaternion.identity);
-        newRoom.GetComponent<Room>().Speed = GameSpeed;
-        ActiveRooms.Add(newRoom.GetComponent<Room>());
-        Debug.Log("Room Spawned");
+		if (!is2D)
+		{
+			lastGlobalPos = lastRoom.transform.Find("RoomEnd3D").position;
+			Quaternion rotation = Quaternion.Euler(0, -90, 0);
+			GameObject newRoom = GameObject.Instantiate(SelectRoom(), new Vector3(-999f,-999f,-999f), rotation);
+			newRoom.transform.position = lastGlobalPos;
+			lastGlobalPos = newRoom.transform.Find("RoomEnd3D").position;
+			lastRoom = newRoom.GetComponent<Room>();
+		}
+		else
+		{
+			lastGlobalPos = lastRoom.transform.Find("RoomEnd2D").position;
+			Quaternion rotation = Quaternion.Euler(0, 0, 0);
+			GameObject newRoom = GameObject.Instantiate(SelectRoom(), new Vector3(-999f,-999f,-999f), rotation);
+			newRoom.transform.position = lastGlobalPos;
+			lastGlobalPos = newRoom.transform.Find("RoomEnd2D").position;
+			lastRoom = newRoom.GetComponent<Room>();
+		}
     }
 
     public void DespawnRoom(GameObject _room)
     {
-        for (int i = ActiveRooms.Count - 1; i >= 0; i--)
-        {
-            if (ActiveRooms[i].Equals(_room)) ActiveRooms.RemoveAt(i);
-        }
         Destroy(_room);
-        Debug.Log("Room Despawned");
     }
 }
