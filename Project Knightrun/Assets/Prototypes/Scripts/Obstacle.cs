@@ -12,7 +12,9 @@ public class Obstacle : MonoBehaviour
 		helmet,
 		armor,
 		pauldrons,
-		sword
+		shoes,
+		sword,
+		unbreakable
 	}
 
 	public EquipmentRequired equipmentRequired;
@@ -27,8 +29,9 @@ public class Obstacle : MonoBehaviour
 	{
 		if (other.CompareTag("Player"))
 		{
-            if (player.HasEquipment((int)equipmentRequired))
-				gameObject.SetActive(false);
+			//tries to use the appropriate equipment if the player has it
+            if (player.TryUsingEquipment((int)equipmentRequired)) 
+				gameObject.SetActive(false);//will be subbstitued by the explosion function
             else
 				gameController.onObstacleHit();
 		}

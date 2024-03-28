@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class InputController : MonoBehaviour
 {
+	const int MIDDLE_LANE = 1;
+
     public float laneChangeSpeed = 5f;
     public float jumpForce = 150f;
     private bool canMove;
@@ -13,8 +15,11 @@ public class InputController : MonoBehaviour
 	[SerializeField]
     private GameController gameController;
 
-	public float[] lanePositions = new float[] { -1.5f, 0f, 1.5f }; // lane positions
+	// lane positions, more could be added
+	//IF MORE LANES ARE ADDED UPDATE MIDDLE_LANE MANUALLY!!!
+	private float[] lanePositions = new float[] { -1.5f, 0f, 1.5f };
 
+	//todo add get set
     private int currentLaneIndex = 1; // start at the middle lane
 
     public void Start()
@@ -37,12 +42,13 @@ public class InputController : MonoBehaviour
             StartCoroutine(MoveToLane(currentLaneIndex + 1)); // Move to the right lane
 	}
 
+	//these 2 functions are needed to prevent lane bugs when switching 2d <-> 3d
 	public void Adjust() => StartCoroutine(CoroutineAdjust());
 
 	IEnumerator CoroutineAdjust()
     {
         yield return new WaitForSeconds(0.25f); //prevents a bug that messes up the lanes
-		StartCoroutine(MoveToLane(1));
+		StartCoroutine(MoveToLane(MIDDLE_LANE));
     }
 
 	IEnumerator MoveToLane(int targetLaneIndex)

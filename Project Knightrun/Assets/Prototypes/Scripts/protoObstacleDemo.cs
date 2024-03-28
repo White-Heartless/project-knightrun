@@ -14,6 +14,19 @@ public class protoObstacleDemo : MonoBehaviour
 
 	private Rigidbody rb;
 
+	void Start()
+	{
+		initialPosition = transform.position;
+        initialRotation = transform.rotation;
+
+		parentScript = GetComponentInParent<protoExplosionController>();
+		rb = GetComponent<Rigidbody>();
+		minVelocity = parentScript.minVelocity;
+		maxVelocity = parentScript.maxVelocity;
+		maxAngularSpeed = parentScript.maxAngularSpeed;
+	}
+
+	//this method will probably go in every piece of the explodable obstacle
 	public void ProtoExplode()
 	{
 		Reset();
@@ -45,18 +58,5 @@ public class protoObstacleDemo : MonoBehaviour
 
 		rb.velocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;
-	}
-
-	void Start()
-	{
-
-		initialPosition = transform.position;
-        initialRotation = transform.rotation;
-
-		parentScript = GetComponentInParent<protoExplosionController>();
-		rb = GetComponent<Rigidbody>();
-		minVelocity = parentScript.minVelocity;
-		maxVelocity = parentScript.maxVelocity;
-		maxAngularSpeed = parentScript.maxAngularSpeed;
 	}
 }

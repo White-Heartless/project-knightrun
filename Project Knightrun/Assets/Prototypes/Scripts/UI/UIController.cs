@@ -130,7 +130,6 @@ public class UIController : MonoBehaviour
 			cnvRevive.gameObject.SetActive(false);
 			gameController.Revive();
 		}
-			
 	}
 
 	public void btnAcceptReviveAD()

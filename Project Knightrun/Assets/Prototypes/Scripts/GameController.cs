@@ -111,16 +111,19 @@ public class GameController : MonoBehaviour
         startRoom.transform.Rotate(0, -90, 0);
 		lastRoom = startRoom.GetComponent<Room>();
 		player.transform.position = new Vector3(0,0,0);
+		//inputcontroller.currentlaneindex=1;
 		if (is2D)
 			Toggle2D3D(false);
     }
 
+	//only called if obstacle could not be destroyed
 	public void onObstacleHit()
 	{
 		Time.timeScale = 0;
 		uiController.promptRevive();
 	}
 
+	//to do: add the rest of equipments
 	public void onEquipConsumed(int _equipType)
 	{
 		switch (_equipType)
@@ -133,6 +136,7 @@ public class GameController : MonoBehaviour
 		}
 	}
 
+	//to do: add the rest of equipments
 	public void onEquipActivated(int _equipType)
 	{
 		switch (_equipType)
@@ -189,13 +193,9 @@ public class GameController : MonoBehaviour
 		GameObject roomToSpawn;
 
 		if (!is2D)
-		{
 			roomToSpawn = roomArray3D[Random.Range(0,roomArray3D.Length)].gameObject;
-		}
 		else
-		{
 			roomToSpawn = roomArray2D[Random.Range(0,roomArray2D.Length)].gameObject;
-		}
 		return roomToSpawn;
     }
 
