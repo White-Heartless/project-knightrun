@@ -112,7 +112,7 @@ public class GameController : MonoBehaviour
 		GameObject startRoom = GameObject.Instantiate(startingRoom.gameObject, new Vector3(0, 0, 10f), Quaternion.identity);
         startRoom.transform.Rotate(0, -90, 0);
 		lastRoom = startRoom.GetComponent<Room>();
-		player.transform.position = new Vector3(0,0,0);
+		player.transform.position = new Vector3(0,0.1f,0);
 		//inputcontroller.currentlaneindex=1;
 		if (is2D)
 			Toggle2D3D(false);
@@ -206,7 +206,7 @@ public class GameController : MonoBehaviour
 		if (!is2D)
 		{
 			lastGlobalPos = lastRoom.transform.Find("RoomEnd3D").position;
-			Quaternion rotation = Quaternion.Euler(0, -90, 0);
+			Quaternion rotation = Quaternion.Euler(0, 0, 0);
 			GameObject newRoom = GameObject.Instantiate(SelectRoom(), new Vector3(-999f,-999f,-999f), rotation);
 			newRoom.transform.position = lastGlobalPos;
 			lastGlobalPos = newRoom.transform.Find("RoomEnd3D").position;
