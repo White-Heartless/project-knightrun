@@ -146,6 +146,18 @@ public class GameController : MonoBehaviour
 			case 0: //helmet
 				uiController.EquipAlpha(_equipType, true);
 				break;
+			case 1: //armor
+				uiController.EquipAlpha(_equipType, true);
+				break;
+			case 2: //pauldrons
+				uiController.EquipAlpha(_equipType, true);
+				break;
+			case 3: //shoes
+				uiController.EquipAlpha(_equipType, true);
+				break;
+			case 4: //sword
+				uiController.EquipAlpha(_equipType, true);
+				break;
 			default:
 				break;
 		}
