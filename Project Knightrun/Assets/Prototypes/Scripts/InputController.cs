@@ -65,6 +65,7 @@ public class InputController : MonoBehaviour
 		StartCoroutine(MoveToLane(MIDDLE_LANE));
     }
 
+    //timer to prevent que of animation
     IEnumerator AnimationTimer()
     {
         yield return new WaitForSeconds(0.4f);
