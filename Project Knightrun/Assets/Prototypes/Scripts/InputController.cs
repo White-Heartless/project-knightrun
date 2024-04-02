@@ -14,6 +14,8 @@ public class InputController : MonoBehaviour
     private Player player;
 	[SerializeField]
     private GameController gameController;
+    [SerializeField]
+    private Animator animator;
 
 	// lane positions, more could be added
 	//IF MORE LANES ARE ADDED UPDATE MIDDLE_LANE MANUALLY!!!
@@ -71,6 +73,7 @@ public class InputController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space) && (canJump == false))
         {
+            animator.SetTrigger("Jump");
             Vector3 currentVelocity = player.GetComponent<Rigidbody>().velocity;
             player.GetComponent<Rigidbody>().velocity = new Vector3(currentVelocity.x, 0, currentVelocity.z);
             player.GetComponent<Rigidbody>().AddForce(Vector3.up * jumpForce);
