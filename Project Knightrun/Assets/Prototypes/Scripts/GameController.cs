@@ -41,13 +41,13 @@ public class GameController : MonoBehaviour
 			is2D = true;
 			inputController.Adjust();
 			cameraSwitch.CamSwitchTo2D();
-			player.transform.Rotate(0,0,90f);
+			player.transform.Rotate(0,90f,0);
 		}
 		else //switching to 3d
 		{
 			is2D = false;
 			cameraSwitch.CamSwitchTo3D();
-			player.transform.Rotate(0,0,-90f);
+			player.transform.Rotate(0,0,0);
 		}
 	}
 
