@@ -40,14 +40,18 @@ public class InputController : MonoBehaviour
 	{
 		if (Input.GetKeyDown(KeyCode.A) && currentLaneIndex > 0 && canMove && !gameController.is2D)
 		{
-      animator.SetTrigger("LeftStrafe");
-			StartCoroutine(MoveToLane(currentLaneIndex - 1)); // Move to the left lane
+            animator.SetBool("RightStrafe", false);
+            animator.SetBool("LeftStrafe", true);
+            StartCoroutine(AnimationTimer());
+            StartCoroutine(MoveToLane(currentLaneIndex - 1)); // Move to the left lane
 			gameController.onLaneChange(currentLaneIndex - 1);
 		}
     else if (Input.GetKeyDown(KeyCode.D) && (currentLaneIndex < (lanePositions.Length - 1))  && canMove && !gameController.is2D)
     {
-      animator.SetTrigger("RightStrafe");
-			StartCoroutine(MoveToLane(currentLaneIndex + 1)); // Move to the right lane
+            animator.SetBool("LeftStrafe", false);
+            animator.SetBool("RightStrafe", true);
+            StartCoroutine(AnimationTimer());
+            StartCoroutine(MoveToLane(currentLaneIndex + 1)); // Move to the right lane
 			gameController.onLaneChange(currentLaneIndex + 1);
 		}    
 	}
@@ -59,6 +63,13 @@ public class InputController : MonoBehaviour
     {
         yield return new WaitForSeconds(0.25f); //prevents a bug that messes up the lanes
 		StartCoroutine(MoveToLane(MIDDLE_LANE));
+    }
+
+    IEnumerator AnimationTimer()
+    {
+        yield return new WaitForSeconds(0.4f);
+        animator.SetBool("LeftStrafe", false);
+        animator.SetBool("RightStrafe", false);
     }
 
 	IEnumerator MoveToLane(int targetLaneIndex)
