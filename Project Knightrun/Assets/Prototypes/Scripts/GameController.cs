@@ -16,6 +16,8 @@ public class GameController : MonoBehaviour
 	private InputController inputController;
 	[SerializeField]
 	private Player player;
+	[SerializeField]
+	private Animator animator;
 
 	public Room startingRoom;
 	public Room[] roomArray3D;
@@ -41,13 +43,13 @@ public class GameController : MonoBehaviour
 			is2D = true;
 			inputController.Adjust();
 			cameraSwitch.CamSwitchTo2D();
-			player.transform.Rotate(0,0,90f);
+			player.transform.Rotate(0,90f,0);
 		}
 		else //switching to 3d
 		{
 			is2D = false;
 			cameraSwitch.CamSwitchTo3D();
-			player.transform.Rotate(0,0,-90f);
+			player.transform.Rotate(0,0,0);
 		}
 	}
 
@@ -121,6 +123,7 @@ public class GameController : MonoBehaviour
 	//only called if obstacle could not be destroyed
 	public void onObstacleHit()
 	{
+		//animator.SetTrigger("Die");
 		Time.timeScale = 0;
 		uiController.promptRevive();
 	}
