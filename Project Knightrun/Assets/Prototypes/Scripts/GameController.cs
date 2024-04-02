@@ -227,4 +227,9 @@ public class GameController : MonoBehaviour
     {
         Destroy(_room);
     }
+
+	public void onLaneChange(int _laneIndex)
+	{
+		cameraSwitch.CamSwitchLane(_laneIndex);
+	}
 }
