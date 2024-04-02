@@ -57,6 +57,7 @@ public class Player : MonoBehaviour
             animator.SetTrigger("Shield");
         else if (other.gameObject.CompareTag("Shoulder"))
             animator.SetTrigger("Shoulder");
+
     }
 
 	//this prevents multiple jumps in the air
