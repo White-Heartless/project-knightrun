@@ -16,6 +16,8 @@ public class GameController : MonoBehaviour
 	private InputController inputController;
 	[SerializeField]
 	private Player player;
+	[SerializeField]
+	private Animator animator;
 
 	public Room startingRoom;
 	public Room[] roomArray3D;
@@ -121,6 +123,7 @@ public class GameController : MonoBehaviour
 	//only called if obstacle could not be destroyed
 	public void onObstacleHit()
 	{
+		//animator.SetTrigger("Die");
 		Time.timeScale = 0;
 		uiController.promptRevive();
 	}

@@ -6,6 +6,7 @@ public class Player : MonoBehaviour
 {
     private GameController GameController;
     private InputController InputController;
+    private Animator animator;
 
     public List<Equipment> CurrentEquip = new List<Equipment>();
 
@@ -13,6 +14,7 @@ public class Player : MonoBehaviour
     {
         GameController = FindObjectOfType<GameController>();
         InputController = FindObjectOfType<InputController>();
+        animator = GetComponent<Animator>();
     }
 
 	/*
@@ -45,10 +47,16 @@ public class Player : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Trigger"))
             GameController.SpawnRoom(); //spawn a new room when player hits a generation trigger
-		else if (other.gameObject.CompareTag("3D to 2D"))
+        else if (other.gameObject.CompareTag("3D to 2D"))
             GameController.Toggle2D3D(true); //swap to 2D
-		else if (other.gameObject.CompareTag("2D to 3D"))
+        else if (other.gameObject.CompareTag("2D to 3D"))
             GameController.Toggle2D3D(false); //swap to 3D
+        else if (other.gameObject.CompareTag("Sword"))
+            animator.SetTrigger("Sword");
+        else if (other.gameObject.CompareTag("Shield"))
+            animator.SetTrigger("Shield");
+        else if (other.gameObject.CompareTag("Shoulder"))
+            animator.SetTrigger("Shoulder");
     }
 
 	//this prevents multiple jumps in the air
