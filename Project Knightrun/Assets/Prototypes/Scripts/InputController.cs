@@ -38,16 +38,18 @@ public class InputController : MonoBehaviour
 
 	public void LeftRight()
 	{
-        if (Input.GetKeyDown(KeyCode.A) && currentLaneIndex > 0 && canMove && !gameController.is2D)
-        {
-            animator.SetTrigger("LeftStrafe");
-            StartCoroutine(MoveToLane(currentLaneIndex - 1)); // Move to the left lane
-        }
-        else if (Input.GetKeyDown(KeyCode.D) && (currentLaneIndex < (lanePositions.Length - 1))  && canMove && !gameController.is2D)
-        {
-            animator.SetTrigger("RightStrafe");
-            StartCoroutine(MoveToLane(currentLaneIndex + 1)); // Move to the right lane
-        }
+		if (Input.GetKeyDown(KeyCode.A) && currentLaneIndex > 0 && canMove && !gameController.is2D)
+		{
+      animator.SetTrigger("LeftStrafe");
+			StartCoroutine(MoveToLane(currentLaneIndex - 1)); // Move to the left lane
+			gameController.onLaneChange(currentLaneIndex - 1);
+		}
+    else if (Input.GetKeyDown(KeyCode.D) && (currentLaneIndex < (lanePositions.Length - 1))  && canMove && !gameController.is2D)
+    {
+      animator.SetTrigger("RightStrafe");
+			StartCoroutine(MoveToLane(currentLaneIndex + 1)); // Move to the right lane
+			gameController.onLaneChange(currentLaneIndex + 1);
+		}    
 	}
 
 	//these 2 functions are needed to prevent lane bugs when switching 2d <-> 3d

@@ -6,17 +6,19 @@ using com.cyborgAssets.inspectorButtonPro;
 public class CameraSwitch : MonoBehaviour
 {
     //the game start in 3d so we get all the values
-    private Vector3 startPos;
-    private Quaternion startRot;
+    public Vector3 startPos;
+    public Quaternion startRot;
     //we set public the target 2d rotation so you can change the value to point it higher or closer to the target
     public Vector3 targetPosition;
     public Vector3 targetRotation;
 
+	private Coroutine laneChangeCoroutine = null;
+
     void Start()
     {
         //we get the values
-        startPos = transform.position;
-        startRot = transform.rotation;
+        //startPos = transform.position;
+        //startRot = transform.rotation;
     }
 
     [ProButton]
@@ -29,6 +31,54 @@ public class CameraSwitch : MonoBehaviour
     public void CamSwitchTo3D()
     {
         StartCoroutine(MoveCameraTo3D());
+    }
+
+	public void CamSwitchLane(int _laneIndex)
+    {
+		Vector3 _target;
+
+		_target = transform.position;
+
+		switch (_laneIndex)
+		{
+			case 0:
+				_target.x = -1.5f;
+				break;
+			case 1:
+				_target.x = 0f;
+				break;
+			case 2:
+				_target.x = 1.5f;
+				break;
+			default:
+				break;
+		}
+
+		if (laneChangeCoroutine != null)
+		{
+			StopCoroutine(laneChangeCoroutine);
+			laneChangeCoroutine = null;
+		}
+        laneChangeCoroutine = StartCoroutine(MoveCameraToLane(_target));
+    }
+
+	IEnumerator MoveCameraToLane(Vector3 _target)
+    {
+        //Set the time for T value
+        float elapsedTime = 0;
+        float moveDuration = 3f;
+
+        while (elapsedTime < moveDuration)
+        {
+            //using Lerp method to make a smooth animation
+            transform.position = Vector3.Lerp(transform.position, _target, elapsedTime / moveDuration);
+            //sync to time.deltatime
+            elapsedTime += Time.deltaTime;
+			//wait next frame
+            yield return null;
+        }
+
+        transform.position = _target;
     }
 
     IEnumerator MoveCameraTo2D()
