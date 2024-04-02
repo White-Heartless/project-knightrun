@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using com.cyborgAssets.inspectorButtonPro;
 
+
+//this is the moving camera script for the obstacledemo scene
+//this MUST not be used in any way shape or form for the actual implementation of exploding obstacles
 public class MovingCamera : MonoBehaviour
 {
     public float moveSpeed = 10f;

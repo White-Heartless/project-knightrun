@@ -12,11 +12,13 @@ public class Equipment : MonoBehaviour
 		helmet,
 		armor,
 		pauldrons,
+		shoes,
 		sword
 	}
 
 	public EquipType equipType;
 
+	//to do: turn into private with get set
 	public int usesLeft;
 
 	void Start()

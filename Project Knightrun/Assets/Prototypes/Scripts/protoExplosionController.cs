@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using com.cyborgAssets.inspectorButtonPro;
 
+
+//the protoexplodechildren function could probably be used in the obstacle class, depending on how the parts are set up
 public class protoExplosionController : MonoBehaviour
 {
 
@@ -13,6 +15,7 @@ public class protoExplosionController : MonoBehaviour
 	[ProPlayButton]
 	public void ProtoExplodeChildren()
 	{
+		//takes EVERY child and "explodes" it
 		foreach (Transform child in transform)
 		{
 			protoObstacleDemo script = child.GetComponent<protoObstacleDemo>();

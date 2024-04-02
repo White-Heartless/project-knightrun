@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public GameController GameController;
-    public InputController InputController;
+    private GameController GameController;
+    private InputController InputController;
+
     public List<Equipment> CurrentEquip = new List<Equipment>();
 
-    private void Awake()
+    private void Start()
     {
         GameController = FindObjectOfType<GameController>();
         InputController = FindObjectOfType<InputController>();
@@ -26,11 +27,12 @@ public class Player : MonoBehaviour
     }
 	*/
 
-    public bool HasEquipment(int _e)
+	//returns true if equipment was used, or false if it couldn't
+    public bool TryUsingEquipment(int equipmentRequired)
     {
         foreach(Equipment e in CurrentEquip)
         {
-            if ((int)e.equipType == _e && e.hasUsesLeft())
+            if ((int)e.equipType == equipmentRequired && e.hasUsesLeft())
             {
 				e.useEquip();
                 return true;
@@ -42,13 +44,14 @@ public class Player : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Trigger"))
-            GameController.SpawnRoom();
+            GameController.SpawnRoom(); //spawn a new room when player hits a generation trigger
 		else if (other.gameObject.CompareTag("3D to 2D"))
             GameController.Toggle2D3D(true); //swap to 2D
 		else if (other.gameObject.CompareTag("2D to 3D"))
             GameController.Toggle2D3D(false); //swap to 3D
     }
 
+	//this prevents multiple jumps in the air
     public void OnCollisionEnter(Collision collision)
     {
         if (collision.collider.CompareTag("Ground"))
