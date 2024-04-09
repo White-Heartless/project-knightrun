@@ -12,7 +12,7 @@ public class UIController : MonoBehaviour
 	private GameController gameController;
 
 	[SerializeField]
-	private Canvas cnvMainMenu, cnvSettings, cnvGameplay, cnvPause, cnvGameOver, cnvRevive;
+	private Canvas cnvMainMenu, cnvSettings, cnvGameplay, cnvPause, cnvGameOver, cnvRevive, cnvEquipSwap;
 
 	[SerializeField]
 	private Image[] EquipIcons;
@@ -70,7 +70,8 @@ public class UIController : MonoBehaviour
 	public void resetUI()
 	{
 		cnvMainMenu.gameObject.SetActive(true);
-		cnvSettings.gameObject.SetActive(false);
+        cnvEquipSwap.gameObject.SetActive(false);
+        cnvSettings.gameObject.SetActive(false);
 		cnvGameplay.gameObject.SetActive(false);
 		cnvPause.gameObject.SetActive(false);
 		cnvGameOver.gameObject.SetActive(false);
@@ -110,7 +111,8 @@ public class UIController : MonoBehaviour
 
 	public void btnQuit()
 	{
-		cnvRevive.gameObject.SetActive(false);
+        cnvEquipSwap.gameObject.SetActive(false);
+        cnvRevive.gameObject.SetActive(false);
 		cnvGameOver.gameObject.SetActive(false);
 		cnvPause.gameObject.SetActive(false);
 		cnvGameplay.gameObject.SetActive(false);
@@ -118,7 +120,17 @@ public class UIController : MonoBehaviour
 		gameController.onGameOver();
 	}
 
-	public void promptRevive()
+    public void btnEquipSwap()
+    {
+		cnvEquipSwap.gameObject.SetActive(true);
+        cnvRevive.gameObject.SetActive(false);
+        cnvGameOver.gameObject.SetActive(false);
+        cnvPause.gameObject.SetActive(false);
+        cnvGameplay.gameObject.SetActive(false);
+        cnvMainMenu.gameObject.SetActive(false);
+    }
+
+    public void promptRevive()
 	{
 		cnvRevive.gameObject.SetActive(true);
 	}
