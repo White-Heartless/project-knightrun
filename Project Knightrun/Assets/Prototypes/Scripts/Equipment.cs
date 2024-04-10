@@ -6,6 +6,7 @@ public class Equipment : MonoBehaviour
 {
 	public CollectibleController collectibleController;
 	private GameController gameController;
+	public EquipSwap equipSwap;
 
 	public enum EquipType
 	{
@@ -41,13 +42,13 @@ public class Equipment : MonoBehaviour
 		if (usesLeft == 0)
 		{
 			gameController.onEquipConsumed((int)equipType);
-			gameObject.SetActive(false);
+            equipSwap.RemoveItem(this);
 		}
 	}
 
 	public void activateEquip()
 	{
-		gameObject.SetActive(true);
+        equipSwap.AddItem(this);
 		if (gameController == null)
 			gameController = FindObjectOfType<GameController>();
 		gameController.onEquipActivated((int)equipType);
