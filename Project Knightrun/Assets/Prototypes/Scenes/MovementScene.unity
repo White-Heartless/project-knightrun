@@ -1079,6 +1079,7 @@ MonoBehaviour:
   cameraSwitch: {fileID: 1656617821}
   inputController: {fileID: 1899195980}
   player: {fileID: 1514502961}
+  questManager: {fileID: 864389370}
   startingRoom: {fileID: 1924751869780141111, guid: 889e9499756412b48a3adbc38fc4465a, type: 3}
   roomArray3D:
   - {fileID: 995505746572922682, guid: f53ee6bd73d46e74699c88f5f4876031, type: 3}
@@ -9157,6 +9158,52 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 859101424}
   m_CullTransparentMesh: 1
+--- !u!1 &864389369
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 864389371}
+  - component: {fileID: 864389370}
+  m_Layer: 0
+  m_Name: QuestManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &864389370
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 864389369}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8cbf58ba8011e644ab175345170f75bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ActiveQuests: []
+  gameController: {fileID: 0}
+--- !u!4 &864389371
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 864389369}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.08020681, y: 9.518749, z: -0.8004322}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &864462158
 GameObject:
   m_ObjectHideFlags: 0
@@ -14347,3 +14394,4 @@ SceneRoots:
   - {fileID: 1391539613}
   - {fileID: 1545382955}
   - {fileID: 476911721}
+  - {fileID: 864389371}

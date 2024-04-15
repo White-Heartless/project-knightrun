@@ -16,6 +16,8 @@ public class GameController : MonoBehaviour
 	private InputController inputController;
 	[SerializeField]
 	private Player player;
+	[SerializeField]
+	private QuestManager questManager;
 
 	public Room startingRoom;
 	public Room[] roomArray3D;
@@ -42,6 +44,7 @@ public class GameController : MonoBehaviour
 			inputController.Adjust();
 			cameraSwitch.CamSwitchTo2D();
 			player.transform.Rotate(0,0,90f);
+			questManager.UpdateQuestProgress(3);
 		}
 		else //switching to 3d
 		{
@@ -63,6 +66,7 @@ public class GameController : MonoBehaviour
     {
         runSoftCurrency++;
 		uiController.updateSoftCurrency(runSoftCurrency);
+		questManager.UpdateQuestProgress(2);
     }
 
     public void IncreaseHardCurrency()
@@ -71,10 +75,28 @@ public class GameController : MonoBehaviour
 		uiController.updateHardCurrency(runHardCurrency);
     }
 
+	public void DecreaseSoftCurrency()
+	{
+		totalSoftCurrency--;
+		uiController.updateTotalCurrency(totalSoftCurrency, totalHardCurrency);
+	}
+
+	public void DecreaseHardCurrency()
+	{
+		totalHardCurrency++;
+		uiController.updateTotalCurrency(totalSoftCurrency, totalHardCurrency);
+	}
+
 	void Update()
 	{
 		distance += Time.deltaTime;
 		uiController.updateDistance(distance);
+		UpdateRunQuest();
+	}
+
+	void UpdateRunQuest()
+    {
+		questManager.UpdateQuestProgress(0);
 	}
 
     public void onGameStart()
