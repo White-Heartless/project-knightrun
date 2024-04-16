@@ -19,8 +19,8 @@ public class Quest : ScriptableObject
 
     public enum RewardType
     {
-        hardCoin,
-        softCoin
+        softCoin,
+        hardCoin
     }
     public RewardType rewardType;
     public int rewardAmount;

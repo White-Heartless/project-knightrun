@@ -90,22 +90,22 @@ public class QuestManager : MonoBehaviour
 
     public void UpdateQuestProgress(int objective)
     {
-        foreach (Quest q in ActiveQuests)
+        for(int i = ActiveQuests.Count - 1; i >=0; i--)
         {
-            if((int)q.objectiveType == objective)
+            if((int)ActiveQuests[i].objectiveType == objective)
             {
-                q.currentAmount++;
-                if (q.currentAmount >= q.targetAmount)
+                ActiveQuests[i].currentAmount++;
+                if (ActiveQuests[i].currentAmount >= ActiveQuests[i].targetAmount)
                 {
-                    if(q.rewardType == 0)
+                    if(ActiveQuests[i].rewardType == 0)
                     {
-                        gameController.totalSoftCurrency += q.rewardAmount;
+                        gameController.totalSoftCurrency += ActiveQuests[i].rewardAmount;
                     }
                     else
                     {
-                        gameController.totalHardCurrency += q.rewardAmount;
+                        gameController.totalHardCurrency += ActiveQuests[i].rewardAmount;
                     }
-                    ActiveQuests.Remove(q);
+                    ActiveQuests.RemoveAt(i);
                     PlayerPrefs.SetInt("LastDay", System.DateTime.Now.Day);
                 }
             }
