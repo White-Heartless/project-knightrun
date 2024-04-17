@@ -48,7 +48,8 @@ public class RoomEditor : Editor
         GameObject floor = GameObject.CreatePrimitive(PrimitiveType.Plane);
 		floor.name = "Floor";
         floor.transform.SetParent(room.transform);
-        floor.transform.localScale = new Vector3(0.75f, 1f, room.roomLength);
+		floor.transform.localRotation = Quaternion.Euler(0f,90f,0f);
+        floor.transform.localScale = new Vector3(room.roomLength, 1f, 1.15f);
         floor.transform.localPosition = new Vector3(0,0,5 * room.roomLength);
 		floor.tag = "Ground";
 
@@ -56,9 +57,11 @@ public class RoomEditor : Editor
         CreateWall(room, new Vector3(-6.5f, 3f, 5 * room.roomLength), Quaternion.Euler(0f, -90f, 0f), "LeftWall");
         CreateWall(room, new Vector3(6.5f, 3f, 5 * room.roomLength), Quaternion.Euler(0f, 90f, 0f), "RightWall");
 
+		/*
 		// Create side platforms
 		CreatePlatform(room, new Vector3(-4.5f, 0.4754f, 5*room.roomLength) , Quaternion.Euler(0f, -90f, 0f), "LeftPlatform");
 		CreatePlatform(room, new Vector3(4.5f, 0.4754f, 5*room.roomLength) , Quaternion.Euler(0f, 90f, 0f), "RightPlatform");
+		*/
 
 		GameObject roof = GameObject.CreatePrimitive(PrimitiveType.Cube);
 		roof.transform.SetParent(room.transform);
@@ -131,7 +134,7 @@ public class RoomEditor : Editor
 
     float FindNearestLaneXPosition(float localXPosition)
     {
-        float[] laneXPositions = new float[] { -1.5f, 0f, 1.5f }; //lane Z-positions
+        float[] laneXPositions = new float[] { -1.75f, -0.865f, 0f, 0.865f, 1.75f }; //lane Z-positions
 
         float nearestLaneXPosition = laneXPositions[0];
         float minDistance = Mathf.Abs(localXPosition - laneXPositions[0]);
