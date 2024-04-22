@@ -28,6 +28,7 @@ public class InputController : MonoBehaviour
     public void Start()
     {
         player = FindObjectOfType<Player>();
+        animator = player.GetComponent<Animator>();
 		canMove = true;
     }
 
