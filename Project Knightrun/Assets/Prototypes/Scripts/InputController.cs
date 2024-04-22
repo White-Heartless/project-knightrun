@@ -14,6 +14,8 @@ public class InputController : MonoBehaviour
     private Player player;
 	[SerializeField]
     private GameController gameController;
+    [SerializeField]
+    private Animator animator;
 
 	// lane positions, more could be added
 	//IF MORE LANES ARE ADDED UPDATE MIDDLE_LANE MANUALLY!!!
@@ -37,9 +39,17 @@ public class InputController : MonoBehaviour
 	public void LeftRight()
 	{
 		if (Input.GetKeyDown(KeyCode.A) && currentLaneIndex > 0 && canMove && !gameController.is2D)
-            StartCoroutine(MoveToLane(currentLaneIndex - 1)); // Move to the left lane
-        else if (Input.GetKeyDown(KeyCode.D) && (currentLaneIndex < (lanePositions.Length - 1))  && canMove && !gameController.is2D)
-            StartCoroutine(MoveToLane(currentLaneIndex + 1)); // Move to the right lane
+		{
+      animator.SetTrigger("LeftStrafe");
+			StartCoroutine(MoveToLane(currentLaneIndex - 1)); // Move to the left lane
+			gameController.onLaneChange(currentLaneIndex - 1);
+		}
+    else if (Input.GetKeyDown(KeyCode.D) && (currentLaneIndex < (lanePositions.Length - 1))  && canMove && !gameController.is2D)
+    {
+      animator.SetTrigger("RightStrafe");
+			StartCoroutine(MoveToLane(currentLaneIndex + 1)); // Move to the right lane
+			gameController.onLaneChange(currentLaneIndex + 1);
+		}    
 	}
 
 	//these 2 functions are needed to prevent lane bugs when switching 2d <-> 3d
@@ -71,6 +81,7 @@ public class InputController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space) && (canJump == false))
         {
+            animator.SetTrigger("Jump");
             Vector3 currentVelocity = player.GetComponent<Rigidbody>().velocity;
             player.GetComponent<Rigidbody>().velocity = new Vector3(currentVelocity.x, 0, currentVelocity.z);
             player.GetComponent<Rigidbody>().AddForce(Vector3.up * jumpForce);

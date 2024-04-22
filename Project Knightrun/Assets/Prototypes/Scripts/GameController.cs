@@ -18,6 +18,7 @@ public class GameController : MonoBehaviour
 	private Player player;
 	[SerializeField]
 	private QuestManager questManager;
+	private Animator animator;
 
 	public Room startingRoom;
 	public Room[] roomArray3D;
@@ -50,7 +51,7 @@ public class GameController : MonoBehaviour
 		{
 			is2D = false;
 			cameraSwitch.CamSwitchTo3D();
-			player.transform.Rotate(0,0,-90f);
+			player.transform.Rotate(0,0,0);
 		}
 	}
 
@@ -134,7 +135,7 @@ public class GameController : MonoBehaviour
 		GameObject startRoom = GameObject.Instantiate(startingRoom.gameObject, new Vector3(0, 0, 10f), Quaternion.identity);
         startRoom.transform.Rotate(0, -90, 0);
 		lastRoom = startRoom.GetComponent<Room>();
-		player.transform.position = new Vector3(0,0,0);
+		player.transform.position = new Vector3(0,0.1f,0);
 		//inputcontroller.currentlaneindex=1;
 		if (is2D)
 			Toggle2D3D(false);
@@ -143,6 +144,7 @@ public class GameController : MonoBehaviour
 	//only called if obstacle could not be destroyed
 	public void onObstacleHit()
 	{
+		//animator.SetTrigger("Die");
 		Time.timeScale = 0;
 		uiController.promptRevive();
 	}
@@ -240,7 +242,7 @@ public class GameController : MonoBehaviour
 		if (!is2D)
 		{
 			lastGlobalPos = lastRoom.transform.Find("RoomEnd3D").position;
-			Quaternion rotation = Quaternion.Euler(0, -90, 0);
+			Quaternion rotation = Quaternion.Euler(0, 0, 0);
 			GameObject newRoom = GameObject.Instantiate(SelectRoom(), new Vector3(-999f,-999f,-999f), rotation);
 			newRoom.transform.position = lastGlobalPos;
 			lastGlobalPos = newRoom.transform.Find("RoomEnd3D").position;
@@ -261,4 +263,9 @@ public class GameController : MonoBehaviour
     {
         Destroy(_room);
     }
+
+	public void onLaneChange(int _laneIndex)
+	{
+		cameraSwitch.CamSwitchLane(_laneIndex);
+	}
 }
