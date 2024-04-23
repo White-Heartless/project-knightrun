@@ -17,7 +17,7 @@ public class UIController : MonoBehaviour
 	[SerializeField]
 	private Image[] EquipIcons;
 
-	private Color[] color = new Color[3];
+	private Color[] color = new Color[5];
 
 	[SerializeField]
 	private TextMeshProUGUI txtGameplaySoftCurrency;
@@ -37,6 +37,8 @@ public class UIController : MonoBehaviour
 		color[0] = EquipIcons[0].color;
 		color[1] = EquipIcons[1].color;
 		color[2] = EquipIcons[2].color;
+		color[3] = EquipIcons[3].color;
+		color[4] = EquipIcons[4].color;
 		txtGameplaySoftCurrency.text = "0";
 		txtGameplayHardCurrency.text = "0";
 	}

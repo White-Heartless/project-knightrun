@@ -20,7 +20,7 @@ public class InputController : MonoBehaviour
 
 	// lane positions, more could be added
 	//IF MORE LANES ARE ADDED UPDATE MIDDLE_LANE MANUALLY!!!
-	private float[] lanePositions = new float[] { -1.5f, 0f, 1.5f };
+	private float[] lanePositions = new float[] { -1.75f, 0f, 1.75f };
 
 	//todo add get set
     private int currentLaneIndex = 1; // start at the middle lane
