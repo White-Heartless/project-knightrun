@@ -49,7 +49,7 @@ public class GameController : MonoBehaviour
 		{
 			is2D = false;
 			cameraSwitch.CamSwitchTo3D();
-			player.transform.Rotate(0,0,0);
+			player.transform.Rotate(0,-90f,0);
 		}
 	}
 
