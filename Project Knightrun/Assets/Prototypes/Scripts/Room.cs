@@ -1,25 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor;
 
-[System.Serializable]
 public class Room : MonoBehaviour
 {
-	public enum RoomType
-	{
-		Straigth,
-		Right3DTo2D,
-		Left3DTo2D,
-	}
-
 	[SerializeField]
     private GameController GameController;
-
-	public bool enableEditMode = false;
-	public RoomType roomType = RoomType.Straigth;
-	public float roomLength = 2f;
-	
 
     private void Start()
     {
