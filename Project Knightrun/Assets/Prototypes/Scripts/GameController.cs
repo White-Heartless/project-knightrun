@@ -70,7 +70,9 @@ public class GameController : MonoBehaviour
 
     private void Start()
     {
-		GameObject startRoom = GameObject.Instantiate(startingRoom.gameObject, new Vector3(0, 0, 10f), Quaternion.identity);
+        player = FindObjectOfType<Player>();
+        animator = player.GetComponent<Animator>();
+        GameObject startRoom = GameObject.Instantiate(startingRoom.gameObject, new Vector3(0, 0, 10f), Quaternion.identity);
 		startRoom.transform.Rotate(0, -90, 0);
 		lastRoom = startRoom.GetComponent<Room>();
 		Time.timeScale = 0;
