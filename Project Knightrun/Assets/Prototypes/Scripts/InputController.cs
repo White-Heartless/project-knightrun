@@ -4,30 +4,32 @@ using UnityEngine;
 
 public class InputController : MonoBehaviour
 {
-	const int MIDDLE_LANE = 1;
+    const int MIDDLE_LANE = 1;
 
     public float laneChangeSpeed = 5f;
     public float jumpForce = 150f;
     private bool canMove;
+    [SerializeField]
     private bool canJump;
-	[SerializeField]
+    [SerializeField]
     private Player player;
-	[SerializeField]
+    [SerializeField]
     private GameController gameController;
     [SerializeField]
     private Animator animator;
 
-	// lane positions, more could be added
-	//IF MORE LANES ARE ADDED UPDATE MIDDLE_LANE MANUALLY!!!
-	private float[] lanePositions = new float[] { -1.75f, 0f, 1.75f };
+    // lane positions, more could be added
+    //IF MORE LANES ARE ADDED UPDATE MIDDLE_LANE MANUALLY!!!
+    private float[] lanePositions = new float[] { -1.5f, 0f, 1.5f };
 
-	//todo add get set
+    //todo add get set
     private int currentLaneIndex = 1; // start at the middle lane
 
     public void Start()
     {
         player = FindObjectOfType<Player>();
-		canMove = true;
+        animator = player.GetComponent<Animator>();
+        canMove = true;
     }
 
     void Update()
@@ -36,33 +38,33 @@ public class InputController : MonoBehaviour
         Jump();
     }
 
-	public void LeftRight()
-	{
-		if (Input.GetKeyDown(KeyCode.A) && currentLaneIndex > 0 && canMove && !gameController.is2D)
-		{
+    public void LeftRight()
+    {
+        if (Input.GetKeyDown(KeyCode.A) && currentLaneIndex > 0 && canMove && !gameController.is2D)
+        {
             animator.SetBool("RightStrafe", false);
             animator.SetBool("LeftStrafe", true);
             StartCoroutine(AnimationTimer());
             StartCoroutine(MoveToLane(currentLaneIndex - 1)); // Move to the left lane
-			gameController.onLaneChange(currentLaneIndex - 1);
-		}
-    else if (Input.GetKeyDown(KeyCode.D) && (currentLaneIndex < (lanePositions.Length - 1))  && canMove && !gameController.is2D)
-    {
+            gameController.onLaneChange(currentLaneIndex - 1);
+        }
+        else if (Input.GetKeyDown(KeyCode.D) && (currentLaneIndex < (lanePositions.Length - 1)) && canMove && !gameController.is2D)
+        {
             animator.SetBool("LeftStrafe", false);
             animator.SetBool("RightStrafe", true);
             StartCoroutine(AnimationTimer());
             StartCoroutine(MoveToLane(currentLaneIndex + 1)); // Move to the right lane
-			gameController.onLaneChange(currentLaneIndex + 1);
-		}    
-	}
+            gameController.onLaneChange(currentLaneIndex + 1);
+        }
+    }
 
-	//these 2 functions are needed to prevent lane bugs when switching 2d <-> 3d
-	public void Adjust() => StartCoroutine(CoroutineAdjust());
+    //these 2 functions are needed to prevent lane bugs when switching 2d <-> 3d
+    public void Adjust() => StartCoroutine(CoroutineAdjust());
 
-	IEnumerator CoroutineAdjust()
+    IEnumerator CoroutineAdjust()
     {
         yield return new WaitForSeconds(0.25f); //prevents a bug that messes up the lanes
-		StartCoroutine(MoveToLane(MIDDLE_LANE));
+        StartCoroutine(MoveToLane(MIDDLE_LANE));
     }
 
     //timer to prevent que of animation
@@ -73,12 +75,12 @@ public class InputController : MonoBehaviour
         animator.SetBool("RightStrafe", false);
     }
 
-	IEnumerator MoveToLane(int targetLaneIndex)
+    IEnumerator MoveToLane(int targetLaneIndex)
     {
         canMove = false; //prevent moving while already moving
 
         float targetX = lanePositions[targetLaneIndex];
-        while (Mathf.Abs( player.gameObject.transform.position.x - targetX) > 0.01f)
+        while (Mathf.Abs(player.gameObject.transform.position.x - targetX) > 0.01f)
         {
             player.gameObject.transform.position = Vector3.MoveTowards(player.gameObject.transform.position, new Vector3(targetX, player.gameObject.transform.position.y, player.gameObject.transform.position.z), laneChangeSpeed * Time.deltaTime);
             yield return null; // Wait for the next frame
