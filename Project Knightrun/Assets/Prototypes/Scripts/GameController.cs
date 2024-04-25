@@ -167,6 +167,18 @@ public class GameController : MonoBehaviour
 		uiController.promptRevive();
 	}
 
+	public void onEquipMenuEnter()
+	{
+		cameraSwitch.CamRotateToEquip();
+		player.transform.position = new Vector3(0.21f, 0, -10.24f);
+		player.transform.localScale = new Vector3(2.5f, 2.5f, 2.5f);
+	}
+
+	public void onEquipMenuExit()
+	{
+
+	}
+
 	//to do: add the rest of equipments
 	public void onEquipConsumed(int _equipType)
 	{

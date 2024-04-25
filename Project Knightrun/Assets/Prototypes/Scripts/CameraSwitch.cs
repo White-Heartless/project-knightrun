@@ -21,6 +21,11 @@ public class CameraSwitch : MonoBehaviour
         //startRot = transform.rotation;
     }
 
+    public void CamRotateToEquip()
+    {
+        StartCoroutine(MoveCameraToEquip());
+    }
+
     [ProButton]
     public void CamSwitchTo2D()
     {
@@ -119,6 +124,31 @@ public class CameraSwitch : MonoBehaviour
                 Mathf.LerpAngle(targetRotation.x, startRot.eulerAngles.x, elapsedTime / moveDuration),
                 Mathf.LerpAngle(targetRotation.y, startRot.eulerAngles.y, elapsedTime / moveDuration),
                 Mathf.LerpAngle(targetRotation.z, startRot.eulerAngles.z, elapsedTime / moveDuration)
+            );
+
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        transform.position = startPos;
+        transform.rotation = startRot;
+    }
+    IEnumerator MoveCameraToEquip()
+    {
+        float elapsedTime = 0;
+        float moveDuration = 1f;
+        Vector3 _startPos = new Vector3(0, 5f, -3.8f);
+        Vector3 _endPos = new Vector3(0.38f, 2.85f, -3.55f);
+        Vector3 _startRot = new Vector3(26.39f, 0, 0);
+        Vector3 _endRot = new Vector3(16.66f, 180f, 0);
+
+        while (elapsedTime < moveDuration)
+        {
+            transform.position = Vector3.Lerp(_endPos, _startPos, elapsedTime / moveDuration);
+            transform.rotation = Quaternion.Euler(
+                Mathf.LerpAngle(_endRot.x, _startRot.x, elapsedTime / moveDuration),
+                Mathf.LerpAngle(_endRot.y, _startRot.y, elapsedTime / moveDuration),
+                Mathf.LerpAngle(_endRot.z, _startRot.z, elapsedTime / moveDuration)
             );
 
             elapsedTime += Time.deltaTime;

@@ -12,7 +12,7 @@ public class UIController : MonoBehaviour
 	private GameController gameController;
 
 	[SerializeField]
-	private Canvas cnvMainMenu, cnvSettings, cnvGameplay, cnvPause, cnvGameOver, cnvRevive;
+	private Canvas cnvMainMenu, cnvSettings, cnvGameplay, cnvPause, cnvGameOver, cnvRevive, cnvEquipMenu;
 
 	[SerializeField]
 	private Image[] EquipIcons;
@@ -110,7 +110,14 @@ public class UIController : MonoBehaviour
 		gameController.onResume();
 	}
 
-	public void btnQuit()
+	public void btnEquipMenu()
+	{
+		cnvMainMenu.gameObject.SetActive(false);
+		cnvEquipMenu.gameObject.SetActive(true);
+		gameController.onEquipMenuEnter();
+	}
+
+    public void btnQuit()
 	{
 		cnvRevive.gameObject.SetActive(false);
 		cnvGameOver.gameObject.SetActive(false);
