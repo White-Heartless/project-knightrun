@@ -20,8 +20,17 @@ public class GameController : MonoBehaviour
 	private Animator animator;
 
 	public Room startingRoom;
-	public Room[] roomArray3D;
-	public Room[] roomArray2D;
+	public Room[] roomArray3D1;
+	public Room[] roomArray2D1;
+	public Room[] roomArray3D2;
+	public Room[] roomArray2D2;
+	public Room[] roomArray3D3;
+	public Room[] roomArray2D3;
+	public Room[] roomArray3D4;
+	public Room[] roomArray2D4;
+	public Room[] roomArray3D5;
+	public Room[] roomArray2D5;
+	public int stage = 1;
     public int runSoftCurrency = 0;
 	private float distance = 0f;
 	private int highScore = 0;
@@ -77,6 +86,8 @@ public class GameController : MonoBehaviour
 	{
 		distance += Time.deltaTime;
 		uiController.updateDistance(distance);
+		if(stage < 5 && distance >= stage * 50)
+			onStageChange();
 	}
 
     public void onGameStart()
@@ -101,6 +112,7 @@ public class GameController : MonoBehaviour
 		uiController.updateTotalCurrency(totalSoftCurrency,totalHardCurrency);
 		runSoftCurrency = 0;
 		runHardCurrency = 0;
+		stage = 1;
 		uiController.updateSoftCurrency(runSoftCurrency);
 		uiController.updateHardCurrency(runHardCurrency);
 		GameObject[] allObjects = GameObject.FindObjectsOfType<GameObject>();
@@ -193,17 +205,70 @@ public class GameController : MonoBehaviour
 		Time.timeScale = 1;
 	}
 
-    private GameObject SelectRoom()
-    {
+	private GameObject SelectRoom()
+	{
 		GameObject roomToSpawn;
 
 		if (!is2D)
-			roomToSpawn = roomArray3D[Random.Range(0,roomArray3D.Length)].gameObject;
-		else
-			roomToSpawn = roomArray2D[Random.Range(0,roomArray2D.Length)].gameObject;
-		return roomToSpawn;
-    }
+		{
+			switch (stage)
+			{
+				case 1:
+					roomToSpawn = roomArray3D1[Random.Range(0, roomArray3D1.Length)].gameObject;
+					break;
 
+				case 2:
+					roomToSpawn = roomArray3D2[Random.Range(0, roomArray3D2.Length)].gameObject;
+					break;
+
+				case 3:
+					roomToSpawn = roomArray3D3[Random.Range(0, roomArray3D3.Length)].gameObject;
+					break;
+
+				case 4:
+					roomToSpawn = roomArray3D4[Random.Range(0, roomArray3D4.Length)].gameObject;
+					break;
+
+				case 5:
+					roomToSpawn = roomArray3D5[Random.Range(0, roomArray3D5.Length)].gameObject;
+					break;
+
+				default:
+					roomToSpawn = roomArray3D1[Random.Range(0, roomArray3D1.Length)].gameObject;
+					break;
+			}
+		}
+		else
+		{
+			switch (stage)
+			{
+				case 1:
+					roomToSpawn = roomArray2D1[Random.Range(0, roomArray2D1.Length)].gameObject;
+					break;
+
+				case 2:
+					roomToSpawn = roomArray2D2[Random.Range(0, roomArray2D2.Length)].gameObject;
+					break;
+
+				case 3:
+					roomToSpawn = roomArray2D3[Random.Range(0, roomArray2D3.Length)].gameObject;
+					break;
+
+				case 4:
+					roomToSpawn = roomArray2D4[Random.Range(0, roomArray2D4.Length)].gameObject;
+					break;
+
+				case 5:
+					roomToSpawn = roomArray2D5[Random.Range(0, roomArray2D5.Length)].gameObject;
+					break;
+
+				default:
+					roomToSpawn = roomArray2D1[Random.Range(0, roomArray2D1.Length)].gameObject;
+					break;
+			}
+		}
+		return roomToSpawn;
+	}
     public void SpawnRoom()
     {
 		if (!is2D)
@@ -235,4 +300,9 @@ public class GameController : MonoBehaviour
 	{
 		cameraSwitch.CamSwitchLane(_laneIndex);
 	}
+
+	public void onStageChange()
+    {
+		stage++;
+    }
 }
