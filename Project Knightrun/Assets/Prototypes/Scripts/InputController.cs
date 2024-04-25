@@ -9,7 +9,6 @@ public class InputController : MonoBehaviour
     public float laneChangeSpeed = 5f;
     public float jumpForce = 150f;
     private bool canMove;
-    [SerializeField]
     private bool canJump;
 	[SerializeField]
     private Player player;
@@ -28,7 +27,6 @@ public class InputController : MonoBehaviour
     public void Start()
     {
         player = FindObjectOfType<Player>();
-        animator = player.GetComponent<Animator>();
 		canMove = true;
     }
 

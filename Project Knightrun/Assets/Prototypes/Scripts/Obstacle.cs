@@ -6,6 +6,7 @@ public class Obstacle : MonoBehaviour
 {
 	private Player player;
 	private GameController gameController;
+	private QuestManager questManager;
 
 	public enum EquipmentRequired
 	{
@@ -23,6 +24,7 @@ public class Obstacle : MonoBehaviour
 	{
 		player = FindObjectOfType<Player>();
 		gameController = FindObjectOfType<GameController>();
+		questManager = FindObjectOfType<QuestManager>();
 	}
 
 	private void OnTriggerEnter(Collider other)
@@ -31,7 +33,10 @@ public class Obstacle : MonoBehaviour
 		{
 			//tries to use the appropriate equipment if the player has it
             if (player.TryUsingEquipment((int)equipmentRequired)) 
+			{
 				gameObject.SetActive(false);//will be subbstitued by the explosion function
+				questManager.UpdateQuestProgress(1);
+			}
             else
 				gameController.onObstacleHit();
 		}

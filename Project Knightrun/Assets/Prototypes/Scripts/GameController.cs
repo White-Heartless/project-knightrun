@@ -8,6 +8,9 @@ using System.Runtime.CompilerServices;
 
 public class GameController : MonoBehaviour
 {
+	const int MAX_STAGE = 5;
+	const float STAGE_DISTANCE = 50f;
+
 	[SerializeField]
 	private UIController uiController;
 	[SerializeField]
@@ -18,6 +21,8 @@ public class GameController : MonoBehaviour
 	private Player player;
 	[SerializeField]
 	private Animator animator;
+	[SerializeField]
+	private QuestManager questManager;
 
 	public Room startingRoom;
 	public Room[] roomArray3D1;
@@ -53,6 +58,7 @@ public class GameController : MonoBehaviour
 			inputController.Adjust();
 			cameraSwitch.CamSwitchTo2D();
 			player.transform.Rotate(0,90f,0);
+			questManager.UpdateQuestProgress(3);
 		}
 		else //switching to 3d
 		{
@@ -74,6 +80,7 @@ public class GameController : MonoBehaviour
     {
         runSoftCurrency++;
 		uiController.updateSoftCurrency(runSoftCurrency);
+		questManager.UpdateQuestProgress(2);
     }
 
     public void IncreaseHardCurrency()
@@ -82,12 +89,30 @@ public class GameController : MonoBehaviour
 		uiController.updateHardCurrency(runHardCurrency);
     }
 
+	public void DecreaseSoftCurrency()
+	{
+		totalSoftCurrency--;
+		uiController.updateTotalCurrency(totalSoftCurrency, totalHardCurrency);
+	}
+
+	public void DecreaseHardCurrency()
+	{
+		totalHardCurrency++;
+		uiController.updateTotalCurrency(totalSoftCurrency, totalHardCurrency);
+	}
+
 	void Update()
 	{
 		distance += Time.deltaTime;
 		uiController.updateDistance(distance);
-		if(stage < 5 && distance >= stage * 50)
+		UpdateRunQuest();
+		if(stage < MAX_STAGE && distance >= stage * STAGE_DISTANCE)
 			onStageChange();
+	}
+
+	void UpdateRunQuest()
+    {
+		questManager.UpdateQuestProgress(0);
 	}
 
     public void onGameStart()
@@ -126,7 +151,7 @@ public class GameController : MonoBehaviour
 		GameObject startRoom = GameObject.Instantiate(startingRoom.gameObject, new Vector3(0, 0, 10f), Quaternion.identity);
         startRoom.transform.Rotate(0, -90, 0);
 		lastRoom = startRoom.GetComponent<Room>();
-		player.transform.position = new Vector3(0,0.1f,0);
+		player.transform.position = new Vector3(0,0,0);
 		//inputcontroller.currentlaneindex=1;
 		if (is2D)
 			Toggle2D3D(false);
@@ -205,7 +230,7 @@ public class GameController : MonoBehaviour
 		Time.timeScale = 1;
 	}
 
-	private GameObject SelectRoom()
+    private GameObject SelectRoom()
 	{
 		GameObject roomToSpawn;
 
@@ -269,6 +294,7 @@ public class GameController : MonoBehaviour
 		}
 		return roomToSpawn;
 	}
+
     public void SpawnRoom()
     {
 		if (!is2D)
