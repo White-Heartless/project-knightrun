@@ -157,6 +157,7 @@ public class GameController : MonoBehaviour
 		lastRoom = startRoom.GetComponent<Room>();
 		player.transform.position = new Vector3(0,0,0);
 		//inputcontroller.currentlaneindex=1;
+		player.ArmorCheck();
 		if (is2D)
 			Toggle2D3D(false);
     }

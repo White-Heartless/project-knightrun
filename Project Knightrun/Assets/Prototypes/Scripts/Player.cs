@@ -65,4 +65,9 @@ public class Player : MonoBehaviour
         if (collision.collider.CompareTag("Ground"))
             InputController.ResetJump();
     }
+
+    public void ArmorCheck()
+    {
+        CurrentEquip[0].ArmorCheck();
+    }
 }

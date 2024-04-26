@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -25,7 +26,7 @@ public class Equipment : MonoBehaviour
 	{
 		gameController = FindObjectOfType<GameController>();
 		collectibleController = FindObjectOfType<CollectibleController>();
-		usesLeft = 2;
+		ArmorCheck();
 	}
 
 	public bool hasUsesLeft()
@@ -51,7 +52,7 @@ public class Equipment : MonoBehaviour
 		if (gameController == null)
 			gameController = FindObjectOfType<GameController>();
 		gameController.onEquipActivated((int)equipType);
-		usesLeft = 2;
+		//usesLeft = 2;
 	}
 
 	private void OnTriggerEnter(Collider other)
@@ -62,4 +63,21 @@ public class Equipment : MonoBehaviour
 			gameObject.SetActive(false);
 		}
 	}
+
+	public void ArmorCheck()
+	{
+		if (transform.parent.name == "PlayerLV1")
+		{
+			usesLeft = 0;
+		}
+		else if (transform.parent.name == "PlayerLV2")
+		{
+			usesLeft = 2;
+		}
+		else if (transform.parent.name == "PlayerLV3")
+		{
+			usesLeft = 3;
+        }
+        gameObject.SetActive(true);
+    }
 }
