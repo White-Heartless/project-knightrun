@@ -68,6 +68,7 @@ public class GameController : MonoBehaviour
 			is2D = false;
 			cameraSwitch.CamSwitchTo3D();
 			player.transform.Rotate(0,-90f,0);
+			runSpeed = 20;
 		}
 	}
 
@@ -104,6 +105,11 @@ public class GameController : MonoBehaviour
 	{
 		totalHardCurrency++;
 		uiController.updateTotalCurrency(totalSoftCurrency, totalHardCurrency);
+	}
+
+	public int getDistance()
+	{
+		return (int)distance;
 	}
 
 	void Update()
@@ -143,6 +149,7 @@ public class GameController : MonoBehaviour
 		runSoftCurrency = 0;
 		runHardCurrency = 0;
 		stage = 1;
+		questManager.ResetQuests();
 		uiController.updateSoftCurrency(runSoftCurrency);
 		uiController.updateHardCurrency(runHardCurrency);
 		GameObject[] allObjects = GameObject.FindObjectsOfType<GameObject>();

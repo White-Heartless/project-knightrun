@@ -32,6 +32,10 @@ public class UIController : MonoBehaviour
 	[SerializeField]
 	private TextMeshProUGUI txtMainHighScore;
 	[SerializeField]
+	private TextMeshProUGUI txtCurrent;
+	[SerializeField]
+	private TextMeshProUGUI txtTarget;
+	[SerializeField]
 	private AudioSource mainAudio;
 	private bool isAudioPlaying;
 
@@ -71,6 +75,16 @@ public class UIController : MonoBehaviour
 	public void updateHighScore(int _newHighScore)
 	{
 		txtMainHighScore.text = _newHighScore.ToString() + "m";
+	}
+
+	public void updateQuestProgress(int _newAmount)
+	{
+		txtCurrent.text = _newAmount.ToString();
+	}
+
+	public void setQuestProgress(int _targetAmount)
+	{
+		txtTarget.text = _targetAmount.ToString();
 	}
 
 	public void resetUI()
