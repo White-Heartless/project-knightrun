@@ -78,6 +78,18 @@ public class Equipment : MonoBehaviour
 		{
 			usesLeft = 3;
         }
+		else if (transform.parent.name == "PlayerLV4")
+		{
+			usesLeft = 4;
+		}
+		else if (transform.parent.name == "PlayerLV5")
+		{
+			usesLeft = 5;
+		}
+		else if (transform.parent.name == "PlayerLV6")
+		{
+			usesLeft = 6;
+		}
         gameObject.SetActive(true);
     }
 }
