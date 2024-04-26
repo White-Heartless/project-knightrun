@@ -17,6 +17,8 @@ public class InputController : MonoBehaviour
     [SerializeField]
     private Animator animator;
 
+	private Rigidbody rb;
+
 	// lane positions, more could be added
 	//IF MORE LANES ARE ADDED UPDATE MIDDLE_LANE MANUALLY!!!
 	private float[] lanePositions = new float[] { -1.75f, 0f, 1.75f };
@@ -28,13 +30,14 @@ public class InputController : MonoBehaviour
     {
         player = FindObjectOfType<Player>();
         animator = player.GetComponent<Animator>();
+		rb =  player.GetComponent<Rigidbody>();
 		canMove = true;
     }
 
     void Update()
     {
         LeftRight();
-        //Jump();
+        Jump();
     }
 
 	public void LeftRight()
@@ -91,26 +94,27 @@ public class InputController : MonoBehaviour
         player.gameObject.transform.rotation = Quaternion.Euler(0, 0, 0);
     }
 
-    /*public void Jump()
+    public void Jump()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && (canJump == false))
+        if (Input.GetKeyDown(KeyCode.Space) && (canJump == true))
         {
             animator.SetTrigger("Jump");
-            Vector3 currentVelocity = player.GetComponent<Rigidbody>().velocity;
-            player.GetComponent<Rigidbody>().velocity = new Vector3(currentVelocity.x, 0, currentVelocity.z);
-            player.GetComponent<Rigidbody>().AddForce(Vector3.up * jumpForce);
-            canJump = true;
+            Vector3 currentVelocity = rb.velocity;
+            rb.velocity = new Vector3(currentVelocity.x, 0, currentVelocity.z);
+            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+            canJump = false;
         }
-    }*/
+    }
 
     public void ResetJump()
     {
-        canJump = false;
+        canJump = true;
     }
 
     public void UpdatePlayer(Player p, Animator a)
     {
         player = p;
         animator = a;
+		rb =  player.GetComponent<Rigidbody>();
     }
 }
