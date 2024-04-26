@@ -68,6 +68,7 @@ public class GameController : MonoBehaviour
 			is2D = false;
 			cameraSwitch.CamSwitchTo3D();
 			player.transform.Rotate(0,-90f,0);
+			runSpeed = 20;
 		}
 	}
 

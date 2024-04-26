@@ -14,13 +14,6 @@ public class CameraSwitch : MonoBehaviour
 
 	private Coroutine laneChangeCoroutine = null;
 
-    void Start()
-    {
-        //we get the values
-        //startPos = transform.position;
-        //startRot = transform.rotation;
-    }
-
     public void CamRotateToEquip()
     {
         StartCoroutine(MoveCameraToEquip());
@@ -132,20 +125,21 @@ public class CameraSwitch : MonoBehaviour
 
         while (elapsedTime < moveDuration)
         {
-            transform.position = Vector3.Lerp(targetPosition, startPos, elapsedTime / moveDuration);
+            transform.position = Vector3.Lerp(targetPosition, new Vector3(0,5,-3.8f), elapsedTime / moveDuration);
             transform.rotation = Quaternion.Euler(
-                Mathf.LerpAngle(targetRotation.x, startRot.eulerAngles.x, elapsedTime / moveDuration),
-                Mathf.LerpAngle(targetRotation.y, startRot.eulerAngles.y, elapsedTime / moveDuration),
-                Mathf.LerpAngle(targetRotation.z, startRot.eulerAngles.z, elapsedTime / moveDuration)
+                Mathf.LerpAngle(targetRotation.x, 26.39f, elapsedTime / moveDuration),
+                Mathf.LerpAngle(targetRotation.y, 0, elapsedTime / moveDuration),
+                Mathf.LerpAngle(targetRotation.z, 0, elapsedTime / moveDuration)
             );
 
             elapsedTime += Time.deltaTime;
             yield return null;
         }
 
-        transform.position = startPos;
-        transform.rotation = startRot;
+        transform.position = new Vector3(0,5,-3.8f);
+        transform.rotation = Quaternion.Euler(26.39f,0,0);
     }
+
     IEnumerator MoveCameraToEquip()
     {
         Vector3 _endPos = new Vector3(0f, 1.1f, 3.35f);
