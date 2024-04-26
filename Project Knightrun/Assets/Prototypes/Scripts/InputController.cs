@@ -19,6 +19,8 @@ public class InputController : MonoBehaviour
 
 	private Rigidbody rb;
 
+	private Coroutine inputCoroutine = null;
+
 	// lane positions, more could be added
 	//IF MORE LANES ARE ADDED UPDATE MIDDLE_LANE MANUALLY!!!
 	private float[] lanePositions = new float[] { -1.75f, 0f, 1.75f };
@@ -47,7 +49,7 @@ public class InputController : MonoBehaviour
             animator.SetBool("RightStrafe", false);
             animator.SetBool("LeftStrafe", true);
             StartCoroutine(AnimationTimer());
-            StartCoroutine(MoveToLane(currentLaneIndex - 1)); // Move to the left lane
+            inputCoroutine = StartCoroutine(MoveToLane(currentLaneIndex - 1)); // Move to the left lane
 			gameController.onLaneChange(currentLaneIndex - 1);
 		}
     else if (Input.GetKeyDown(KeyCode.D) && (currentLaneIndex < (lanePositions.Length - 1))  && canMove && !gameController.is2D)
@@ -55,13 +57,23 @@ public class InputController : MonoBehaviour
             animator.SetBool("LeftStrafe", false);
             animator.SetBool("RightStrafe", true);
             StartCoroutine(AnimationTimer());
-            StartCoroutine(MoveToLane(currentLaneIndex + 1)); // Move to the right lane
+            inputCoroutine = StartCoroutine(MoveToLane(currentLaneIndex + 1)); // Move to the right lane
 			gameController.onLaneChange(currentLaneIndex + 1);
 		}    
 	}
 
 	//these 2 functions are needed to prevent lane bugs when switching 2d <-> 3d
 	public void Adjust() => StartCoroutine(CoroutineAdjust());
+
+	public void ResetPlayer()
+	{
+		if (inputCoroutine != null)
+		{
+			StopCoroutine(inputCoroutine);
+		}
+		canMove = true;
+		currentLaneIndex = 1;
+	}
 
 	IEnumerator CoroutineAdjust()
     {

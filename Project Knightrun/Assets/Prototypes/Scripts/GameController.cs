@@ -9,7 +9,7 @@ using System.Runtime.CompilerServices;
 public class GameController : MonoBehaviour
 {
 	const int MAX_STAGE = 5;
-	const float STAGE_DISTANCE = 50f;
+	const float STAGE_DISTANCE = 60f;
 
 	[SerializeField]
 	private UIController uiController;
@@ -163,11 +163,15 @@ public class GameController : MonoBehaviour
 		GameObject startRoom = GameObject.Instantiate(startingRoom.gameObject, new Vector3(0, 0, 10f), Quaternion.identity);
         startRoom.transform.Rotate(0, -90, 0);
 		lastRoom = startRoom.GetComponent<Room>();
+		inputController.ResetPlayer();
 		player.transform.position = new Vector3(0,0,0);
-		//inputcontroller.currentlaneindex=1;
 		player.ArmorCheck();
 		if (is2D)
 			Toggle2D3D(false);
+		cameraSwitch.CamSwitchLane(1);
+		cameraSwitch.ResetCamera();
+		cameraSwitch.gameObject.transform.rotation = Quaternion.Euler(26.39f,0,0);
+		cameraSwitch.gameObject.transform.position = new Vector3(0,5,-3.8f);	
     }
 
 	//only called if obstacle could not be destroyed

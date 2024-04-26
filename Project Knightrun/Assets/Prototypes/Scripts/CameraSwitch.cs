@@ -12,33 +12,59 @@ public class CameraSwitch : MonoBehaviour
     public Vector3 targetPosition;
     public Vector3 targetRotation;
 
+	private Coroutine cameraRoutine = null;
+
 	private Coroutine laneChangeCoroutine = null;
+
+	public void ResetCamera()
+	{
+		if (cameraRoutine != null)
+		{
+			StopCoroutine(cameraRoutine);
+			cameraRoutine = null;
+		}
+	}
 
     public void CamRotateToEquip()
     {
-        StartCoroutine(MoveCameraToEquip());
+		if (cameraRoutine != null)
+		{
+			StopCoroutine(cameraRoutine);
+			cameraRoutine = null;
+		}
+        cameraRoutine =  StartCoroutine(MoveCameraToEquip());
     }
 
     public void CamRotateToInitial()
     {
-        StartCoroutine(MoveCameraToInitial());
+		if (cameraRoutine != null)
+		{
+			StopCoroutine(cameraRoutine);
+			cameraRoutine = null;
+		}
+        cameraRoutine = StartCoroutine(MoveCameraToInitial());
     }
 
     [ProButton]
     public void CamSwitchTo2D()
     {
-		if (laneChangeCoroutine != null)
+		if (cameraRoutine != null)
 		{
-			StopCoroutine(laneChangeCoroutine);
-			laneChangeCoroutine = null;
+			StopCoroutine(cameraRoutine);
+			cameraRoutine = null;
 		}
-        StartCoroutine(MoveCameraTo2D());
+        cameraRoutine = StartCoroutine(MoveCameraTo2D());
     }
 	
     [ProButton]
     public void CamSwitchTo3D()
     {
-        StartCoroutine(MoveCameraTo3D());
+		if (cameraRoutine != null)
+		{
+			StopCoroutine(cameraRoutine);
+			cameraRoutine = null;
+		}
+        cameraRoutine = StartCoroutine(MoveCameraTo3D());
     }
 
 	public void CamSwitchLane(int _laneIndex)
@@ -62,12 +88,12 @@ public class CameraSwitch : MonoBehaviour
 				break;
 		}
 
-		if (laneChangeCoroutine != null)
+		if (cameraRoutine != null)
 		{
-			StopCoroutine(laneChangeCoroutine);
-			laneChangeCoroutine = null;
+			StopCoroutine(cameraRoutine);
+			cameraRoutine = null;
 		}
-        laneChangeCoroutine = StartCoroutine(MoveCameraToLane(_target));
+        cameraRoutine = StartCoroutine(MoveCameraToLane(_target));
     }
 
 	IEnumerator MoveCameraToLane(Vector3 _target)
