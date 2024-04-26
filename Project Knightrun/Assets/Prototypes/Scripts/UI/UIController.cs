@@ -36,6 +36,8 @@ public class UIController : MonoBehaviour
 	[SerializeField]
 	private TextMeshProUGUI txtTarget;
 	[SerializeField]
+	private TextMeshProUGUI txtObjective;
+	[SerializeField]
 	private AudioSource mainAudio;
 	private bool isAudioPlaying;
 
@@ -82,9 +84,27 @@ public class UIController : MonoBehaviour
 		txtCurrent.text = _newAmount.ToString();
 	}
 
-	public void setQuestProgress(int _targetAmount)
+	public void setQuest(int _targetAmount, int _questType)
 	{
 		txtTarget.text = _targetAmount.ToString();
+        switch (_questType)
+        {
+			case 0:
+				txtObjective.text = "Run";
+				break;
+
+			case 1:
+				txtObjective.text = "Destroy Obstacles";
+				break;
+
+			case 2:
+				txtObjective.text = "Collect Coins";
+				break;
+
+			case 3:
+				txtObjective.text = "Switch Mode";
+				break;
+		}
 	}
 
 	public void resetUI()
