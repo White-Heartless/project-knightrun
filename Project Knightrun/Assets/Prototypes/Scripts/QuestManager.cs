@@ -89,7 +89,7 @@ public class QuestManager : MonoBehaviour
                 break;
         }
         ActiveQuests.Add(newQuest);
-        uiController.setQuestProgress(newQuest.targetAmount);
+        uiController.setQuest(newQuest.targetAmount, (int)newQuest.objectiveType);
     }
 
     public void UpdateQuestProgress(int objective)
