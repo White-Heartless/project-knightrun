@@ -125,6 +125,7 @@ public class QuestManager : MonoBehaviour
         for (int i = ActiveQuests.Count - 1; i >= 0; i--)
         {
             ActiveQuests[i].currentAmount = 0;
+            uiController.updateQuestProgress(0);
         }
     }
 }
