@@ -6,6 +6,7 @@ public class QuestManager : MonoBehaviour
 {
     public List<Quest> ActiveQuests = new List<Quest>();
     public GameController gameController;
+    public UIController uiController;
 
     private void Start()
     {
@@ -20,6 +21,7 @@ public class QuestManager : MonoBehaviour
     private void Awake()
     {
         gameController = FindObjectOfType<GameController>();
+        uiController = FindObjectOfType<UIController>();
     }
 
     private void CreateNewQuest()
@@ -87,6 +89,7 @@ public class QuestManager : MonoBehaviour
                 break;
         }
         ActiveQuests.Add(newQuest);
+        uiController.setQuestProgress(newQuest.targetAmount);
     }
 
     public void UpdateQuestProgress(int objective)
@@ -95,7 +98,11 @@ public class QuestManager : MonoBehaviour
         {
             if((int)ActiveQuests[i].objectiveType == objective)
             {
-                ActiveQuests[i].currentAmount++;
+                if (objective != 0)
+                    ActiveQuests[i].currentAmount++;
+                else
+                    ActiveQuests[i].currentAmount = gameController.getDistance();
+                uiController.updateQuestProgress(ActiveQuests[i].currentAmount);
                 if (ActiveQuests[i].currentAmount >= ActiveQuests[i].targetAmount)
                 {
                     if(ActiveQuests[i].rewardType == 0)
@@ -110,6 +117,14 @@ public class QuestManager : MonoBehaviour
                     PlayerPrefs.SetInt("LastDay", System.DateTime.Now.Day);
                 }
             }
+        }
+    }
+
+    public void ResetQuests()
+    {
+        for (int i = ActiveQuests.Count - 1; i >= 0; i--)
+        {
+            ActiveQuests[i].currentAmount = 0;
         }
     }
 }
