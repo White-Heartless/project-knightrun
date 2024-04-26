@@ -34,7 +34,7 @@ public class InputController : MonoBehaviour
     void Update()
     {
         LeftRight();
-        Jump();
+        //Jump();
     }
 
 	public void LeftRight()
@@ -88,9 +88,10 @@ public class InputController : MonoBehaviour
         player.gameObject.transform.position = new Vector3(targetX, player.gameObject.transform.position.y, player.gameObject.transform.position.z);
         currentLaneIndex = targetLaneIndex;
         canMove = true;
+        player.gameObject.transform.rotation = Quaternion.Euler(0, 0, 0);
     }
 
-    public void Jump()
+    /*public void Jump()
     {
         if (Input.GetKeyDown(KeyCode.Space) && (canJump == false))
         {
@@ -100,11 +101,16 @@ public class InputController : MonoBehaviour
             player.GetComponent<Rigidbody>().AddForce(Vector3.up * jumpForce);
             canJump = true;
         }
-    }
+    }*/
 
     public void ResetJump()
     {
         canJump = false;
     }
 
+    public void UpdatePlayer(Player p, Animator a)
+    {
+        player = p;
+        animator = a;
+    }
 }

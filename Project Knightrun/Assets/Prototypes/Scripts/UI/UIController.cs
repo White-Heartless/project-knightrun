@@ -31,6 +31,9 @@ public class UIController : MonoBehaviour
 	private TextMeshProUGUI txtGameplayDistance;
 	[SerializeField]
 	private TextMeshProUGUI txtMainHighScore;
+	[SerializeField]
+	private AudioSource mainAudio;
+	private bool isAudioPlaying;
 
 	void Start()
 	{
@@ -41,6 +44,7 @@ public class UIController : MonoBehaviour
 		color[4] = EquipIcons[4].color;
 		txtGameplaySoftCurrency.text = "0";
 		txtGameplayHardCurrency.text = "0";
+		isAudioPlaying = true;
 	}
 
 	public void updateSoftCurrency(int _newValue)
@@ -91,6 +95,20 @@ public class UIController : MonoBehaviour
 		cnvMainMenu.gameObject.SetActive(true);
 	}
 
+	public void btnAudio()
+	{
+		isAudioPlaying = !isAudioPlaying;
+
+		if (isAudioPlaying)
+		{
+			mainAudio.Play();
+		}
+		else
+		{
+			mainAudio.Pause();
+		}
+    }
+
 	public void btnPlay()
 	{
 		cnvGameplay.gameObject.SetActive(true);
@@ -110,11 +128,23 @@ public class UIController : MonoBehaviour
 		gameController.onResume();
 	}
 
-	public void btnEquipMenu()
+	public void btnEquipMenuEnter()
 	{
 		cnvMainMenu.gameObject.SetActive(false);
 		cnvEquipMenu.gameObject.SetActive(true);
 		gameController.onEquipMenuEnter();
+	}
+
+	public void btnEquipMenuExit()
+	{
+		cnvEquipMenu.gameObject.SetActive(false);
+		cnvMainMenu.gameObject.SetActive(true);
+		gameController.onEquipMenuExit();
+	}
+
+	public void btnPlayer(int i)
+	{
+		gameController.PlayerSwap(i);
 	}
 
     public void btnQuit()

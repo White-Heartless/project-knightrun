@@ -23,6 +23,8 @@ public class GameController : MonoBehaviour
 	private Animator animator;
 	[SerializeField]
 	private QuestManager questManager;
+	[SerializeField]
+	private Player[] players;
 
 	public Room startingRoom;
 	public Room[] roomArray3D1;
@@ -170,14 +172,25 @@ public class GameController : MonoBehaviour
 	public void onEquipMenuEnter()
 	{
 		cameraSwitch.CamRotateToEquip();
-		player.transform.position = new Vector3(0.21f, 0, -10.24f);
-		player.transform.localScale = new Vector3(2.5f, 2.5f, 2.5f);
 	}
 
 	public void onEquipMenuExit()
 	{
-
+		cameraSwitch.CamRotateToInitial();
 	}
+
+	public void PlayerSwap(int index)
+	{
+		for (int i = 0; i < players.Length; i++)
+		{
+			players[i].gameObject.SetActive(false);
+		}
+
+		players[index].gameObject.SetActive(true);
+        player = players[index];
+        animator = player.GetComponent<Animator>();
+		inputController.UpdatePlayer(player, animator);
+    }
 
 	//to do: add the rest of equipments
 	public void onEquipConsumed(int _equipType)

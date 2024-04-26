@@ -26,6 +26,11 @@ public class CameraSwitch : MonoBehaviour
         StartCoroutine(MoveCameraToEquip());
     }
 
+    public void CamRotateToInitial()
+    {
+        StartCoroutine(MoveCameraToInitial());
+    }
+
     [ProButton]
     public void CamSwitchTo2D()
     {
@@ -135,27 +140,21 @@ public class CameraSwitch : MonoBehaviour
     }
     IEnumerator MoveCameraToEquip()
     {
-        float elapsedTime = 0;
-        float moveDuration = 1f;
-        Vector3 _startPos = new Vector3(0, 5f, -3.8f);
-        Vector3 _endPos = new Vector3(0.38f, 2.85f, -3.55f);
-        Vector3 _startRot = new Vector3(26.39f, 0, 0);
+        Vector3 _endPos = new Vector3(0f, 1.1f, 3.35f);
         Vector3 _endRot = new Vector3(16.66f, 180f, 0);
 
-        while (elapsedTime < moveDuration)
-        {
-            transform.position = Vector3.Lerp(_endPos, _startPos, elapsedTime / moveDuration);
-            transform.rotation = Quaternion.Euler(
-                Mathf.LerpAngle(_endRot.x, _startRot.x, elapsedTime / moveDuration),
-                Mathf.LerpAngle(_endRot.y, _startRot.y, elapsedTime / moveDuration),
-                Mathf.LerpAngle(_endRot.z, _startRot.z, elapsedTime / moveDuration)
-            );
+        transform.position = _endPos;
+        transform.rotation = Quaternion.Euler(_endRot);
+        yield return null;
+    }
 
-            elapsedTime += Time.deltaTime;
-            yield return null;
-        }
+    IEnumerator MoveCameraToInitial()
+    {
+        Vector3 _startPos = new Vector3(0, 5f, -3.8f);
+        Vector3 _startRot = new Vector3(26.39f, 0, 0);
 
-        transform.position = startPos;
-        transform.rotation = startRot;
+        transform.position = _startPos;
+        transform.rotation = Quaternion.Euler(_startRot);
+        yield return null;
     }
 }
