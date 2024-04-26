@@ -34,6 +34,11 @@ public class CameraSwitch : MonoBehaviour
     [ProButton]
     public void CamSwitchTo2D()
     {
+		if (laneChangeCoroutine != null)
+		{
+			StopCoroutine(laneChangeCoroutine);
+			laneChangeCoroutine = null;
+		}
         StartCoroutine(MoveCameraTo2D());
     }
 	
@@ -96,6 +101,9 @@ public class CameraSwitch : MonoBehaviour
         //Set the time for T value
         float elapsedTime = 0;
         float moveDuration = 1f;
+
+		startPos = transform.position;
+        startRot = transform.rotation;
 
         while (elapsedTime < moveDuration)
         {

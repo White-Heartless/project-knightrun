@@ -61,6 +61,7 @@ public class GameController : MonoBehaviour
 			cameraSwitch.CamSwitchTo2D();
 			player.transform.Rotate(0,90f,0);
 			questManager.UpdateQuestProgress(3);
+			runSpeed = 10;
 		}
 		else //switching to 3d
 		{

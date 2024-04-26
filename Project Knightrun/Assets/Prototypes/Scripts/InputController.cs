@@ -91,7 +91,7 @@ public class InputController : MonoBehaviour
         player.gameObject.transform.position = new Vector3(targetX, player.gameObject.transform.position.y, player.gameObject.transform.position.z);
         currentLaneIndex = targetLaneIndex;
         canMove = true;
-        player.gameObject.transform.rotation = Quaternion.Euler(0, 0, 0);
+        //player.gameObject.transform.rotation = Quaternion.Euler(0, 0, 0);
     }
 
     public void Jump()

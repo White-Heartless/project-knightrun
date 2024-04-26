@@ -17,18 +17,6 @@ public class Player : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
-	/*
-    public void OnDeath()
-    {
-        //  [Play death animation here]
-    }
-
-    public void OnRevive()
-    {
-        //  [Play revive animation here]
-    }
-	*/
-
 	//returns true if equipment was used, or false if it couldn't
     public bool TryUsingEquipment(int equipmentRequired)
     {
