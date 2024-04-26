@@ -107,6 +107,11 @@ public class GameController : MonoBehaviour
 		uiController.updateTotalCurrency(totalSoftCurrency, totalHardCurrency);
 	}
 
+	public int getDistance()
+	{
+		return (int)distance;
+	}
+
 	void Update()
 	{
 		distance += Time.deltaTime;
@@ -144,6 +149,7 @@ public class GameController : MonoBehaviour
 		runSoftCurrency = 0;
 		runHardCurrency = 0;
 		stage = 1;
+		questManager.ResetQuests();
 		uiController.updateSoftCurrency(runSoftCurrency);
 		uiController.updateHardCurrency(runHardCurrency);
 		GameObject[] allObjects = GameObject.FindObjectsOfType<GameObject>();
