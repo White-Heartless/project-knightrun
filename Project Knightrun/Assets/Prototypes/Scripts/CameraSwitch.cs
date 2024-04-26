@@ -14,8 +14,6 @@ public class CameraSwitch : MonoBehaviour
 
 	private Coroutine cameraRoutine = null;
 
-	private Coroutine laneChangeCoroutine = null;
-
 	public void ResetCamera()
 	{
 		if (cameraRoutine != null)
