@@ -90,6 +90,10 @@ public class Equipment : MonoBehaviour
 		{
 			usesLeft = 6;
 		}
+		else if (transform.parent.name == "PlayerLV7")
+		{
+			usesLeft = 9999;
+		}
         gameObject.SetActive(true);
     }
 }
