@@ -10,6 +10,7 @@ public class GameController : MonoBehaviour
 {
 	const int MAX_STAGE = 5;
 	const float STAGE_DISTANCE = 60f;
+	const float RUN_SPEED_2D = 10f;
 
 	[SerializeField]
 	private UIController uiController;
@@ -27,6 +28,7 @@ public class GameController : MonoBehaviour
 	private Player[] players;
 
 	public Room startingRoom;
+
 	public Room[] roomArray3D1;
 	public Room[] roomArray2D1;
 	public Room[] roomArray3D2;
@@ -37,6 +39,7 @@ public class GameController : MonoBehaviour
 	public Room[] roomArray2D4;
 	public Room[] roomArray3D5;
 	public Room[] roomArray2D5;
+
 	public int stage = 1;
     public int runSoftCurrency = 0;
 	private float distance = 0f;
@@ -44,7 +47,8 @@ public class GameController : MonoBehaviour
 	public int runHardCurrency = 0;
 	public int totalSoftCurrency = 0;
 	public int totalHardCurrency = 0;
-    public float runSpeed = 20;
+    public float runSpeed = 0;
+	private bool isRunning = false;
 
 	public Room lastRoom;
 	private Vector3 lastGlobalPos;
@@ -61,14 +65,14 @@ public class GameController : MonoBehaviour
 			cameraSwitch.CamSwitchTo2D();
 			player.transform.Rotate(0,90f,0);
 			questManager.UpdateQuestProgress(3);
-			runSpeed = 10;
+			runSpeed = RUN_SPEED_2D;
 		}
 		else //switching to 3d
 		{
 			is2D = false;
 			cameraSwitch.CamSwitchTo3D();
 			player.transform.Rotate(0,-90f,0);
-			runSpeed = 20;
+			runSpeed = 13 + (stage - 1);
 		}
 	}
 
@@ -79,7 +83,7 @@ public class GameController : MonoBehaviour
         GameObject startRoom = GameObject.Instantiate(startingRoom.gameObject, new Vector3(0, 0, 10f), Quaternion.identity);
 		startRoom.transform.Rotate(0, -90, 0);
 		lastRoom = startRoom.GetComponent<Room>();
-		Time.timeScale = 0;
+		//Time.timeScale = 0;
     }
 
     public void IncreaseSoftCurrency()
@@ -114,7 +118,8 @@ public class GameController : MonoBehaviour
 
 	void Update()
 	{
-		distance += Time.deltaTime;
+		if (isRunning)
+			distance += Time.deltaTime;
 		uiController.updateDistance(distance);
 		UpdateRunQuest();
 		if(stage < MAX_STAGE && distance >= stage * STAGE_DISTANCE)
@@ -130,12 +135,16 @@ public class GameController : MonoBehaviour
     {
 		distance = 0f;
 		uiController.updateDistance(distance);
-		Time.timeScale = 1;
+		isRunning = true;
+		runSpeed = 13 + (stage - 1);
+		//Time.timeScale = 1;
     }
 
     public void onGameOver()
     {
-        Time.timeScale = 0;
+		isRunning = false;
+		runSpeed = 0;
+        //Time.timeScale = 0;
 		if ((int)distance > highScore)
 		{
 			highScore = (int)distance;
@@ -178,7 +187,9 @@ public class GameController : MonoBehaviour
 	public void onObstacleHit()
 	{
 		//animator.SetTrigger("Die");
-		Time.timeScale = 0;
+		//Time.timeScale = 0;
+		runSpeed = 0;
+		isRunning = false;
 		uiController.promptRevive();
 	}
 
@@ -233,12 +244,16 @@ public class GameController : MonoBehaviour
 
     public void onPause()
     {
-		Time.timeScale = 0;
+		isRunning=false;
+		runSpeed = 0;
+		//Time.timeScale = 0;
     }
 
     public void onResume()
     {
-        Time.timeScale = 1;
+		isRunning = true;
+		runSpeed = 13 + (stage - 1);
+        //Time.timeScale = 1;
     }
 
 	public bool onHardCurrencyReviveAttempt()
@@ -267,7 +282,8 @@ public class GameController : MonoBehaviour
 			if (obstacleComponent != null)
 				Destroy(obj);
 		}
-		Time.timeScale = 1;
+		runSpeed = 13 + (stage - 1);
+		//Time.timeScale = 1;
 	}
 
     private GameObject SelectRoom()
