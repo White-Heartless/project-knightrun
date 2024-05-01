@@ -369,6 +369,6 @@ public class GameController : MonoBehaviour
 
 	public void onStageChange()
     {
-		stage++;
+		//stage++;
     }
 }
