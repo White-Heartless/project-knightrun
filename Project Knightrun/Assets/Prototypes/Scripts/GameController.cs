@@ -16,6 +16,8 @@ public class GameController : MonoBehaviour
 	[SerializeField]
 	private CameraSwitch cameraSwitch;
 	[SerializeField]
+	private ShopManager shopManager;
+	[SerializeField]
 	private InputController inputController;
 	[SerializeField]
 	private Player player;
@@ -48,8 +50,11 @@ public class GameController : MonoBehaviour
 
 	public Room lastRoom;
 	private Vector3 lastGlobalPos;
+	//array to store differente equipment counts
+	[SerializeField]
+    private int[] equipmentCounts = new int[5];
 
-	[HideInInspector]
+    [HideInInspector]
 	public bool is2D = false; //false = 3d mode, true = 2d mode
 
 	public void Toggle2D3D(bool _3or2) //false - 3d / true - 2d
@@ -114,7 +119,8 @@ public class GameController : MonoBehaviour
 
 	void Update()
 	{
-		distance += Time.deltaTime;
+        shopManager = FindObjectOfType<ShopManager>();
+        distance += Time.deltaTime;
 		uiController.updateDistance(distance);
 		UpdateRunQuest();
 		if(stage < MAX_STAGE && distance >= stage * STAGE_DISTANCE)
@@ -230,6 +236,36 @@ public class GameController : MonoBehaviour
 				break;
 		}
 	}
+
+    public void CollectEquipment(int level)
+    {
+        //Ensure level is within valid range
+        if (level >= 1 && level <= 5)
+        {
+            //Increment the count for the specified level
+            equipmentCounts[level - 1]++;
+        }
+        else
+        {
+            Debug.LogWarning("Invalid equipment level: " + level);
+        }
+    }
+
+    //Method to get the count of equipment for a specific level
+    public int GetEquipmentCount(int level)
+    {
+        //Ensure level is within valid range (1 to 5)
+        if (level >= 1 && level <= 5)
+        {
+            //Return the count for the specified level
+            return equipmentCounts[level - 1];
+        }
+        else
+        {
+            Debug.LogWarning("Invalid equipment level: " + level);
+            return 0;
+        }
+    }
 
     public void onPause()
     {
@@ -371,4 +407,10 @@ public class GameController : MonoBehaviour
     {
 		stage++;
     }
+
+	public void SpendSoftCurrency(int index)
+	{
+		totalSoftCurrency -= index;
+		shopManager.CheckCurrencyAmount();
+	}
 }

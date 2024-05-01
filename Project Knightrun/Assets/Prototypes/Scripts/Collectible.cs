@@ -27,8 +27,19 @@ public class Collectible : MonoBehaviour
 		sword = CollectibleType.equip
     }
 
+	public enum EquipLevel
+	{
+		none,
+		levelone = CollectibleType.equip,
+		leveltwo = CollectibleType.equip,
+		levelthree = CollectibleType.equip,
+		levelfour = CollectibleType.equip,
+		levelfive = CollectibleType.equip
+	}
+
 	public CoinType coinType;
 	public EquipType equipType;
+	public EquipLevel equipLevel;
 
 	void Start()
 	{
@@ -44,10 +55,21 @@ public class Collectible : MonoBehaviour
 				Debug.Log("Coin");
 				Destroy(gameObject);
 			}
-			else if (equipType != EquipType.none)
+			else if (equipLevel == EquipLevel.levelone)
 			{
-				Debug.Log("Equip");
-				Destroy(gameObject);
+                if (equipLevel != EquipLevel.none)
+                {
+                    int equipLevelInt = (int)equipLevel;
+
+                    // Collect the equipment
+                    gameController.CollectEquipment(equipLevelInt);
+                    Debug.Log("Equipment collected: " + equipType + " (Level " + equipLevel + ")");
+                    Destroy(gameObject);
+                }
+                else
+                {
+                    Debug.LogWarning("Invalid equipment level: " + equipLevel);
+                }
 			}
         }
     }

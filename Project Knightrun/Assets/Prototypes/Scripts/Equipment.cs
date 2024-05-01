@@ -17,10 +17,20 @@ public class Equipment : MonoBehaviour
 		sword
 	}
 
+	public enum EquipLevel
+	{
+		levelone,
+		leveltwo,
+		levelthree,
+		levelfour,
+		levelfive
+	}
+
 	public EquipType equipType;
+	public EquipLevel equipLevel;
 
 	//to do: turn into private with get set
-	public int usesLeft;
+	private int usesLeft { get; set; }
 
 	void Start()
 	{
