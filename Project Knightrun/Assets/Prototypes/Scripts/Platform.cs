@@ -40,9 +40,19 @@ public class Platform : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.S) || Input.GetKey(KeyCode.S))
         {
             PlatformCollider.enabled = false;
-            if(isActive)
+            if (isActive)
+            {
                 isPassable = false;
+                player.PlayerCollider.enabled = false;
+                StartCoroutine(AnimationTimer());
+                player.PlayerCollider.enabled = true;
+            }
         }
+    }
+
+    IEnumerator AnimationTimer()
+    {
+        yield return new WaitForSeconds(0.1f);
     }
 
     public void OnCollisionEnter(Collision collision)

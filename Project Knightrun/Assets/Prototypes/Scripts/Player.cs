@@ -6,6 +6,7 @@ public class Player : MonoBehaviour
 {
     private GameController GameController;
     private InputController InputController;
+    public SphereCollider PlayerCollider;
     private Animator animator;
 
     public List<Equipment> CurrentEquip = new List<Equipment>();
