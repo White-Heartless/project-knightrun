@@ -143,7 +143,6 @@ public class GameController : MonoBehaviour
     public void onGameOver()
     {
 		isRunning = false;
-		runSpeed = 0;
         //Time.timeScale = 0;
 		if ((int)distance > highScore)
 		{
@@ -177,6 +176,7 @@ public class GameController : MonoBehaviour
 		player.ArmorCheck();
 		if (is2D)
 			Toggle2D3D(false);
+		runSpeed = 0;
 		cameraSwitch.CamSwitchLane(1);
 		cameraSwitch.ResetCamera();
 		cameraSwitch.gameObject.transform.rotation = Quaternion.Euler(26.39f,0,0);
