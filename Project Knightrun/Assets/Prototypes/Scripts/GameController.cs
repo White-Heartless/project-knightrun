@@ -78,6 +78,7 @@ public class GameController : MonoBehaviour
 
     private void Start()
     {
+		cameraSwitch.CamRotateToEquip();
         player = FindObjectOfType<Player>();
         animator = player.GetComponent<Animator>();
         GameObject startRoom = GameObject.Instantiate(startingRoom.gameObject, new Vector3(0, 0, 10f), Quaternion.identity);
@@ -133,7 +134,8 @@ public class GameController : MonoBehaviour
 
     public void onGameStart()
     {
-		distance = 0f;
+        cameraSwitch.CamSwitchTo3D();
+        distance = 0f;
 		uiController.updateDistance(distance);
 		isRunning = true;
 		runSpeed = 13 + (stage - 1);
@@ -144,7 +146,7 @@ public class GameController : MonoBehaviour
     {
 		isRunning = false;
         //Time.timeScale = 0;
-		if ((int)distance > highScore)
+        if ((int)distance > highScore)
 		{
 			highScore = (int)distance;
 			uiController.updateHighScore(highScore);
@@ -178,29 +180,16 @@ public class GameController : MonoBehaviour
 			Toggle2D3D(false);
 		runSpeed = 0;
 		cameraSwitch.CamSwitchLane(1);
-		cameraSwitch.ResetCamera();
-		cameraSwitch.gameObject.transform.rotation = Quaternion.Euler(26.39f,0,0);
-		cameraSwitch.gameObject.transform.position = new Vector3(0,5,-3.8f);	
+        cameraSwitch.CamRotateToEquip();
     }
 
 	//only called if obstacle could not be destroyed
 	public void onObstacleHit()
 	{
-		//animator.SetTrigger("Die");
 		//Time.timeScale = 0;
 		runSpeed = 0;
 		isRunning = false;
 		uiController.promptRevive();
-	}
-
-	public void onEquipMenuEnter()
-	{
-		cameraSwitch.CamRotateToEquip();
-	}
-
-	public void onEquipMenuExit()
-	{
-		cameraSwitch.CamRotateToInitial();
 	}
 
 	public void PlayerSwap(int index)
