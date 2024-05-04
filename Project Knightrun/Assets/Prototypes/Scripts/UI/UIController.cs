@@ -200,14 +200,14 @@ public class UIController : MonoBehaviour
 	{
 		if (gameController.onHardCurrencyReviveAttempt())
 		{
-			cnvRevive.gameObject.SetActive(false);
+            cnvRevive.gameObject.SetActive(false);
 			gameController.Revive();
 		}
 	}
 
 	public void btnAcceptReviveAD()
 	{
-		cnvRevive.gameObject.SetActive(false);
+        cnvRevive.gameObject.SetActive(false);
 		gameController.Revive();
 	}
 
