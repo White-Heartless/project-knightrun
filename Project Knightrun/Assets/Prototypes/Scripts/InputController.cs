@@ -108,7 +108,7 @@ public class InputController : MonoBehaviour
 
     public void Jump()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && (canJump == true))
+        if (Input.GetKeyDown(KeyCode.Space) && (canJump == true) && gameController.getDistance() >= 3f)
         {
             animator.SetTrigger("Jump");
             Vector3 currentVelocity = rb.velocity;
