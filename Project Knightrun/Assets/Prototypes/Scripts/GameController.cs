@@ -386,5 +386,6 @@ public class GameController : MonoBehaviour
 	public void onStageChange()
     {
 		stage++;
+		runSpeed++;
     }
 }
