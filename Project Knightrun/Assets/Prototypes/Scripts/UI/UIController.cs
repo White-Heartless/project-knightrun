@@ -17,7 +17,10 @@ public class UIController : MonoBehaviour
 	[SerializeField]
 	private Button[] priceTags;
 
-	[SerializeField]
+    [SerializeField]
+    private Button[] armorStash;
+
+    [SerializeField]
 	private Image[] EquipIcons;
 
 	private Color[] color = new Color[5];
@@ -40,6 +43,8 @@ public class UIController : MonoBehaviour
 	private TextMeshProUGUI txtTarget;
 	[SerializeField]
 	private TextMeshProUGUI txtObjective;
+	[SerializeField]
+	private TextMeshProUGUI txtEquipCount;
 	[SerializeField]
 	private AudioSource mainAudio;
 	private bool isAudioPlaying;
@@ -72,7 +77,14 @@ public class UIController : MonoBehaviour
 		txtMainTotalHardCurrency.text = _newHard.ToString();
 	}
 
-	public void updateDistance(float _newDistance)
+	public void updateEquipCount(int _newEquipCount)
+	{
+		_newEquipCount = gameController.equipmentCounts;
+        txtEquipCount.text = _newEquipCount.ToString();
+    }
+
+
+    public void updateDistance(float _newDistance)
 	{
 		txtGameplayDistance.text = ((int)_newDistance).ToString() + "m";
 	}
@@ -188,7 +200,10 @@ public class UIController : MonoBehaviour
 	public void btnSpendCurrency(int index)
 	{
 		gameController.SpendSoftCurrency(index);
-
+	}
+	public void btnSpendCurrencyArmor(int index)
+	{
+		armorStash[index].interactable = true;
 	}
 
 	public void btnShopMenuExit()
@@ -264,13 +279,7 @@ public class UIController : MonoBehaviour
     }
 
 	public void PriceTagsON(int index)
-	{
-		PriceTagsOFF();
-		
-        for (int i = 0; i < index; i++)
-		{
-			priceTags[i].interactable = true;
-			Debug.Log("Enabled ", priceTags[i]);
-		}
+	{	
+		priceTags[index].interactable = true;
 	}
 }

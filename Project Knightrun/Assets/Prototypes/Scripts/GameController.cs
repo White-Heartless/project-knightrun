@@ -51,8 +51,7 @@ public class GameController : MonoBehaviour
 	public Room lastRoom;
 	private Vector3 lastGlobalPos;
 	//array to store differente equipment counts
-	[SerializeField]
-    private int[] equipmentCounts = new int[5];
+    public int equipmentCounts;
 
     [HideInInspector]
 	public bool is2D = false; //false = 3d mode, true = 2d mode
@@ -158,6 +157,7 @@ public class GameController : MonoBehaviour
 		questManager.ResetQuests();
 		uiController.updateSoftCurrency(runSoftCurrency);
 		uiController.updateHardCurrency(runHardCurrency);
+		uiController.updateEquipCount(equipmentCounts);
 		GameObject[] allObjects = GameObject.FindObjectsOfType<GameObject>();
 		foreach (GameObject obj in allObjects)
 		{
@@ -237,34 +237,9 @@ public class GameController : MonoBehaviour
 		}
 	}
 
-    public void CollectEquipment(int level)
+    public void CollectEquipment()
     {
-        //Ensure level is within valid range
-        if (level >= 1 && level <= 5)
-        {
-            //Increment the count for the specified level
-            equipmentCounts[level - 1]++;
-        }
-        else
-        {
-            Debug.LogWarning("Invalid equipment level: " + level);
-        }
-    }
-
-    //Method to get the count of equipment for a specific level
-    public int GetEquipmentCount(int level)
-    {
-        //Ensure level is within valid range (1 to 5)
-        if (level >= 1 && level <= 5)
-        {
-            //Return the count for the specified level
-            return equipmentCounts[level - 1];
-        }
-        else
-        {
-            Debug.LogWarning("Invalid equipment level: " + level);
-            return 0;
-        }
+		equipmentCounts++;
     }
 
     public void onPause()
@@ -411,6 +386,7 @@ public class GameController : MonoBehaviour
 	public void SpendSoftCurrency(int index)
 	{
 		totalSoftCurrency -= index;
-		shopManager.CheckCurrencyAmount();
+        uiController.PriceTagsOFF();
+        shopManager.CheckCurrencyAmount();
 	}
 }

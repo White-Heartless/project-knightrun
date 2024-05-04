@@ -10,24 +10,10 @@ public class Equipment : MonoBehaviour
 
 	public enum EquipType
 	{
-		helmet,
-		armor,
-		pauldrons,
-		shoes,
-		sword
-	}
-
-	public enum EquipLevel
-	{
-		levelone,
-		leveltwo,
-		levelthree,
-		levelfour,
-		levelfive
+		helmet
 	}
 
 	public EquipType equipType;
-	public EquipLevel equipLevel;
 
 	//to do: turn into private with get set
 	private int usesLeft { get; set; }
