@@ -121,9 +121,15 @@ public class InputController : MonoBehaviour
         canJump = true;
     }
 
-    public void UpdatePlayer(Player p)
+    public void StopJump()
+    {
+        canJump = false;
+    }
+
+    public void UpdatePlayer(Player p, Animator a)
     {
         player = p;
+		animatorController = a;
 		rb =  player.GetComponent<Rigidbody>();
     }
 }
