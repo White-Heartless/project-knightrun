@@ -23,7 +23,7 @@ public class GameController : MonoBehaviour
 	[SerializeField]
 	private Player player;
 	[SerializeField]
-	private Animator animator;
+	private AnimatorController animatorController;
 	[SerializeField]
 	private QuestManager questManager;
 	[SerializeField]
@@ -83,7 +83,7 @@ public class GameController : MonoBehaviour
     private void Start()
     {
         player = FindObjectOfType<Player>();
-        animator = player.GetComponent<Animator>();
+        animatorController = FindObjectOfType<AnimatorController>();
         GameObject startRoom = GameObject.Instantiate(startingRoom.gameObject, new Vector3(0, 0, 10f), Quaternion.identity);
 		startRoom.transform.Rotate(0, -90, 0);
 		lastRoom = startRoom.GetComponent<Room>();
@@ -142,15 +142,18 @@ public class GameController : MonoBehaviour
 		distance = 0f;
 		uiController.updateDistance(distance);
 		isRunning = true;
-		runSpeed = 13 + (stage - 1);
+		animatorController.AnimRun();
+        runSpeed = 13 + (stage - 1);
 		//Time.timeScale = 1;
     }
 
     public void onGameOver()
     {
 		isRunning = false;
-        //Time.timeScale = 0;
-		if ((int)distance > highScore)
+		//Time.timeScale = 0;
+		//animator.SetTrigger("Restart");
+		animatorController.AnimRestart();
+        if ((int)distance > highScore)
 		{
 			highScore = (int)distance;
 			uiController.updateHighScore(highScore);
@@ -193,11 +196,11 @@ public class GameController : MonoBehaviour
 	//only called if obstacle could not be destroyed
 	public void onObstacleHit()
 	{
-		//animator.SetTrigger("Die");
 		//Time.timeScale = 0;
 		runSpeed = 0;
 		isRunning = false;
-		uiController.promptRevive();
+		animatorController.AnimRespawn();
+        uiController.promptRevive();
 	}
 
 	public void onEquipMenuEnter()
@@ -219,8 +222,7 @@ public class GameController : MonoBehaviour
 
 		players[index].gameObject.SetActive(true);
         player = players[index];
-        animator = player.GetComponent<Animator>();
-		inputController.UpdatePlayer(player, animator);
+		inputController.UpdatePlayer(player);
     }
 
 	//to do: add the rest of equipments
@@ -286,7 +288,7 @@ public class GameController : MonoBehaviour
 
 	public void Revive()
 	{
-		GameObject[] allObjects = GameObject.FindObjectsOfType<GameObject>();
+        GameObject[] allObjects = GameObject.FindObjectsOfType<GameObject>();
 		foreach (GameObject obj in allObjects)
 		{
 			Obstacle obstacleComponent = obj.GetComponent<Obstacle>();
@@ -294,7 +296,8 @@ public class GameController : MonoBehaviour
 			if (obstacleComponent != null)
 				Destroy(obj);
 		}
-		runSpeed = 13 + (stage - 1);
+		animatorController.AnimRun();
+        runSpeed = 13 + (stage - 1);
 		//Time.timeScale = 1;
 	}
 

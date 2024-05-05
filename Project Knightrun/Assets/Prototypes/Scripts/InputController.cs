@@ -15,7 +15,8 @@ public class InputController : MonoBehaviour
 	[SerializeField]
     private GameController gameController;
     [SerializeField]
-    private Animator animator;
+    AnimatorController animatorController;
+
 
 	private Rigidbody rb;
 
@@ -30,8 +31,8 @@ public class InputController : MonoBehaviour
 
     public void Start()
     {
+        animatorController = FindObjectOfType<AnimatorController>();
         player = FindObjectOfType<Player>();
-        animator = player.GetComponent<Animator>();
 		rb =  player.GetComponent<Rigidbody>();
 		canMove = true;
     }
@@ -46,16 +47,14 @@ public class InputController : MonoBehaviour
 	{
 		if (Input.GetKeyDown(KeyCode.A) && currentLaneIndex > 0 && canMove && !gameController.is2D)
 		{
-            animator.SetBool("RightStrafe", false);
-            animator.SetBool("LeftStrafe", true);
+            animatorController.AnimLeftStrafe();
             StartCoroutine(AnimationTimer());
             inputCoroutine = StartCoroutine(MoveToLane(currentLaneIndex - 1)); // Move to the left lane
 			gameController.onLaneChange(currentLaneIndex - 1);
 		}
     else if (Input.GetKeyDown(KeyCode.D) && (currentLaneIndex < (lanePositions.Length - 1))  && canMove && !gameController.is2D)
     {
-            animator.SetBool("LeftStrafe", false);
-            animator.SetBool("RightStrafe", true);
+            animatorController.AnimRightStrafe();
             StartCoroutine(AnimationTimer());
             inputCoroutine = StartCoroutine(MoveToLane(currentLaneIndex + 1)); // Move to the right lane
 			gameController.onLaneChange(currentLaneIndex + 1);
@@ -85,8 +84,7 @@ public class InputController : MonoBehaviour
     IEnumerator AnimationTimer()
     {
         yield return new WaitForSeconds(0.4f);
-        animator.SetBool("LeftStrafe", false);
-        animator.SetBool("RightStrafe", false);
+        animatorController.AnimSetRightLeftOff();
     }
 
 	IEnumerator MoveToLane(int targetLaneIndex)
@@ -110,7 +108,7 @@ public class InputController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space) && (canJump == true) && gameController.getDistance() >= 3f)
         {
-            animator.SetTrigger("Jump");
+            animatorController.AnimJump();
             Vector3 currentVelocity = rb.velocity;
             rb.velocity = new Vector3(currentVelocity.x, 0, currentVelocity.z);
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
@@ -123,10 +121,9 @@ public class InputController : MonoBehaviour
         canJump = true;
     }
 
-    public void UpdatePlayer(Player p, Animator a)
+    public void UpdatePlayer(Player p)
     {
         player = p;
-        animator = a;
 		rb =  player.GetComponent<Rigidbody>();
     }
 }
