@@ -260,6 +260,7 @@ public class GameController : MonoBehaviour
     {
 		isRunning=false;
 		runSpeed = 0;
+		animatorController.AnimReset();
 		//Time.timeScale = 0;
     }
 
@@ -267,6 +268,7 @@ public class GameController : MonoBehaviour
     {
 		isRunning = true;
 		runSpeed = 13 + (stage - 1);
+		animatorController.AnimRun();
         //Time.timeScale = 1;
     }
 

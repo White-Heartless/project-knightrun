@@ -1623,7 +1623,7 @@ MonoBehaviour:
   shopManager: {fileID: 0}
   inputController: {fileID: 1899195980}
   player: {fileID: 0}
-  animator: {fileID: 0}
+  animatorController: {fileID: 0}
   questManager: {fileID: 1137958029}
   players:
   - {fileID: 5866666021798996641}
@@ -14087,6 +14087,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1593045419}
   m_CullTransparentMesh: 1
+--- !u!1 &1597818081
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1597818083}
+  - component: {fileID: 1597818082}
+  m_Layer: 0
+  m_Name: AnimatorController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1597818082
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1597818081}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c6f238aeeec3194da2b4f3d1da6d0ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 0}
+--- !u!4 &1597818083
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1597818081}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.34304726, y: -5.2184906, z: 9.353678}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1609332642
 GameObject:
   m_ObjectHideFlags: 0
@@ -16196,7 +16241,7 @@ MonoBehaviour:
   jumpForce: 8
   player: {fileID: 0}
   gameController: {fileID: 217188852}
-  animator: {fileID: 0}
+  animatorController: {fileID: 0}
 --- !u!4 &1899195981
 Transform:
   m_ObjectHideFlags: 0
@@ -49984,3 +50029,4 @@ SceneRoots:
   - {fileID: 1648690424298493191}
   - {fileID: 8150681299898999710}
   - {fileID: 5424807113726782783}
+  - {fileID: 1597818083}

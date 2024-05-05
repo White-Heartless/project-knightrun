@@ -50,4 +50,9 @@ public class AnimatorController : MonoBehaviour
     {
         animator.SetInteger("State", 3);
     }
+
+	public void AnimReset()
+	{
+		animator.SetInteger("State", 4);
+	}
 }
