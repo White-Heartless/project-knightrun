@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using com.cyborgAssets.inspectorButtonPro;
+using TreeEditor;
 
 public class CameraSwitch : MonoBehaviour
 {
@@ -166,7 +167,7 @@ public class CameraSwitch : MonoBehaviour
 
     IEnumerator MoveCameraToEquip()
     {
-        Vector3 _endPos = new Vector3(0f, 1.1f, 3.35f);
+        Vector3 _endPos = new Vector3(0f, 1.5f, 3.35f);
         Vector3 _endRot = new Vector3(16.66f, 180f, 0);
 
         transform.position = _endPos;

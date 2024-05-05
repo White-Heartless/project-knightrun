@@ -181,14 +181,14 @@ public class UIController : MonoBehaviour
 	{
 		cnvMainMenu.gameObject.SetActive(false);
 		cnvEquipMenu.gameObject.SetActive(true);
-		gameController.onEquipMenuEnter();
+		//gameController.onEquipMenuEnter();
 	}
 
 	public void btnEquipMenuExit()
 	{
 		cnvEquipMenu.gameObject.SetActive(false);
 		cnvMainMenu.gameObject.SetActive(true);
-		gameController.onEquipMenuExit();
+		//gameController.onEquipMenuExit();
 	}
 
     public void btnShopMenuEnter()
