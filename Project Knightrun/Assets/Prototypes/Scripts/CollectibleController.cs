@@ -23,10 +23,13 @@ public class CollectibleController : MonoBehaviour
 
     public void onEquipmentCollected(Equipment _equip)
     {
+		gameController.equipmentCounts++;
+		/*
         foreach(Equipment e in player.CurrentEquip)
         {
             if(_equip.equipType == e.equipType)
 				e.activateEquip();
         }
+		*/
     }
 }
