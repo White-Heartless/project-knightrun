@@ -43,6 +43,7 @@ public class Platform : MonoBehaviour
             if (isActive)
             {
                 isPassable = false;
+                inputController.StopJump();
                 player.PlayerCollider.enabled = false;
                 StartCoroutine(AnimationTimer());
                 player.PlayerCollider.enabled = true;

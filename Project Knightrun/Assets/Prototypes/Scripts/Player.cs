@@ -18,7 +18,7 @@ public class Player : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
-	//returns true if equipment was used, or false if it couldn't
+    //returns true if equipment was used, or false if it couldn't
     public bool TryUsingEquipment(int equipmentRequired)
     {
         foreach(Equipment e in CurrentEquip)
@@ -52,7 +52,9 @@ public class Player : MonoBehaviour
     public void OnCollisionEnter(Collision collision)
     {
         if (collision.collider.CompareTag("Ground"))
+        {
             InputController.ResetJump();
+        }
     }
 
     public void ArmorCheck()
