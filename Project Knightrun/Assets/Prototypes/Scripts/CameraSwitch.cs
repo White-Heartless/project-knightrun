@@ -66,6 +66,16 @@ public class CameraSwitch : MonoBehaviour
         cameraRoutine = StartCoroutine(MoveCameraTo3D());
     }
 
+	public void CamSwitchToStart()
+    {
+		if (cameraRoutine != null)
+		{
+			StopCoroutine(cameraRoutine);
+			cameraRoutine = null;
+		}
+        cameraRoutine = StartCoroutine(MoveCameraToStart());
+    }
+
 	public void CamSwitchLane(int _laneIndex)
     {
 		Vector3 _target;
@@ -183,5 +193,24 @@ public class CameraSwitch : MonoBehaviour
         transform.position = _startPos;
         transform.rotation = Quaternion.Euler(_startRot);
         yield return null;
+    }
+
+	IEnumerator MoveCameraToStart()
+    {
+        float elapsedTime = 0;
+        float moveDuration = 1f;
+
+        while (elapsedTime < moveDuration)
+        {
+            transform.position = Vector3.Lerp( new Vector3(0,1.5f,3.35f),new Vector3(0,5f,-3.8f), elapsedTime / moveDuration);
+            transform.rotation = Quaternion.Euler(
+                Mathf.LerpAngle( 16.66f,26.39f, elapsedTime / moveDuration),
+                Mathf.LerpAngle( -180,0f, elapsedTime / moveDuration),
+                Mathf.LerpAngle( 0f ,0f, elapsedTime / moveDuration)
+            );
+
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
     }
 }

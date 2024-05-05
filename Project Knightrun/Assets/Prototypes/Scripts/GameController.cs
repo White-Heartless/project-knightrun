@@ -140,7 +140,8 @@ public class GameController : MonoBehaviour
 
     public void onGameStart()
     {
-        cameraSwitch.CamSwitchTo3D();
+        //cameraSwitch.CamSwitchTo3D();
+		cameraSwitch.CamSwitchToStart();
         distance = 0f;
 		uiController.updateDistance(distance);
 		isRunning = true;
