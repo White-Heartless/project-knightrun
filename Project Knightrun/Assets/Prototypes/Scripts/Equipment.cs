@@ -10,17 +10,13 @@ public class Equipment : MonoBehaviour
 
 	public enum EquipType
 	{
-		helmet,
-		armor,
-		pauldrons,
-		shoes,
-		sword
+		helmet
 	}
 
 	public EquipType equipType;
 
 	//to do: turn into private with get set
-	public int usesLeft;
+	private int usesLeft { get; set; }
 
 	void Start()
 	{

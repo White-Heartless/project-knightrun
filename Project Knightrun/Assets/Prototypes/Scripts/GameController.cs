@@ -17,6 +17,8 @@ public class GameController : MonoBehaviour
 	[SerializeField]
 	private CameraSwitch cameraSwitch;
 	[SerializeField]
+	private ShopManager shopManager;
+	[SerializeField]
 	private InputController inputController;
 	[SerializeField]
 	private Player player;
@@ -52,8 +54,10 @@ public class GameController : MonoBehaviour
 
 	public Room lastRoom;
 	private Vector3 lastGlobalPos;
+	//array to store differente equipment counts
+    public int equipmentCounts;
 
-	[HideInInspector]
+    [HideInInspector]
 	public bool is2D = false; //false = 3d mode, true = 2d mode
 
 	public void Toggle2D3D(bool _3or2) //false - 3d / true - 2d
@@ -118,8 +122,9 @@ public class GameController : MonoBehaviour
 
 	void Update()
 	{
+        shopManager = FindObjectOfType<ShopManager>();
 		if (isRunning)
-			distance += Time.deltaTime;
+	        distance += Time.deltaTime;
 		uiController.updateDistance(distance);
 		UpdateRunQuest();
 		if(stage < MAX_STAGE && distance >= stage * STAGE_DISTANCE)
@@ -160,6 +165,7 @@ public class GameController : MonoBehaviour
 		questManager.ResetQuests();
 		uiController.updateSoftCurrency(runSoftCurrency);
 		uiController.updateHardCurrency(runHardCurrency);
+		uiController.updateEquipCount(equipmentCounts);
 		GameObject[] allObjects = GameObject.FindObjectsOfType<GameObject>();
 		foreach (GameObject obj in allObjects)
 		{
@@ -241,6 +247,11 @@ public class GameController : MonoBehaviour
 				break;
 		}
 	}
+
+    public void CollectEquipment()
+    {
+		equipmentCounts++;
+    }
 
     public void onPause()
     {
@@ -388,4 +399,11 @@ public class GameController : MonoBehaviour
 		stage++;
 		runSpeed++;
     }
+
+	public void SpendSoftCurrency(int index)
+	{
+		totalSoftCurrency -= index;
+        uiController.PriceTagsOFF();
+        shopManager.CheckCurrencyAmount();
+	}
 }

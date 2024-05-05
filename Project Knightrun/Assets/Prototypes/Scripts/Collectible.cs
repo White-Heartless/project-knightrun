@@ -21,10 +21,7 @@ public class Collectible : MonoBehaviour
 	public enum EquipType
     {
 		none,
-		helmet = CollectibleType.equip,
-		armor = CollectibleType.equip,
-		pauldrons = CollectibleType.equip,
-		sword = CollectibleType.equip
+		helmet = CollectibleType.equip
     }
 
 	public CoinType coinType;
@@ -44,9 +41,9 @@ public class Collectible : MonoBehaviour
 				Debug.Log("Coin");
 				Destroy(gameObject);
 			}
-			else if (equipType != EquipType.none)
+			else if (equipType == EquipType.helmet)
 			{
-				Debug.Log("Equip");
+				gameController.CollectEquipment();
 				Destroy(gameObject);
 			}
         }

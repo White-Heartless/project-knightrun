@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using com.cyborgAssets.inspectorButtonPro;
 using TMPro;
-
+using Unity.VisualScripting;
 
 public class UIController : MonoBehaviour
 {
@@ -12,9 +12,15 @@ public class UIController : MonoBehaviour
 	private GameController gameController;
 
 	[SerializeField]
-	private Canvas cnvMainMenu, cnvSettings, cnvGameplay, cnvPause, cnvGameOver, cnvRevive, cnvEquipMenu;
+	private Canvas cnvMainMenu, cnvSettings, cnvGameplay, cnvPause, cnvGameOver, cnvRevive, cnvEquipMenu, cnvShopMenu;
 
 	[SerializeField]
+	private Button[] priceTags;
+
+    [SerializeField]
+    private Button[] armorStash;
+
+    [SerializeField]
 	private Image[] EquipIcons;
 
 	private Color[] color = new Color[5];
@@ -37,6 +43,8 @@ public class UIController : MonoBehaviour
 	private TextMeshProUGUI txtTarget;
 	[SerializeField]
 	private TextMeshProUGUI txtObjective;
+	[SerializeField]
+	private TextMeshProUGUI txtEquipCount;
 	[SerializeField]
 	private AudioSource mainAudio;
 	private bool isAudioPlaying;
@@ -69,7 +77,14 @@ public class UIController : MonoBehaviour
 		txtMainTotalHardCurrency.text = _newHard.ToString();
 	}
 
-	public void updateDistance(float _newDistance)
+	public void updateEquipCount(int _newEquipCount)
+	{
+		_newEquipCount = gameController.equipmentCounts;
+        txtEquipCount.text = _newEquipCount.ToString();
+    }
+
+
+    public void updateDistance(float _newDistance)
 	{
 		txtGameplayDistance.text = ((int)_newDistance).ToString() + "m";
 	}
@@ -176,7 +191,28 @@ public class UIController : MonoBehaviour
 		gameController.onEquipMenuExit();
 	}
 
-	public void btnPlayer(int i)
+    public void btnShopMenuEnter()
+    {
+        cnvShopMenu.gameObject.SetActive(true);
+		cnvMainMenu.gameObject.SetActive(false);
+    }
+
+	public void btnSpendCurrency(int index)
+	{
+		gameController.SpendSoftCurrency(index);
+	}
+	public void btnSpendCurrencyArmor(int index)
+	{
+		armorStash[index].interactable = true;
+	}
+
+	public void btnShopMenuExit()
+	{
+		cnvMainMenu.gameObject.SetActive(true);
+		cnvShopMenu.gameObject.SetActive(false);
+	}
+
+    public void btnPlayer(int i)
 	{
 		gameController.PlayerSwap(i);
 	}
@@ -231,5 +267,19 @@ public class UIController : MonoBehaviour
 			color[index].a = 0.2f;
 			EquipIcons[index].color = color[index];
 		}
+	}
+
+	public void PriceTagsOFF()
+	{
+        foreach (var priceTag in priceTags)
+        {
+            priceTag.interactable = false;
+            Debug.Log("Disable all ", priceTag);
+        }
+    }
+
+	public void PriceTagsON(int index)
+	{	
+		priceTags[index].interactable = true;
 	}
 }
