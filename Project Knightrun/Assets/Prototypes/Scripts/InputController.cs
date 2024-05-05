@@ -126,10 +126,10 @@ public class InputController : MonoBehaviour
         canJump = false;
     }
 
-    public void UpdatePlayer(Player p, Animator a)
+    public void UpdatePlayer(Player p)
     {
         player = p;
-		animatorController = a;
+		//animator = a;
 		rb =  player.GetComponent<Rigidbody>();
     }
 }
