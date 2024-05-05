@@ -6,6 +6,9 @@ using TreeEditor;
 
 public class CameraSwitch : MonoBehaviour
 {
+	[SerializeField]
+	private GameController gameController;
+
     //the game start in 3d so we get all the values
     public Vector3 startPos;
     public Quaternion startRot;
@@ -157,7 +160,7 @@ public class CameraSwitch : MonoBehaviour
     {
         float elapsedTime = 0;
         float moveDuration = 1f;
-
+		gameController.inputController.canMove=false;
         while (elapsedTime < moveDuration)
         {
             transform.position = Vector3.Lerp(targetPosition, new Vector3(0,5,-3.8f), elapsedTime / moveDuration);
@@ -173,6 +176,7 @@ public class CameraSwitch : MonoBehaviour
 
         transform.position = new Vector3(0,5,-3.8f);
         transform.rotation = Quaternion.Euler(26.39f,0,0);
+		gameController.inputController.canMove=true;
     }
 
     IEnumerator MoveCameraToEquip()
@@ -199,6 +203,7 @@ public class CameraSwitch : MonoBehaviour
     {
         float elapsedTime = 0;
         float moveDuration = 1f;
+		gameController.inputController.canMove=false;
 
         while (elapsedTime < moveDuration)
         {
@@ -212,5 +217,9 @@ public class CameraSwitch : MonoBehaviour
             elapsedTime += Time.deltaTime;
             yield return null;
         }
+
+		transform.position = new Vector3(0,5,-3.8f);
+        transform.rotation = Quaternion.Euler(26.39f,0,0);
+		gameController.inputController.canMove=true;
     }
 }

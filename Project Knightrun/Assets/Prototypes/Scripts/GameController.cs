@@ -19,7 +19,7 @@ public class GameController : MonoBehaviour
 	[SerializeField]
 	private ShopManager shopManager;
 	[SerializeField]
-	private InputController inputController;
+	public InputController inputController;
 	[SerializeField]
 	private Player player;
 	[SerializeField]
