@@ -1635,10 +1635,7 @@ MonoBehaviour:
   - {fileID: 5424807113726782784}
   startingRoom: {fileID: 1924751869780141111, guid: 889e9499756412b48a3adbc38fc4465a, type: 3}
   roomArray3D1:
-  - {fileID: 1924751869780141111, guid: ec62cbe67dfb13443b79ba07d75e1d28, type: 3}
-  - {fileID: 1924751869780141111, guid: fa35be9725252234b8e0b3057d2cb319, type: 3}
-  - {fileID: 1924751869780141111, guid: e10327249cbbe51459d0fef581ff9528, type: 3}
-  - {fileID: 1924751869780141111, guid: 9721fb8041a039a49ab41eb2373ad91c, type: 3}
+  - {fileID: 1924751869780141111, guid: 1ef22102ed766f443bd22cc427e3a946, type: 3}
   roomArray2D1:
   - {fileID: 1924751869780141111, guid: 8642478ca4f3a1740b02eea64db30291, type: 3}
   - {fileID: 1924751869780141111, guid: 1408b13732114f74bb337d83b0dae399, type: 3}
@@ -1720,7 +1717,7 @@ MonoBehaviour:
   roomArray2D5:
   - {fileID: 1924751869780141111, guid: c9f5ba193c2898e4aba3549142d53547, type: 3}
   - {fileID: 1924751869780141111, guid: 12046365a68b6da47ad45a20926c5e32, type: 3}
-  stage: 2
+  stage: 1
   runSoftCurrency: 0
   runHardCurrency: 0
   totalSoftCurrency: 0
@@ -13289,19 +13286,9 @@ MonoBehaviour:
   cnvGameOver: {fileID: 407189166}
   cnvRevive: {fileID: 1400420859}
   cnvEquipMenu: {fileID: 528714469}
-  cnvShopMenu: {fileID: 1168081572}
-  priceTags:
-  - {fileID: 319505630}
-  - {fileID: 224614153}
-  - {fileID: 697399490}
-  - {fileID: 1256102065}
-  - {fileID: 519714394}
-  armorStash:
-  - {fileID: 930312207}
-  - {fileID: 1103690531}
-  - {fileID: 1975217708}
-  - {fileID: 1593045421}
-  - {fileID: 1301936965}
+  cnvShopMenu: {fileID: 0}
+  priceTags: []
+  armorStash: []
   EquipIcons:
   - {fileID: 1315999716}
   - {fileID: 1236682940}
@@ -13317,7 +13304,7 @@ MonoBehaviour:
   txtCurrent: {fileID: 1383951236}
   txtTarget: {fileID: 2114857416}
   txtObjective: {fileID: 831170681}
-  txtEquipCount: {fileID: 552907077}
+  txtEquipCount: {fileID: 0}
   mainAudio: {fileID: 654383833}
 --- !u!4 &1476003683
 Transform:
@@ -36114,6 +36101,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2ab9605b473b774daa924b6c04c9acb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PlayerCollider: {fileID: 0}
   CurrentEquip:
   - {fileID: 7254270545184371318}
 --- !u!135 &4612108094151561087
@@ -38742,6 +38730,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2ab9605b473b774daa924b6c04c9acb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PlayerCollider: {fileID: 0}
   CurrentEquip:
   - {fileID: 1732022143}
 --- !u!135 &5424807113726782785
@@ -39741,6 +39730,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2ab9605b473b774daa924b6c04c9acb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PlayerCollider: {fileID: 0}
   CurrentEquip:
   - {fileID: 7347040853691222195}
 --- !u!95 &5866666021798996640
@@ -39776,6 +39766,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2ab9605b473b774daa924b6c04c9acb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PlayerCollider: {fileID: 0}
   CurrentEquip:
   - {fileID: 1162978789}
 --- !u!54 &5866666021798996642
@@ -48001,6 +47992,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2ab9605b473b774daa924b6c04c9acb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PlayerCollider: {fileID: 0}
   CurrentEquip:
   - {fileID: 2709048983487168883}
 --- !u!54 &8579526221351076229
@@ -48401,6 +48393,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2ab9605b473b774daa924b6c04c9acb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PlayerCollider: {fileID: 0}
   CurrentEquip:
   - {fileID: 3349750872727694537}
 --- !u!54 &8692457782243646974
@@ -48931,6 +48924,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2ab9605b473b774daa924b6c04c9acb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PlayerCollider: {fileID: 0}
   CurrentEquip:
   - {fileID: 6375685860310633518}
 --- !u!4 &8815535502510409469
