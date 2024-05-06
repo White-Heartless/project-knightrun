@@ -8,6 +8,10 @@ public class Player : MonoBehaviour
     private InputController InputController;
     public SphereCollider PlayerCollider;
     private Animator animator;
+    private bool isGrounded;
+    private bool isOnPlatform;
+    RaycastHit hit;
+    private float distanceToGround = 0.2f;
 
     public List<Equipment> CurrentEquip = new List<Equipment>();
 
@@ -16,6 +20,19 @@ public class Player : MonoBehaviour
         GameController = FindObjectOfType<GameController>();
         InputController = FindObjectOfType<InputController>();
         animator = GetComponent<Animator>();
+    }
+
+    private void Update()
+    {
+        CheckForPosition();
+    }
+
+    public bool IsMidair()
+    {
+        if (isGrounded || isOnPlatform)
+            return false;
+        else
+            return true;
     }
 
     //returns true if equipment was used, or false if it couldn't
@@ -54,6 +71,22 @@ public class Player : MonoBehaviour
         if (collision.collider.CompareTag("Ground"))
         {
             InputController.ResetJump();
+        }
+    }
+
+    private void CheckForPosition()
+    {
+        if (Physics.Raycast(transform.position, Vector3.down, out hit, distanceToGround))
+        {
+            if (hit.collider.CompareTag("Ground"))
+                isGrounded = true;
+            else if (hit.collider.CompareTag("Platform"))
+                isOnPlatform = true;
+        }
+        else
+        {
+            isGrounded = false;
+            isOnPlatform = false;
         }
     }
 

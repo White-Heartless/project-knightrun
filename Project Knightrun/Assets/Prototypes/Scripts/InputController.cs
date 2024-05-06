@@ -46,14 +46,14 @@ public class InputController : MonoBehaviour
 
 	public void LeftRight()
 	{
-		if (Input.GetKeyDown(KeyCode.A) && currentLaneIndex > 0 && canMove && !gameController.is2D && gameController.runSpeed > 1f)
+		if (Input.GetKeyDown(KeyCode.A) && currentLaneIndex > 0 && canMove && !gameController.is2D && gameController.runSpeed > 1f && gameController.IsRunning())
 		{
             animatorController.AnimLeftStrafe();
             StartCoroutine(AnimationTimer());
             inputCoroutine = StartCoroutine(MoveToLane(currentLaneIndex - 1)); // Move to the left lane
 			gameController.onLaneChange(currentLaneIndex - 1);
 		}
-    else if (Input.GetKeyDown(KeyCode.D) && (currentLaneIndex < (lanePositions.Length - 1))  && canMove && !gameController.is2D  && gameController.runSpeed > 1f)
+    else if (Input.GetKeyDown(KeyCode.D) && (currentLaneIndex < (lanePositions.Length - 1))  && canMove && !gameController.is2D  && gameController.runSpeed > 1f && gameController.IsRunning())
     {
             animatorController.AnimRightStrafe();
             StartCoroutine(AnimationTimer());
@@ -107,7 +107,7 @@ public class InputController : MonoBehaviour
 
     public void Jump()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && (canJump == true) && gameController.getDistance() >= 3f  && gameController.runSpeed > 1f)
+        if (Input.GetKeyDown(KeyCode.Space) && (canJump == true) && gameController.getDistance() >= 3f  && gameController.runSpeed > 1f && gameController.IsRunning())
         {
             animatorController.AnimJump();
             Vector3 currentVelocity = rb.velocity;

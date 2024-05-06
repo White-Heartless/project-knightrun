@@ -122,6 +122,11 @@ public class GameController : MonoBehaviour
 		return (int)distance;
 	}
 
+	public bool IsRunning()
+	{
+		return isRunning;
+	}
+
 	void Update()
 	{
         shopManager = FindObjectOfType<ShopManager>();
@@ -291,6 +296,7 @@ public class GameController : MonoBehaviour
 		}
 		animatorController.AnimRun();
         runSpeed = 13 + (stage - 1);
+		isRunning = true;
 		//Time.timeScale = 1;
 	}
 
