@@ -59,6 +59,7 @@ public class UIController : MonoBehaviour
 		txtGameplaySoftCurrency.text = "0";
 		txtGameplayHardCurrency.text = "0";
 		isAudioPlaying = true;
+		cnvMainMenu.gameObject.SetActive(true);
 	}
 
 	public void updateSoftCurrency(int _newValue)
@@ -230,6 +231,7 @@ public class UIController : MonoBehaviour
 	public void promptRevive()
 	{
 		cnvRevive.gameObject.SetActive(true);
+		cnvGameplay.gameObject.SetActive(false);
 	}
 
 	public void btnAcceptReviveHardCurrency()
@@ -237,6 +239,7 @@ public class UIController : MonoBehaviour
 		if (gameController.onHardCurrencyReviveAttempt())
 		{
             cnvRevive.gameObject.SetActive(false);
+			cnvGameplay.gameObject.SetActive(true);
 			gameController.Revive();
 		}
 	}
@@ -244,6 +247,7 @@ public class UIController : MonoBehaviour
 	public void btnAcceptReviveAD()
 	{
         cnvRevive.gameObject.SetActive(false);
+		cnvGameplay.gameObject.SetActive(true);
 		gameController.Revive();
 	}
 
