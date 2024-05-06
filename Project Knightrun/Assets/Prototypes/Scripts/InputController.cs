@@ -123,6 +123,11 @@ public class InputController : MonoBehaviour
         canJump = true;
     }
 
+    public void StopJump()
+    {
+        canJump = false;
+    }
+
     public void UpdatePlayer(Player p, Animator a)
     {
         player = p;
