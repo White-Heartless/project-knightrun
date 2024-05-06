@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using com.cyborgAssets.inspectorButtonPro;
-using TreeEditor;
+//using TreeEditor;
 
 public class CameraSwitch : MonoBehaviour
 {
