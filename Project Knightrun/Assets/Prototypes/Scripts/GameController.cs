@@ -25,6 +25,8 @@ public class GameController : MonoBehaviour
 	[SerializeField]
 	private AnimatorController animatorController;
 	[SerializeField]
+	private AudioController audioController;
+	[SerializeField]
 	private QuestManager questManager;
 	[SerializeField]
 	private Player[] players;
@@ -57,7 +59,8 @@ public class GameController : MonoBehaviour
 	//array to store differente equipment counts
     public int equipmentCounts;
 
-    [HideInInspector]
+    public int use0, use1, use2, use3, use4, use5, use6;
+
 	public bool is2D = false; //false = 3d mode, true = 2d mode
 
 	public void Toggle2D3D(bool _3or2) //false - 3d / true - 2d
@@ -82,14 +85,17 @@ public class GameController : MonoBehaviour
 
     private void Start()
     {
-		cameraSwitch.CamRotateToEquip();
+		CurrencyUpdate();
+        cameraSwitch.CamRotateToEquip();
         player = FindObjectOfType<Player>();
         animatorController = FindObjectOfType<AnimatorController>();
+		audioController = FindObjectOfType<AudioController>();
         GameObject startRoom = GameObject.Instantiate(startingRoom.gameObject, new Vector3(0, 0, 10f), Quaternion.identity);
 		startRoom.transform.Rotate(0, -90, 0);
 		lastRoom = startRoom.GetComponent<Room>();
 		runSpeed = 0;
-		//Time.timeScale = 0;
+        audioController.MenuThemePlay();
+        //Time.timeScale = 0;
     }
 
     public void IncreaseSoftCurrency()
@@ -151,6 +157,7 @@ public class GameController : MonoBehaviour
 		uiController.updateDistance(distance);
 		isRunning = true;
 		animatorController.AnimRun();
+		audioController.MainThemePlay();
         runSpeed = 13 + (stage - 1);
 		//Time.timeScale = 1;
     }
@@ -159,8 +166,9 @@ public class GameController : MonoBehaviour
     {
 		isRunning = false;
 		//Time.timeScale = 0;
-		//animator.SetTrigger("Restart");
 		animatorController.AnimRestart();
+        audioController.MainThemePitchRestore();
+		audioController.MenuThemePlay();
         if ((int)distance > highScore)
 		{
 			highScore = (int)distance;
@@ -168,10 +176,8 @@ public class GameController : MonoBehaviour
 		}
 		distance = 0f;
 		uiController.updateDistance(distance);
-		totalSoftCurrency += runSoftCurrency;
-		totalHardCurrency += runHardCurrency;
-		uiController.updateTotalCurrency(totalSoftCurrency,totalHardCurrency);
-		runSoftCurrency = 0;
+		CurrencyUpdate();
+        runSoftCurrency = 0;
 		runHardCurrency = 0;
 		stage = 1;
 		questManager.ResetQuests();
@@ -206,8 +212,11 @@ public class GameController : MonoBehaviour
 		runSpeed = 0;
 		isRunning = false;
 		animatorController.AnimRespawn();
+		audioController.MainThemePitchDown();
+		audioController.AudioLosePlay();
         uiController.promptRevive();
-	}
+        uiController.updateHighScore(highScore);
+    }
 
 	public void PlayerSwap(int index)
 	{
@@ -263,7 +272,14 @@ public class GameController : MonoBehaviour
     public void onResume()
     {
 		isRunning = true;
-		runSpeed = 13 + (stage - 1);
+		if (!is2D)
+		{
+            runSpeed = 13 + (stage - 1);
+        }
+		else if (is2D)
+		{
+			runSpeed = RUN_SPEED_2D + (stage - 1);
+		}
 		animatorController.AnimRun();
         //Time.timeScale = 1;
     }
@@ -295,8 +311,17 @@ public class GameController : MonoBehaviour
 				Destroy(obj);
 		}
 		animatorController.AnimRun();
-        runSpeed = 13 + (stage - 1);
-		isRunning = true;
+		audioController.MainThemePitchRestore();
+		audioController.AudioRevivePlay();
+        if (!is2D)
+        {
+            runSpeed = 13 + (stage - 1);
+        }
+        else if (is2D)
+        {
+            runSpeed = RUN_SPEED_2D + (stage - 1);
+        }
+        isRunning = true;
 		//Time.timeScale = 1;
 	}
 
@@ -409,4 +434,15 @@ public class GameController : MonoBehaviour
         uiController.PriceTagsOFF();
         shopManager.CheckCurrencyAmount();
 	}
+
+	public void CurrencyUpdate()
+	{
+        uiController.updateTotalCurrency(totalSoftCurrency, totalHardCurrency);
+    }
+
+	public void CurrencySum()
+	{
+        totalSoftCurrency += runSoftCurrency;
+        totalHardCurrency += runHardCurrency;
+    }
 }
