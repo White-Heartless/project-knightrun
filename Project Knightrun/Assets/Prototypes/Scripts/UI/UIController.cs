@@ -5,7 +5,6 @@ using UnityEngine.UI;
 using com.cyborgAssets.inspectorButtonPro;
 using TMPro;
 using Unity.VisualScripting;
-using UnityEngine.EventSystems;
 
 public class UIController : MonoBehaviour
 {
@@ -13,10 +12,7 @@ public class UIController : MonoBehaviour
 	private GameController gameController;
 
 	[SerializeField]
-	private AudioController audioController;
-
-	[SerializeField]
-	private Canvas cnvMainMenu, cnvSettings, cnvGameplay, cnvPause, cnvGameOver, cnvRevive, cnvEquipMenu, cnvShopMenu, cnvConfirm;
+	private Canvas cnvMainMenu, cnvSettings, cnvGameplay, cnvPause, cnvGameOver, cnvRevive, cnvEquipMenu, cnvShopMenu;
 
 	[SerializeField]
 	private Button[] priceTags;
@@ -42,7 +38,7 @@ public class UIController : MonoBehaviour
 	[SerializeField]
 	private TextMeshProUGUI txtMainHighScore;
 	[SerializeField]
-	private TextMeshProUGUI txtCurrentQuest;
+	private TextMeshProUGUI txtCurrent;
 	[SerializeField]
 	private TextMeshProUGUI txtTarget;
 	[SerializeField]
@@ -50,30 +46,11 @@ public class UIController : MonoBehaviour
 	[SerializeField]
 	private TextMeshProUGUI txtEquipCount;
 	[SerializeField]
-	private TextMeshProUGUI txtDistance;
-	[SerializeField]
-	private TextMeshProUGUI txtOverHighScore;
-	[SerializeField]
-	private TextMeshProUGUI txtReviveHardCurrency;
-	[SerializeField]
-	private TextMeshProUGUI txtArmorName;
-	[SerializeField]
-	private TextMeshProUGUI txtArmorUses;
-	[SerializeField]
-	private TextMeshProUGUI txtOverSoftCurrency, txtOverHardCurrency;
-	[SerializeField]
-	private string url;
+	private AudioSource mainAudio;
+	private bool isAudioPlaying;
 
-	[SerializeField]
-    bool isAudioPlaying;
-
-	[SerializeField]
-	private GameObject[] checkBox;
-
-
-    void Start()
+	void Start()
 	{
-		audioController = FindObjectOfType<AudioController>();
 		color[0] = EquipIcons[0].color;
 		color[1] = EquipIcons[1].color;
 		color[2] = EquipIcons[2].color;
@@ -81,10 +58,9 @@ public class UIController : MonoBehaviour
 		color[4] = EquipIcons[4].color;
 		txtGameplaySoftCurrency.text = "0";
 		txtGameplayHardCurrency.text = "0";
-		cnvMainMenu.gameObject.SetActive(true);
 		isAudioPlaying = true;
-		CheckBoxOFF();
-    }
+		cnvMainMenu.gameObject.SetActive(true);
+	}
 
 	public void updateSoftCurrency(int _newValue)
 	{
@@ -100,8 +76,6 @@ public class UIController : MonoBehaviour
 	{
 		txtMainTotalSoftCurrency.text = _newSoft.ToString();
 		txtMainTotalHardCurrency.text = _newHard.ToString();
-		txtOverSoftCurrency.text = _newSoft.ToString();
-		txtOverHardCurrency.text = _newHard.ToString();
 	}
 
 	public void updateEquipCount(int _newEquipCount)
@@ -114,18 +88,16 @@ public class UIController : MonoBehaviour
     public void updateDistance(float _newDistance)
 	{
 		txtGameplayDistance.text = ((int)_newDistance).ToString() + "m";
-		txtDistance.text = ((int)_newDistance).ToString() + "m";
 	}
 
 	public void updateHighScore(int _newHighScore)
 	{
 		txtMainHighScore.text = _newHighScore.ToString() + "m";
-		txtOverHighScore.text = _newHighScore.ToString() + "m";
 	}
 
 	public void updateQuestProgress(int _newAmount)
 	{
-		txtCurrentQuest.text = _newAmount.ToString();
+		txtCurrent.text = _newAmount.ToString();
 	}
 
 	public void setQuest(int _targetAmount, int _questType)
@@ -159,88 +131,69 @@ public class UIController : MonoBehaviour
 		cnvPause.gameObject.SetActive(false);
 		cnvGameOver.gameObject.SetActive(false);
 		cnvRevive.gameObject.SetActive(false);
-		cnvConfirm.gameObject.SetActive(false);
 	}
 
 	public void btnSettings()
 	{
 		cnvSettings.gameObject.SetActive(true);
 		cnvMainMenu.gameObject.SetActive(false);
-        audioController.AudioTapPlay();
-    }
+	}
 
 	public void btnCloseSettings()
 	{
 		cnvSettings.gameObject.SetActive(false);
 		cnvMainMenu.gameObject.SetActive(true);
-        audioController.AudioTapPlay();
-    }
+	}
 
 	public void btnAudio()
 	{
-        audioController.AudioTapPlay();
-        isAudioPlaying = !isAudioPlaying;
+		isAudioPlaying = !isAudioPlaying;
 
-		if (!isAudioPlaying)
+		if (isAudioPlaying)
 		{
-			audioController.MuteAll();
-			CheckBoxON();
+			mainAudio.Play();
 		}
 		else
 		{
-            audioController.UnmuteAll();
-            CheckBoxOFF();
-        }
-    }
-
-	public void btnCredits()
-	{
-        Application.OpenURL(url);
+			mainAudio.Pause();
+		}
     }
 
 	public void btnPlay()
 	{
-        audioController.AudioTapPlay();
-        cnvGameplay.gameObject.SetActive(true);
+		cnvGameplay.gameObject.SetActive(true);
 		cnvMainMenu.gameObject.SetActive(false);
 		gameController.onGameStart();
 	}
 
 	public void btnPause()
 	{
-        audioController.AudioTapPlay();
-        cnvPause.gameObject.SetActive(true);
-        cnvConfirm.gameObject.SetActive(false);
-        gameController.onPause();
+		cnvPause.gameObject.SetActive(true);
+		gameController.onPause();
 	}
 
 	public void btnResume()
 	{
-        audioController.AudioTapPlay();
-        cnvPause.gameObject.SetActive(false);
-		cnvConfirm.gameObject.SetActive(false);
+		cnvPause.gameObject.SetActive(false);
 		gameController.onResume();
 	}
 
 	public void btnEquipMenuEnter()
 	{
-		audioController.AudioArmorStashPlay();
-        cnvMainMenu.gameObject.SetActive(false);
+		cnvMainMenu.gameObject.SetActive(false);
 		cnvEquipMenu.gameObject.SetActive(true);
 		//gameController.onEquipMenuEnter();
 	}
 
 	public void btnEquipMenuExit()
 	{
-        audioController.AudioTapPlay();
-        cnvEquipMenu.gameObject.SetActive(false);
+		cnvEquipMenu.gameObject.SetActive(false);
 		cnvMainMenu.gameObject.SetActive(true);
 		//gameController.onEquipMenuExit();
 	}
 
     public void btnShopMenuEnter()
     {
-		audioController.AudioChestOpenPlay();
         cnvShopMenu.gameObject.SetActive(true);
 		cnvMainMenu.gameObject.SetActive(false);
     }
@@ -248,7 +201,6 @@ public class UIController : MonoBehaviour
 	public void btnSpendCurrency(int index)
 	{
 		gameController.SpendSoftCurrency(index);
-		audioController.AudioCashPlay();
 	}
 	public void btnSpendCurrencyArmor(int index)
 	{
@@ -257,76 +209,28 @@ public class UIController : MonoBehaviour
 
 	public void btnShopMenuExit()
 	{
-        audioController.AudioTapPlay();
-        cnvMainMenu.gameObject.SetActive(true);
+		cnvMainMenu.gameObject.SetActive(true);
 		cnvShopMenu.gameObject.SetActive(false);
 	}
 
     public void btnPlayer(int i)
 	{
-		audioController.AudioSwooshPlay();
-        gameController.PlayerSwap(i);
-	}
-
-	public void btnArmorName(string _armorName)
-	{
-        txtArmorName.text = _armorName;
-    }
-
-	public void btnUses(int i)
-	{
-        txtArmorUses.text = i + " USES";
+		gameController.PlayerSwap(i);
 	}
 
     public void btnQuit()
 	{
-		gameController.CurrencySum();
-		gameController.CurrencyUpdate();
 		cnvRevive.gameObject.SetActive(false);
-		cnvGameOver.gameObject.SetActive(true);
-		cnvPause.gameObject.SetActive(false);
-		cnvGameplay.gameObject.SetActive(false);
-		cnvMainMenu.gameObject.SetActive(false);
-        cnvConfirm.gameObject.SetActive(false);
-    }
-
-	public void btnQuitConfimation()
-	{
-        cnvConfirm.gameObject.SetActive(true);
-        cnvRevive.gameObject.SetActive(false);
-        cnvGameOver.gameObject.SetActive(false);
-        cnvPause.gameObject.SetActive(false);
-        cnvGameplay.gameObject.SetActive(false);
-        cnvMainMenu.gameObject.SetActive(false);
-    }
-
-	public void btnGameOver()
-	{
-        cnvRevive.gameObject.SetActive(false);
 		cnvGameOver.gameObject.SetActive(false);
 		cnvPause.gameObject.SetActive(false);
 		cnvGameplay.gameObject.SetActive(false);
 		cnvMainMenu.gameObject.SetActive(true);
-        cnvConfirm.gameObject.SetActive(false);
-        gameController.onGameOver();
-    }
-
-	public void btnPlayAgain()
-	{
-        cnvRevive.gameObject.SetActive(false);
-        cnvGameOver.gameObject.SetActive(false);
-        cnvPause.gameObject.SetActive(false);
-        cnvGameplay.gameObject.SetActive(true);
-        cnvMainMenu.gameObject.SetActive(false);
-        cnvConfirm.gameObject.SetActive(false);
-        gameController.onGameOver();
-		gameController.onGameStart();
-    }
+		gameController.onGameOver();
+	}
 
 	public void promptRevive()
 	{
-        txtReviveHardCurrency.text = gameController.totalHardCurrency.ToString();
-        cnvRevive.gameObject.SetActive(true);
+		cnvRevive.gameObject.SetActive(true);
 		cnvGameplay.gameObject.SetActive(false);
 	}
 
@@ -347,6 +251,12 @@ public class UIController : MonoBehaviour
 		gameController.Revive();
 	}
 
+	public void btnPlayAgain() //unused
+	{
+		cnvGameOver.gameObject.SetActive(false);
+		cnvPause.gameObject.SetActive(false);
+		cnvGameplay.gameObject.SetActive(true);
+	}
 
 	[ProButton]
 	public void EquipAlpha(int index, bool isActive)
@@ -368,27 +278,12 @@ public class UIController : MonoBehaviour
         foreach (var priceTag in priceTags)
         {
             priceTag.interactable = false;
+            Debug.Log("Disable all ", priceTag);
         }
     }
 
 	public void PriceTagsON(int index)
 	{	
 		priceTags[index].interactable = true;
-	}
-
-	private void CheckBoxOFF()
-	{
-        for (int i = 0; i < checkBox.Length; i++)
-        {
-            checkBox[i].SetActive(false);
-        }
-    }
-
-	private void CheckBoxON()
-	{
-		for (int i = 0; i < checkBox.Length; i++)
-		{
-			checkBox[i].SetActive(true);
-		}
 	}
 }

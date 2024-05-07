@@ -64,31 +64,31 @@ public class Equipment : MonoBehaviour
 	{
 		if (transform.parent.name == "PlayerLV1")
 		{
-			usesLeft = gameController.use0;
+			usesLeft = 0;
 		}
 		else if (transform.parent.name == "PlayerLV2")
 		{
-			usesLeft = gameController.use1;
+			usesLeft = 2;
 		}
 		else if (transform.parent.name == "PlayerLV3")
 		{
-			usesLeft = gameController.use2;
+			usesLeft = 3;
         }
 		else if (transform.parent.name == "PlayerLV4")
 		{
-			usesLeft = gameController.use3;
+			usesLeft = 4;
 		}
 		else if (transform.parent.name == "PlayerLV5")
 		{
-			usesLeft = gameController.use4;
+			usesLeft = 5;
 		}
 		else if (transform.parent.name == "PlayerLV6")
 		{
-			usesLeft = gameController.use5;
+			usesLeft = 6;
 		}
 		else if (transform.parent.name == "PlayerLV7")
 		{
-			usesLeft = gameController.use6;
+			usesLeft = 9999;
 		}
         gameObject.SetActive(true);
     }
