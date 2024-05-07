@@ -296,7 +296,6 @@ public class UIController : MonoBehaviour
         cnvRevive.gameObject.SetActive(false);
         cnvGameOver.gameObject.SetActive(false);
         cnvPause.gameObject.SetActive(false);
-        cnvGameplay.gameObject.SetActive(false);
         cnvMainMenu.gameObject.SetActive(false);
     }
 
