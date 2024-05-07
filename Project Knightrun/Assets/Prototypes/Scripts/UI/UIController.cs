@@ -280,14 +280,17 @@ public class UIController : MonoBehaviour
 
     public void btnQuit()
 	{
-		gameController.CurrencySum();
-		gameController.CurrencyUpdate();
-		cnvRevive.gameObject.SetActive(false);
-		cnvGameOver.gameObject.SetActive(true);
-		cnvPause.gameObject.SetActive(false);
-		cnvGameplay.gameObject.SetActive(false);
-		cnvMainMenu.gameObject.SetActive(false);
-        cnvConfirm.gameObject.SetActive(false);
+		if (!Input.GetKeyDown(KeyCode.Space))
+		{
+			gameController.CurrencySum();
+			gameController.CurrencyUpdate();
+			cnvRevive.gameObject.SetActive(false);
+			cnvGameOver.gameObject.SetActive(true);
+			cnvPause.gameObject.SetActive(false);
+			cnvGameplay.gameObject.SetActive(false);
+			cnvMainMenu.gameObject.SetActive(false);
+			cnvConfirm.gameObject.SetActive(false);
+		}
     }
 
 	public void btnQuitConfimation()
@@ -331,7 +334,7 @@ public class UIController : MonoBehaviour
 
 	public void btnAcceptReviveHardCurrency()
 	{
-		if (gameController.onHardCurrencyReviveAttempt())
+		if (gameController.onHardCurrencyReviveAttempt() && !Input.GetKeyDown(KeyCode.Space))
 		{
             cnvRevive.gameObject.SetActive(false);
 			cnvGameplay.gameObject.SetActive(true);
@@ -341,9 +344,12 @@ public class UIController : MonoBehaviour
 
 	public void btnAcceptReviveAD()
 	{
-        cnvRevive.gameObject.SetActive(false);
-		cnvGameplay.gameObject.SetActive(true);
-		gameController.Revive();
+		if (!Input.GetKeyDown(KeyCode.Space))
+		{
+			cnvRevive.gameObject.SetActive(false);
+			cnvGameplay.gameObject.SetActive(true);
+			gameController.Revive();
+		}
 	}
 
 
