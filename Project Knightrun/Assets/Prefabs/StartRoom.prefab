@@ -472,9 +472,10 @@ GameObject:
   - component: {fileID: 6867353619469375943}
   - component: {fileID: 6476980779692901088}
   - component: {fileID: 7832354496517278106}
+  - component: {fileID: 5111517335963224332}
   m_Layer: 0
   m_Name: PortaTriplaLeft
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -559,12 +560,25 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.0000005, y: 1, z: 1.0000005}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1.1103331, y: 1, z: 1.0000005}
+  m_Center: {x: 0.05516604, y: 0, z: 0}
+--- !u!114 &5111517335963224332
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 581553568495112612}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1a647af5d22e7c4895e3951578b5a69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  equipmentRequired: 5
 --- !u!1 &627304659702116729
 GameObject:
   m_ObjectHideFlags: 0
@@ -1029,10 +1043,11 @@ GameObject:
   - component: {fileID: 2888573914334122345}
   - component: {fileID: 8405064954471432457}
   - component: {fileID: 6333174982868542875}
-  - component: {fileID: 8098412534235300550}
+  - component: {fileID: 933643094180005559}
+  - component: {fileID: 4296421242126211681}
   m_Layer: 0
   m_Name: PortaTriplaRight
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1102,7 +1117,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &8098412534235300550
+--- !u!65 &933643094180005559
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1117,12 +1132,25 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.0000005, y: 1, z: 1.0000005}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1.1011347, y: 0.99999994, z: 1.0000005}
+  m_Center: {x: -0.050566934, y: 0, z: 0.000061030365}
+--- !u!114 &4296421242126211681
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1507275115041223364}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1a647af5d22e7c4895e3951578b5a69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  equipmentRequired: 5
 --- !u!1 &1577443265472696841
 GameObject:
   m_ObjectHideFlags: 0
@@ -1427,9 +1455,11 @@ GameObject:
   - component: {fileID: 6857236856325948816}
   - component: {fileID: 6684233671166724048}
   - component: {fileID: 8334691796758954672}
+  - component: {fileID: 4301213776940655584}
+  - component: {fileID: 1621881887368388596}
   m_Layer: 0
   m_Name: Cube.020
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1499,6 +1529,40 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &4301213776940655584
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1887038773830645400}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.2978825, y: 1.9134301, z: 2.0000007}
+  m_Center: {x: -0.6449213, y: -0.04328503, z: 0.00017648198}
+--- !u!114 &1621881887368388596
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1887038773830645400}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1a647af5d22e7c4895e3951578b5a69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  equipmentRequired: 5
 --- !u!1 &1912945840868327035
 GameObject:
   m_ObjectHideFlags: 0
@@ -2102,9 +2166,11 @@ GameObject:
   - component: {fileID: 7204119342149178872}
   - component: {fileID: 6922256731880675256}
   - component: {fileID: 5726651067995443928}
+  - component: {fileID: 6759959102646860266}
+  - component: {fileID: 1521053987042477110}
   m_Layer: 0
   m_Name: Cube.020
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2174,6 +2240,40 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &6759959102646860266
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2802359430061270768}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1a647af5d22e7c4895e3951578b5a69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  equipmentRequired: 5
+--- !u!65 &1521053987042477110
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2802359430061270768}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.2565502, y: 1.9134301, z: 2.0000007}
+  m_Center: {x: -0.62251437, y: -0.04328503, z: 0.00011563497}
 --- !u!1 &2914834821220628502
 GameObject:
   m_ObjectHideFlags: 0
@@ -3768,9 +3868,10 @@ GameObject:
   - component: {fileID: 6895349173941788923}
   - component: {fileID: 4678842504362682609}
   - component: {fileID: 1076990370936030868}
+  - component: {fileID: 7965383141503345887}
   m_Layer: 0
   m_Name: PortaTriplaLeft (1)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3855,12 +3956,25 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.0000005, y: 1, z: 1.0000005}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1.0000006, y: 1.0611905, z: 1.0000005}
+  m_Center: {x: 0, y: -0.030594803, z: 0}
+--- !u!114 &7965383141503345887
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5729312569686943959}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1a647af5d22e7c4895e3951578b5a69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  equipmentRequired: 5
 --- !u!1 &5732665231526200007
 GameObject:
   m_ObjectHideFlags: 0
